@@ -20,6 +20,9 @@ importers:
       react-dom:
         specifier: 19.0.0-rc-5d19e1c8-20240923
         version: 19.0.0-rc-5d19e1c8-20240923(react@19.0.0-rc-5d19e1c8-20240923)
+      react-slider:
+        specifier: ^2.0.6
+        version: 2.0.6(react@19.0.0-rc-5d19e1c8-20240923)
       sass:
         specifier: ^1.80.5
         version: 1.80.5
@@ -1872,6 +1875,11 @@ packages:
 
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
+
+  react-slider@2.0.6:
+    resolution: {integrity: sha512-gJxG1HwmuMTJ+oWIRCmVWvgwotNCbByTwRkFZC6U4MBsHqJBmxwbYRJUmxy4Tke1ef8r9jfXjgkmY/uHOCEvbA==}
+    peerDependencies:
+      react: ^16 || ^17 || ^18
 
   react@19.0.0-rc-5d19e1c8-20240923:
     resolution: {integrity: sha512-ZmgGzqPoYKevfJa+BThu1qkvDFFAVYQIbG9oPvAbNk1/4A+wJqplwDT1rhbRZmxV8n67oawoZkf5xAup99cyUA==}
@@ -4310,6 +4318,11 @@ snapshots:
       scheduler: 0.25.0-rc-5d19e1c8-20240923
 
   react-is@16.13.1: {}
+
+  react-slider@2.0.6(react@19.0.0-rc-5d19e1c8-20240923):
+    dependencies:
+      prop-types: 15.8.1
+      react: 19.0.0-rc-5d19e1c8-20240923
 
   react@19.0.0-rc-5d19e1c8-20240923: {}
 
