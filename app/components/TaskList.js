@@ -114,7 +114,7 @@ const TaskList = () => {
 
   return (
     <div>
-      <h2>Task List</h2>
+      <h2>Tasks</h2>
       <div>
         <input
           className={styles.input}

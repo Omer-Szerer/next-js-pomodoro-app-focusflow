@@ -1,5 +1,6 @@
 'use client';
 import React, { useCallback, useEffect, useState } from 'react';
+import styles from '../styles/Timer.module.scss';
 
 const FOCUS_TIME = 25 * 60;
 const SHORT_BREAK = 5 * 60;
@@ -8,11 +9,11 @@ const LONG_BREAK = 15 * 60;
 const PomodoroTimer = () => {
   const [timeLeft, setTimeLeft] = useState(FOCUS_TIME);
   const [isRunning, setIsRunning] = useState(false);
-  const [sessionType, setSessionType] = useState('Focus'); // 'Focus', 'Short Break', 'Long Break'
-  const [sessionCount, setSessionCount] = useState(0); // Track completed focus sessions
+  const [sessionType, setSessionType] = useState('Focus');
+  const [sessionCount, setSessionCount] = useState(0);
 
   const switchToSession = (session) => {
-    setIsRunning(false); // Stop the timer when switching sessions
+    setIsRunning(false);
     if (session === 'Focus') {
       setSessionType('Focus');
       setTimeLeft(FOCUS_TIME);
@@ -40,7 +41,7 @@ const PomodoroTimer = () => {
       setSessionType('Focus');
       setTimeLeft(FOCUS_TIME);
     }
-    setIsRunning(false); // Stop timer after session switches
+    setIsRunning(false);
   }, [sessionType, sessionCount]);
 
   useEffect(() => {
@@ -53,7 +54,7 @@ const PomodoroTimer = () => {
       handleSessionSwitch();
     }
 
-    return () => clearInterval(timer); // Cleanup timer
+    return () => clearInterval(timer);
   }, [isRunning, timeLeft, handleSessionSwitch]);
 
   const startStopTimer = () => {
@@ -69,39 +70,35 @@ const PomodoroTimer = () => {
   };
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '20px' }}>
-      {/* Timer switcher buttons */}
-      <div style={{ marginBottom: '20px' }}>
+    <div className={styles.timerContainer}>
+      <div className={styles.buttonGroup}>
         <button
+          className={`${styles.switcherButton} ${sessionType === 'Focus' ? styles.active : styles.inactive}`}
           onClick={() => switchToSession('Focus')}
-          disabled={(isRunning && timeLeft > 0) || sessionType === 'Focus'}
-          style={{ opacity: isRunning && timeLeft > 0 ? 0.5 : 1 }}
+          disabled={isRunning && timeLeft > 0}
         >
           Focus
         </button>
         <button
+          className={`${styles.switcherButton} ${sessionType === 'Short Break' ? styles.active : styles.inactive}`}
           onClick={() => switchToSession('Short Break')}
-          disabled={
-            (isRunning && timeLeft > 0) || sessionType === 'Short Break'
-          }
-          style={{ opacity: isRunning && timeLeft > 0 ? 0.5 : 1 }}
+          disabled={isRunning && timeLeft > 0}
         >
           Short Break
         </button>
         <button
+          className={`${styles.switcherButton} ${sessionType === 'Long Break' ? styles.active : styles.inactive}`}
           onClick={() => switchToSession('Long Break')}
-          disabled={(isRunning && timeLeft > 0) || sessionType === 'Long Break'}
-          style={{ opacity: isRunning && timeLeft > 0 ? 0.5 : 1 }}
+          disabled={isRunning && timeLeft > 0}
         >
           Long Break
         </button>
       </div>
 
-      <h2>{sessionType}</h2>
-      <div style={{ fontSize: '48px', margin: '20px 0' }}>
-        {formatTime(timeLeft)}
-      </div>
-      <button onClick={startStopTimer}>{isRunning ? 'Pause' : 'Start'}</button>
+      <div className={styles.timerDisplay}>{formatTime(timeLeft)}</div>
+      <button className={styles.startPauseButton} onClick={startStopTimer}>
+        {isRunning ? 'Pause' : 'Start'}
+      </button>
     </div>
   );
 };
