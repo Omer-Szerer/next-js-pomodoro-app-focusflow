@@ -77,7 +77,7 @@ const PomodoroTimer = () => {
           disabled={(isRunning && timeLeft > 0) || sessionType === 'Focus'}
           style={{ opacity: isRunning && timeLeft > 0 ? 0.5 : 1 }}
         >
-          Focus Time
+          Focus
         </button>
         <button
           onClick={() => switchToSession('Short Break')}
@@ -97,7 +97,7 @@ const PomodoroTimer = () => {
         </button>
       </div>
 
-      <h2>{sessionType} Session</h2>
+      <h2>{sessionType}</h2>
       <div style={{ fontSize: '48px', margin: '20px 0' }}>
         {formatTime(timeLeft)}
       </div>

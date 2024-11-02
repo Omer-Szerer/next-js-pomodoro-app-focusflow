@@ -1,0 +1,92 @@
+.taskList {
+  padding: 0;
+  list-style: none;
+  width: 100%;
+}
+
+.taskItem {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  margin-bottom: 8px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 250px;
+}
+
+.subtaskList {
+  padding: 0;
+  list-style: none;
+  margin-left: 16px;
+  width: 100%;
+}
+
+.subtaskItem {
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 4px;
+  width: 200px;
+}
+
+.input {
+  margin-right: 8px;
+}
+
+.button {
+  cursor: pointer;
+}
+
+.taskNameWrapper {
+  display: inline-block; // Ensures the button wraps tightly around the text
+}
+
+.taskNameButton {
+  border-radius: 3px;
+  background: none; // Remove default button styling
+  border: 2px solid transparent; // Start with a transparent border
+  cursor: pointer; // Change cursor on hover
+  padding: 2px 25px; // Add padding to create space around the text
+  transition: border-color 0.3s ease; // Smooth transition for the border color
+}
+
+.taskNameWrapper:hover .taskNameButton {
+  border-color: #0070f3; // Change this to your desired border color on hover
+}
+
+.editInput {
+  width: 90%; // Make the input take the full width of the parent
+  padding: 8px; // Add some padding for better spacing
+  border: 1px solid #ddd; // Default border
+  border-radius: 4px; // Rounded corners
+  transition: border-color 0.3s ease; // Smooth transition for border color on focus
+
+  &:focus {
+    border-color: #0070f3; // Change border color when input is focused
+    outline: none; // Remove the default outline
+  }
+}
+
+.checkbox {
+  margin-right: 8px;
+}
+
+.taskName {
+  cursor: pointer;
+  // transition: border 0.2s;
+
+  &:hover {
+    border: 1px solid blue;
+    padding: 2px; // Adjust padding to prevent layout shift
+    border-radius: 3px; // Optional: to match your styling
+  }
+}
+
+.completed {
+  text-decoration: line-through;
+  color: gray;
+}
