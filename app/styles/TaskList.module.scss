@@ -1,92 +1,176 @@
-.taskList {
-  padding: 0;
-  list-style: none;
+.editInput {
+  width: 90%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
+
+  &:focus {
+    border-color: #0070f3;
+    outline: none;
+  }
+}
+
+.taskContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.inputContainer {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.input,
+.subtaskInput {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 200px;
+}
+
+.addButton {
+  padding: 8px 12px;
+  cursor: pointer;
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+}
+
+.taskList {
+  width: 100%;
+  max-width: 680px;
+  list-style: none;
+  padding: 0;
 }
 
 .taskItem {
   display: flex;
   flex-direction: column;
   padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #fff;
   margin-bottom: 8px;
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  width: 250px;
 }
 
-.subtaskList {
-  padding: 0;
-  list-style: none;
-  margin-left: 16px;
-  width: 100%;
-}
-
-.subtaskItem {
-  display: flex;
-  align-items: center;
-  padding: 4px;
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  margin-bottom: 4px;
-  width: 200px;
-}
-
-.input {
+.subtaskCheckbox {
   margin-right: 8px;
-}
-
-.button {
-  cursor: pointer;
-}
-
-.taskNameWrapper {
-  display: inline-block; // Ensures the button wraps tightly around the text
-}
-
-.taskNameButton {
-  border-radius: 3px;
-  background: none; // Remove default button styling
-  border: 2px solid transparent; // Start with a transparent border
-  cursor: pointer; // Change cursor on hover
-  padding: 2px 25px; // Add padding to create space around the text
-  transition: border-color 0.3s ease; // Smooth transition for the border color
-}
-
-.taskNameWrapper:hover .taskNameButton {
-  border-color: #0070f3; // Change this to your desired border color on hover
-}
-
-.editInput {
-  width: 90%; // Make the input take the full width of the parent
-  padding: 8px; // Add some padding for better spacing
-  border: 1px solid #ddd; // Default border
-  border-radius: 4px; // Rounded corners
-  transition: border-color 0.3s ease; // Smooth transition for border color on focus
-
-  &:focus {
-    border-color: #0070f3; // Change border color when input is focused
-    outline: none; // Remove the default outline
-  }
-}
-
-.checkbox {
-  margin-right: 8px;
+  flex-shrink: 0;
 }
 
 .taskName {
+  flex-grow: 1;
   cursor: pointer;
-  // transition: border 0.2s;
+  background: none;
+  padding: 4px 0;
+  text-align: left;
+  font-size: 16px;
+  color: inherit;
+  transition: border-color 0.3s ease;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  padding-left: 5px;
 
   &:hover {
-    border: 1px solid blue;
-    padding: 2px; // Adjust padding to prevent layout shift
-    border-radius: 3px; // Optional: to match your styling
+    border: 2px solid #0070f3;
+    border-radius: 4px;
+    padding-left: 5px;
   }
 }
 
 .completed {
   text-decoration: line-through;
   color: gray;
+}
+
+.subtaskContainer {
+  margin-top: 8px;
+}
+
+.subtaskList {
+  list-style: none;
+  padding: 0;
+  margin-top: 4px;
+}
+
+.subtaskItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px;
+  border-radius: 4px;
+  margin-bottom: 4px;
+}
+
+.subtaskName {
+  flex-grow: 1;
+  cursor: pointer;
+  background: none;
+  padding: 4px 0;
+  text-align: left;
+  font-size: 16px;
+  color: inherit;
+  transition: border-color 0.3s ease;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  padding-left: 5px;
+
+  &:hover {
+    border: 2px solid #0070f3;
+    border-radius: 4px;
+    padding-left: 5px;
+  }
+
+  &.completed {
+    text-decoration: line-through;
+    color: gray;
+  }
+}
+
+.taskRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.deleteButton {
+  margin-left: 8px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: red;
+}
+
+.addSubtaskButton {
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: blue;
+}
+
+.subtaskRow {
+  display: flex;
+  align-items: center; /* Center vertically */
+  justify-content: space-between; /* Space out items */
+  padding-left: 20px; /* Indentation */
+}
+
+.dragHandle {
+  cursor: grab; // Change cursor to indicate draggable
+  padding: 0 8px; // Add some padding for touch targets
+}
+
+.checkbox {
+  margin: 0 8px; // Add some space around the checkbox
 }

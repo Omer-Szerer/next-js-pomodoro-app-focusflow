@@ -70,14 +70,15 @@ const PomodoroTimer = () => {
   };
 
   return (
-    <div className={styles.timerContainer}>
+    <>
+      {/* Timer switcher buttons outside the timer container */}
       <div className={styles.buttonGroup}>
         <button
           className={`${styles.switcherButton} ${sessionType === 'Focus' ? styles.active : styles.inactive}`}
           onClick={() => switchToSession('Focus')}
           disabled={isRunning && timeLeft > 0}
         >
-          Focus
+          Focus Time
         </button>
         <button
           className={`${styles.switcherButton} ${sessionType === 'Short Break' ? styles.active : styles.inactive}`}
@@ -95,11 +96,14 @@ const PomodoroTimer = () => {
         </button>
       </div>
 
-      <div className={styles.timerDisplay}>{formatTime(timeLeft)}</div>
-      <button className={styles.startPauseButton} onClick={startStopTimer}>
-        {isRunning ? 'Pause' : 'Start'}
-      </button>
-    </div>
+      {/* Main timer container */}
+      <div className={styles.timerContainer}>
+        <div className={styles.timerDisplay}>{formatTime(timeLeft)}</div>
+        <button className={styles.startPauseButton} onClick={startStopTimer}>
+          {isRunning ? 'Pause' : 'Start'}
+        </button>
+      </div>
+    </>
   );
 };
 
