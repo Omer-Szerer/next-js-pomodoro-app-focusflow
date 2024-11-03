@@ -311,7 +311,7 @@ const TaskList = () => {
                                         {...providedDraggableSubtask.dragHandleProps}
                                         className={styles.dragHandle}
                                       >
-                                        ⋮⋮
+                                        ⋮
                                       </span>
                                       <input
                                         type="checkbox"
