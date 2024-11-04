@@ -2,6 +2,7 @@
   display: flex;
   justify-content: center;
   gap: 10px;
+  margin-top: 150px;
   margin-bottom: 20px; // Add spacing between the button group and timer container
 }
 
@@ -11,17 +12,16 @@
   cursor: pointer;
   padding: 10px 20px;
   font-family: 'Nunito Sans', sans-serif;
-  font-size: 25px;
+  font-size: 28px;
 }
 
 .active {
   font-weight: 900;
-  opacity: 1;
+  color: #007bff;
 }
 
 .inactive {
-  font-weight: 700;
-  opacity: 0.15;
+  font-weight: 900;
 }
 
 .timerContainer {

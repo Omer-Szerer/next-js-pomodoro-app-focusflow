@@ -1,6 +1,5 @@
 'use client';
 import React, { useState } from 'react';
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import styles from '../styles/TaskList.module.scss';
 
 const TaskList = () => {
@@ -138,37 +137,31 @@ const TaskList = () => {
     setEditedSubtaskName({ ...editedSubtaskName, [subtaskId]: '' });
   };
 
-  const onDragEnd = (result) => {
-    const { source, destination, type } = result;
-
-    if (!destination) return;
-
-    if (type === 'TASK') {
-      const reorderedTasks = Array.from(tasks);
-      const [removed] = reorderedTasks.splice(source.index, 1);
-      reorderedTasks.splice(destination.index, 0, removed);
-      setTasks(reorderedTasks);
-    } else if (type === 'SUBTASK') {
-      const taskIndex = tasks.findIndex(
-        (task) => task.id === source.droppableId,
-      );
-      const task = tasks[taskIndex];
-
-      const reorderedSubtasks = Array.from(task.subtasks);
-      const [removed] = reorderedSubtasks.splice(source.index, 1);
-      reorderedSubtasks.splice(destination.index, 0, removed);
-
-      const updatedTasks = [...tasks];
-      updatedTasks[taskIndex] = { ...task, subtasks: reorderedSubtasks };
-      setTasks(updatedTasks);
-    }
-  };
-
   const toggleSubtaskInputVisibility = (taskId) => {
     setShowSubtaskInput((prev) => ({
       ...prev,
       [taskId]: !prev[taskId],
     }));
+  };
+
+  const moveTaskUp = (taskId) => {
+    const index = tasks.findIndex((task) => task.id === taskId);
+    if (index > 0) {
+      const newTasks = [...tasks];
+      const [movedTask] = newTasks.splice(index, 1);
+      newTasks.splice(index - 1, 0, movedTask);
+      setTasks(newTasks);
+    }
+  };
+
+  const moveTaskDown = (taskId) => {
+    const index = tasks.findIndex((task) => task.id === taskId);
+    if (index < tasks.length - 1) {
+      const newTasks = [...tasks];
+      const [movedTask] = newTasks.splice(index, 1);
+      newTasks.splice(index + 1, 0, movedTask);
+      setTasks(newTasks);
+    }
   };
 
   return (
@@ -186,212 +179,144 @@ const TaskList = () => {
         </button>
       </div>
 
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable
-          droppableId="tasks"
-          type="TASK"
-          isDropDisabled={false}
-          isCombineEnabled={false}
-          ignoreContainerClipping={false}
-        >
-          {(providedDroppable) => (
-            <ul
-              {...providedDroppable.droppableProps}
-              ref={providedDroppable.innerRef}
-              className={styles.taskList}
-            >
-              {tasks.map((task, index) => (
-                <Draggable
-                  key={`task-${task.id}`}
-                  draggableId={task.id}
-                  index={index}
+      <ul className={styles.taskList}>
+        {tasks.map((task, index) => (
+          <li key={`task-${task.id}`} className={styles.taskItem}>
+            <div className={styles.taskRow}>
+              <input
+                type="checkbox"
+                checked={task.completed}
+                onChange={() => toggleTaskCompletion(task.id)}
+                className={styles.checkbox}
+              />
+              {editingTaskId === task.id ? (
+                <input
+                  value={editedTaskName}
+                  onChange={(e) => setEditedTaskName(e.target.value)}
+                  onBlur={() => saveTask(task.id)}
+                  onKeyPress={(e) => {
+                    if (e.key === 'Enter') saveTask(task.id);
+                  }}
+                  className={styles.editInput}
+                />
+              ) : (
+                <button
+                  onClick={() => startEditing(task)}
+                  className={`${styles.taskName} ${
+                    task.completed ? styles.completed : ''
+                  }`}
                 >
-                  {(providedDraggable) => (
-                    <li
-                      ref={providedDraggable.innerRef}
-                      {...providedDraggable.draggableProps}
-                      className={styles.taskItem}
-                    >
-                      <div className={styles.taskRow}>
-                        <span
-                          {...providedDraggable.dragHandleProps}
-                          className={styles.dragHandle}
-                        >
-                          ⋮⋮
-                        </span>
-                        <input
-                          type="checkbox"
-                          checked={task.completed}
-                          onChange={() => toggleTaskCompletion(task.id)}
-                          className={styles.checkbox}
-                        />
-                        {editingTaskId === task.id ? (
-                          <input
-                            value={editedTaskName}
-                            onChange={(e) => setEditedTaskName(e.target.value)}
-                            onBlur={() => saveTask(task.id)}
-                            onKeyPress={(e) => {
-                              if (e.key === 'Enter') saveTask(task.id);
-                            }}
-                            className={styles.editInput}
-                          />
-                        ) : (
-                          <button
-                            onClick={() => startEditing(task)}
-                            className={`${styles.taskName} ${
-                              task.completed ? styles.completed : ''
-                            }`}
-                          >
-                            {task.name}
-                          </button>
-                        )}
-                        <div style={{ display: 'flex', alignItems: 'center' }}>
-                          <button
-                            className={styles.addSubtaskButton}
-                            onClick={() =>
-                              toggleSubtaskInputVisibility(task.id)
-                            }
-                          >
-                            +
-                          </button>
-                          <button
-                            className={styles.deleteButton}
-                            onClick={() => deleteTask(task.id)}
-                          >
-                            ✕
-                          </button>
-                        </div>
-                      </div>
+                  {task.name}
+                </button>
+              )}
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <button
+                  className={styles.addSubtaskButton}
+                  onClick={() => toggleSubtaskInputVisibility(task.id)}
+                >
+                  +
+                </button>
+                <button
+                  className={styles.deleteButton}
+                  onClick={() => deleteTask(task.id)}
+                >
+                  x
+                </button>
+                <button
+                  className={styles.moveButton}
+                  onClick={() => moveTaskUp(task.id)}
+                  disabled={index === 0}
+                >
+                  ↑
+                </button>
+                <button
+                  className={styles.moveButton}
+                  onClick={() => moveTaskDown(task.id)}
+                  disabled={index === tasks.length - 1}
+                >
+                  ↓
+                </button>
+              </div>
+            </div>
 
-                      {showSubtaskInput[task.id] && (
-                        <div className={styles.subtaskContainer}>
-                          <input
-                            className={styles.subtaskInput}
-                            value={newSubtasks[task.id] || ''}
-                            onChange={(e) =>
-                              handleSubtaskInputChange(task.id, e.target.value)
-                            }
-                            placeholder="Add a subtask"
-                          />
-                          <button
-                            className={styles.addSubtaskButton}
-                            onClick={() => addSubtask(task.id)}
-                          >
-                            Add
-                          </button>
-                        </div>
-                      )}
-                      <Droppable
-                        droppableId={task.id}
-                        type="SUBTASK"
-                        isDropDisabled={false}
-                        isCombineEnabled={false}
-                        ignoreContainerClipping={false}
+            {showSubtaskInput[task.id] && (
+              <div className={styles.subtaskContainer}>
+                <input
+                  className={styles.subtaskInput}
+                  value={newSubtasks[task.id] || ''}
+                  onChange={(e) =>
+                    handleSubtaskInputChange(task.id, e.target.value)
+                  }
+                  placeholder="Add a subtask"
+                />
+                <button
+                  className={styles.addSubtaskButton}
+                  onClick={() => addSubtask(task.id)}
+                >
+                  Add
+                </button>
+              </div>
+            )}
+            <ul className={styles.subtaskList}>
+              {task.subtasks.map((subtask) => (
+                <li
+                  key={`subtask-${subtask.id}`}
+                  className={styles.subtaskItem}
+                >
+                  <div className={styles.subtaskRow}>
+                    <input
+                      type="checkbox"
+                      checked={subtask.completed}
+                      onChange={() =>
+                        toggleSubtaskCompletion(task.id, subtask.id)
+                      }
+                      className={styles.checkbox}
+                    />
+                    {editingSubtaskId?.subtaskId === subtask.id &&
+                    editingSubtaskId.taskId === task.id ? (
+                      <input
+                        value={editedSubtaskName[subtask.id] || ''}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          setEditedSubtaskName({
+                            ...editedSubtaskName,
+                            [subtask.id]: value,
+                          });
+
+                          // Delete the subtask if the input is empty
+                          if (value.trim() === '') {
+                            deleteSubtask(task.id, subtask.id);
+                          }
+                        }}
+                        onBlur={() => saveSubtask(task.id, subtask.id)}
+                        onKeyPress={(e) => {
+                          if (e.key === 'Enter') {
+                            saveSubtask(task.id, subtask.id);
+                          }
+                        }}
+                        className={styles.editInput}
+                      />
+                    ) : (
+                      <button
+                        onClick={() => startEditingSubtask(task.id, subtask)}
+                        className={styles.subtaskName}
                       >
-                        {(providedDroppableSubtask) => (
-                          <ul
-                            {...providedDroppableSubtask.droppableProps}
-                            ref={providedDroppableSubtask.innerRef}
-                            className={styles.subtaskList}
-                          >
-                            {task.subtasks.map((subtask, i) => (
-                              <Draggable
-                                key={`subtask-${subtask.id}`}
-                                draggableId={subtask.id}
-                                index={i}
-                              >
-                                {(providedDraggableSubtask) => (
-                                  <li
-                                    ref={providedDraggableSubtask.innerRef}
-                                    {...providedDraggableSubtask.draggableProps}
-                                    className={styles.subtaskItem}
-                                  >
-                                    <div className={styles.subtaskRow}>
-                                      <span
-                                        {...providedDraggableSubtask.dragHandleProps}
-                                        className={styles.dragHandle}
-                                      >
-                                        ⋮
-                                      </span>
-                                      <input
-                                        type="checkbox"
-                                        checked={subtask.completed}
-                                        onChange={() =>
-                                          toggleSubtaskCompletion(
-                                            task.id,
-                                            subtask.id,
-                                          )
-                                        }
-                                        className={styles.checkbox}
-                                      />
-                                      {editingSubtaskId?.subtaskId ===
-                                        subtask.id &&
-                                      editingSubtaskId.taskId === task.id ? (
-                                        <input
-                                          value={
-                                            editedSubtaskName[subtask.id] || ''
-                                          }
-                                          onChange={(e) => {
-                                            const value = e.target.value;
-                                            setEditedSubtaskName({
-                                              ...editedSubtaskName,
-                                              [subtask.id]: value,
-                                            });
-
-                                            // Delete the subtask if the input is empty
-                                            if (value.trim() === '') {
-                                              deleteSubtask(
-                                                task.id,
-                                                subtask.id,
-                                              );
-                                            }
-                                          }}
-                                          onBlur={() =>
-                                            saveSubtask(task.id, subtask.id)
-                                          }
-                                          onKeyDown={(e) => {
-                                            if (e.key === 'Enter') {
-                                              saveSubtask(task.id, subtask.id);
-                                            }
-                                          }}
-                                          className={styles.editInput}
-                                        />
-                                      ) : (
-                                        <button
-                                          onClick={() =>
-                                            startEditingSubtask(
-                                              task.id,
-                                              subtask,
-                                            )
-                                          }
-                                          className={`${styles.subtaskName} ${
-                                            subtask.completed
-                                              ? styles.completed
-                                              : ''
-                                          }`}
-                                        >
-                                          {subtask.name}
-                                        </button>
-                                      )}
-                                    </div>
-                                  </li>
-                                )}
-                              </Draggable>
-                            ))}
-
-                            {providedDroppableSubtask.placeholder}
-                          </ul>
-                        )}
-                      </Droppable>
-                    </li>
-                  )}
-                </Draggable>
+                        {subtask.name}
+                      </button>
+                    )}
+                    <button
+                      className={styles.deleteSubtaskButton}
+                      onClick={() => deleteSubtask(task.id, subtask.id)}
+                    >
+                      x
+                    </button>
+                  </div>
+                </li>
               ))}
-              {providedDroppable.placeholder}
             </ul>
-          )}
-        </Droppable>
-      </DragDropContext>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
