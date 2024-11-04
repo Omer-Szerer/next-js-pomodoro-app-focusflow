@@ -92,18 +92,27 @@ const TaskList = () => {
 
   const toggleSubtaskCompletion = (taskId, subtaskId) => {
     setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task.id === taskId
-          ? {
-              ...task,
-              subtasks: task.subtasks.map((subtask) =>
-                subtask.id === subtaskId
-                  ? { ...subtask, completed: !subtask.completed }
-                  : subtask,
-              ),
-            }
-          : task,
-      ),
+      prevTasks.map((task) => {
+        if (task.id === taskId) {
+          const updatedSubtasks = task.subtasks.map((subtask) =>
+            subtask.id === subtaskId
+              ? { ...subtask, completed: !subtask.completed }
+              : subtask,
+          );
+
+          // Check if all subtasks are completed
+          const allSubtasksCompleted = updatedSubtasks.every(
+            (subtask) => subtask.completed,
+          );
+
+          return {
+            ...task,
+            subtasks: updatedSubtasks,
+            completed: allSubtasksCompleted, // Update the main task completion
+          };
+        }
+        return task;
+      }),
     );
   };
 
@@ -174,36 +183,33 @@ const TaskList = () => {
       const taskIndex = prevTasks.findIndex((task) => task.id === taskId);
       if (taskIndex === -1) return prevTasks;
 
-      const newTasks = [...prevTasks];
-      const subtaskIndex = newTasks[taskIndex].subtasks.findIndex(
+      const task = { ...prevTasks[taskIndex] };
+      const subtaskIndex = task.subtasks.findIndex(
         (subtask) => subtask.id === subtaskId,
       );
       if (subtaskIndex === -1) return prevTasks;
 
-      if (direction === 'up' && subtaskIndex > 0) {
-        // Swap with the previous subtask
-        [
-          newTasks[taskIndex].subtasks[subtaskIndex],
-          newTasks[taskIndex].subtasks[subtaskIndex - 1],
-        ] = [
-          newTasks[taskIndex].subtasks[subtaskIndex - 1],
-          newTasks[taskIndex].subtasks[subtaskIndex],
-        ];
-      } else if (
-        direction === 'down' &&
-        subtaskIndex < newTasks[taskIndex].subtasks.length - 1
-      ) {
-        // Swap with the next subtask
-        [
-          newTasks[taskIndex].subtasks[subtaskIndex],
-          newTasks[taskIndex].subtasks[subtaskIndex + 1],
-        ] = [
-          newTasks[taskIndex].subtasks[subtaskIndex + 1],
-          newTasks[taskIndex].subtasks[subtaskIndex],
-        ];
-      }
+      // Determine the new index for the subtask
+      const newIndex = direction === 'up' ? subtaskIndex - 1 : subtaskIndex + 1;
 
-      return newTasks;
+      // Check if the new index is within bounds
+      if (newIndex < 0 || newIndex >= task.subtasks.length) return prevTasks;
+
+      // Remove the subtask from the current position
+      const updatedSubtasks = [...task.subtasks];
+      const [movedSubtask] = updatedSubtasks.splice(subtaskIndex, 1);
+
+      // Insert the subtask into the new position
+      updatedSubtasks.splice(newIndex, 0, movedSubtask);
+
+      // Update the task with the reordered subtasks array
+      const updatedTasks = [...prevTasks];
+      updatedTasks[taskIndex] = {
+        ...task,
+        subtasks: updatedSubtasks,
+      };
+
+      return updatedTasks;
     });
   };
 

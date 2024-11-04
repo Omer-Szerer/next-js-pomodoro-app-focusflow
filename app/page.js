@@ -1,6 +1,6 @@
 import React from 'react';
 import Tasks from './components/TaskList';
-import TaskList from './components/TaskListDnD';
+// import TaskListDnD from './components/TaskListDnD';
 import PomodoroTimer from './components/Timer';
 
 // import AnimationTest from './components/AnimationTest';
@@ -14,7 +14,7 @@ export default function Home() {
       {/* <PomoTimer /> */}
       {/* <settingsContext.Provider value={{}} /> */}
       <PomodoroTimer />
-      <TaskList />
+      {/* <TaskListDnD /> */}
       <Tasks />
     </main>
   );
