@@ -2,13 +2,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import styles from '../styles/Timer.module.scss';
 
-const FOCUS_TIME = 25 * 60;
-const SHORT_BREAK = 5 * 60;
-const LONG_BREAK = 15 * 60;
+// const FOCUS_TIME = 25 * 60;
+// const SHORT_BREAK = 5 * 60;
+// const LONG_BREAK = 15 * 60;
 
-// const FOCUS_TIME = 5;
-// const SHORT_BREAK = 5;
-// const LONG_BREAK = 5;
+const FOCUS_TIME = 2;
+const SHORT_BREAK = 2;
+const LONG_BREAK = 2;
 
 const PomodoroTimer = () => {
   const [timeLeft, setTimeLeft] = useState(FOCUS_TIME);
@@ -88,12 +88,13 @@ const PomodoroTimer = () => {
       .padStart(2, '0')}`;
   };
 
+  // Calculate remaining rounds
+  const remainingRounds = Math.max(0, 3 - sessionCount);
+
   return (
     <>
-      {/* Full-page blur overlay when prompt is active */}
       {showBreakPrompt && <div className={styles.fullPageBlur} />}
 
-      {/* Timer and all page content */}
       <div>
         <div className={styles.buttonGroup}>
           <button
@@ -119,16 +120,26 @@ const PomodoroTimer = () => {
           </button>
         </div>
 
-        {/* Main timer container */}
         <div className={styles.timerContainer}>
           <div className={styles.timerDisplay}>{formatTime(timeLeft)}</div>
           <button className={styles.startPauseButton} onClick={startStopTimer}>
             {isRunning ? 'Pause' : 'Start'}
           </button>
+          {/* Check if we are in Focus session and will transition to Long Break next */}
+          {sessionType === 'Focus' && sessionCount === 3 ? (
+            <p className={styles.motivationMessage}>
+              Keep on! Long break is almost there!
+            </p>
+          ) : sessionType === 'Focus' ? (
+            <p className={styles.remainingRoundsText}>
+              {remainingRounds} {remainingRounds === 1 ? 'round' : 'rounds'}{' '}
+              left for the big break
+            </p>
+          ) : null}{' '}
+          {/* Don't show anything during breaks */}
         </div>
       </div>
 
-      {/* Break Prompt Modal */}
       {showBreakPrompt && (
         <div className={styles.modal}>
           <p>Choose a break type:</p>
