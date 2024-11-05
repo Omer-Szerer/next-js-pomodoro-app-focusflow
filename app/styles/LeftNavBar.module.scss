@@ -1,0 +1,114 @@
+.navContainer {
+  position: fixed;
+  top: 0;
+  left: 0; // Position on the left side for larger screens
+  height: 100vh;
+  width: 200px;
+  background-color: #f8f9fa;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  z-index: 15; // Ensure it's above other content
+}
+
+// Sidebar container (Right)
+.rightNavContainer {
+  position: fixed;
+  top: 0;
+  right: 0; // Position on the right side for mobile screens
+  height: 100vh;
+  width: 200px;
+  background-color: #f8f9fa;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  transform: translateX(100%); // Hidden by default
+  transition: transform 0.3s ease-in-out;
+  z-index: 15; // Ensure it's below the close icon
+}
+
+// Show the right sidebar when 'open' class is added
+.open {
+  transform: translateX(0);
+}
+
+// Close Icon styling for right sidebar
+.closeIcon {
+  position: absolute;
+  top: 15px; // Adjust as needed
+  right: 15px; // Adjust as needed
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 15; // Ensure it's above the sidebar background
+}
+
+// Sidebar link styling
+.navLink {
+  margin: 10px 0;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  font-size: 16px;
+  transition: color 0.3s;
+
+  &:hover {
+    color: #007bff;
+  }
+}
+
+// Hamburger Icon styling
+.hamburgerIcon {
+  display: none; // Hidden by default
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 12; // Make sure it's above everything
+}
+
+// Overlay to cover the screen when sidebar is open
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 5; // Should be below the sidebar but above other content
+}
+
+// Responsive styling
+@media (max-width: 768px) {
+  .navContainer {
+    display: none; // Hide the left sidebar on small screens
+  }
+
+  .hamburgerIcon {
+    display: block; // Show hamburger icon on small screens
+  }
+
+  .overlay {
+    display: block; // Show overlay only when sidebar is open
+  }
+}
+
+// Ensure left sidebar is visible on larger screens
+@media (min-width: 769px) {
+  .navContainer {
+    display: flex; // Ensure sidebar is displayed on larger screens
+  }
+
+  .hamburgerIcon {
+    display: none; // Hide hamburger icon on larger screens
+  }
+}
