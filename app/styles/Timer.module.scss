@@ -59,3 +59,98 @@
     background-color: #0056b3;
   }
 }
+
+.fullPageBlur {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+  backdrop-filter: blur(1px);
+}
+
+.modal {
+  position: fixed;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #f0f0f0;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  width: clamp(300px, 80%, 600px); /* Responsive width with clamp */
+  z-index: 2;
+}
+
+.modalButtonGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin: 10px 0;
+  margin-bottom: 30px;
+}
+
+.modalButtonGroup button {
+  flex: 1 1 45%; /* Two buttons per row */
+  padding: 10px;
+  font-size: 16px;
+}
+
+.normalBreakText {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-size: 14px;
+  color: #555;
+  cursor: pointer;
+  background: none;
+  border: none;
+  text-decoration: underline;
+
+  &:hover {
+    color: #333;
+  }
+
+  &:focus {
+    outline: 2px solid #007bff;
+  }
+}
+
+.overlay {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+
+  button {
+    flex: 1 1 45%; /* Make two buttons per row */
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+}
