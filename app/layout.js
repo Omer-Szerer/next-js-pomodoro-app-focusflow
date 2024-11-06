@@ -1,7 +1,7 @@
 import './styles/globals.scss';
 import localFont from 'next/font/local';
 import LeftNavBar from './components/LeftNavBar';
-import TopTab from './components/TopBar';
+import TopBar from './components/TopBar';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         {children}
-        <TopTab />
+        <TopBar />
         <LeftNavBar />
       </body>
     </html>

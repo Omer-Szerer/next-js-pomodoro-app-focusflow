@@ -1,0 +1,30 @@
+// Center the form and its content within the page
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.formContainer {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tableContainer {
+  width: 100%;
+  border-collapse: collapse;
+
+  td {
+    padding: 8px 12px;
+    text-align: left;
+  }
+
+  input {
+    width: 100%;
+    padding: 6px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+  }
+}
