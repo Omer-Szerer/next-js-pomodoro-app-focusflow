@@ -1,0 +1,66 @@
+.topBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 20; /* Higher z-index to ensure visibility */
+  background-color: #f8f9fa;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Distribute items with space between */
+  border-bottom: 1px solid #ddd;
+}
+
+.logo {
+  text-decoration: none;
+  // font-family: 'Nunito Sans', sans-serif;
+  // font-weight: 900;
+  font-family: 'Gugi', sans-serif;
+  font-weight: 900;
+  margin-left: 20px;
+}
+
+.profileButton {
+  border: 1px solid rgba(0, 0, 0, 0.416);
+  padding: 5px 15px;
+  border-radius: 4px;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  font-size: 14px;
+  transition: color 0.3s;
+  text-transform: uppercase;
+  margin-right: 40px; /* Aligns it neatly on larger screens */
+  &:hover {
+    color: #007bff;
+    border: 1px solid #007bff;
+  }
+}
+
+/* Small screen adjustments */
+@media (max-width: 768px) {
+  .topBar {
+    z-index: 1;
+    justify-content: center; /* Center align elements */
+    padding: 10px; /* Reduce padding */
+    background-color: transparent;
+    border-bottom: none;
+  }
+
+  .profileButton {
+    order: -1; /* Move button to the left */
+    margin-right: auto; /* Align button to the far left */
+    margin-left: 10px; /* Add slight padding on left */
+    font-size: 12px;
+  }
+
+  .logo {
+    flex: none;
+    position: absolute; /* Absolute center logo */
+    left: 50%;
+    transform: translateX(-50%); /* Center horizontally */
+    text-align: center; /* Center-align logo text */
+    margin-left: 0;
+  }
+}

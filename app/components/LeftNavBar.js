@@ -23,7 +23,7 @@ export default function LeftNavBar() {
 
       {/* Left Sidebar Navigation (Always visible on large screens) */}
       <nav className={styles.navContainer}>
-        <Link href="/" className={styles.navLink}>
+        <Link href="/" className={styles.navLinkTimer}>
           Timer
         </Link>
         <Link href="/exercises" className={styles.navLink}>

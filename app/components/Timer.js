@@ -2,13 +2,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import styles from '../styles/Timer.module.scss';
 
-// const FOCUS_TIME = 25 * 60;
-// const SHORT_BREAK = 5 * 60;
-// const LONG_BREAK = 15 * 60;
+const FOCUS_TIME = 25 * 60;
+const SHORT_BREAK = 5 * 60;
+const LONG_BREAK = 15 * 60;
 
-const FOCUS_TIME = 2;
-const SHORT_BREAK = 2;
-const LONG_BREAK = 2;
+// const FOCUS_TIME = 2;
+// const SHORT_BREAK = 2;
+// const LONG_BREAK = 2;
 
 const PomodoroTimer = () => {
   const [timeLeft, setTimeLeft] = useState(FOCUS_TIME);
