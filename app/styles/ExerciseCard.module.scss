@@ -6,7 +6,7 @@
   gap: 20px; // Sets a consistent space between cards
   padding: 20px; // Adds padding around the container
   margin-top: 100px;
-  margin-left: 150px;
+  margin-left: 150px; // Default margin-left for larger screens
 }
 
 .exerciseCard {
@@ -41,25 +41,21 @@
 }
 
 .exerciseName {
-  color: black;
   margin-top: 10px; // Adds spacing between animation and text
 }
 
 // Media Queries
-@media (min-width: 768px) {
+@media (max-width: 767px) {
   .exercisesContainer {
-    gap: 30px; // Increases gap for larger screens
-  }
-  .exerciseCard {
-    max-width: 350px; // Slightly larger on tablets and desktops
+    margin-left: 0; // Removes the left margin on smaller screens
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   .exercisesContainer {
-    gap: 40px;
+    gap: 30px; // Increases gap for larger screens (tablets and up)
   }
   .exerciseCard {
-    max-width: 400px;
+    max-width: 350px; // Slightly larger on tablets and desktops
   }
 }
