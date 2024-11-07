@@ -57,7 +57,7 @@
   font-weight: 800;
   font-size: 16px;
   transition: color 0.3s;
-  margin-left: 50px;
+  margin-left: 40px;
 
   &:hover {
     color: #007bff;
@@ -65,16 +65,24 @@
 }
 
 .navLinkTimer {
-  margin-top: 40%;
+  margin-top: 100px;
   text-decoration: none;
   color: #333;
   font-weight: 800;
   font-size: 16px;
   transition: color 0.3s;
-  margin-left: 50px;
+  margin-left: 40px;
   &:hover {
     color: #007bff;
   }
+}
+
+.navModeSwitcher {
+  margin-left: 40px;
+  margin-top: 700px;
+  color: #333;
+  font-weight: 800;
+  font-size: 16px;
 }
 
 // Hamburger Icon styling
@@ -92,13 +100,13 @@
 
 // Overlay to cover the screen when sidebar is open
 .overlay {
-  display: none;
+  // display: none;
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.4);
   z-index: 5; // Should be below the sidebar but above other content
 }
 

@@ -6,7 +6,6 @@ import SettingsInfo from '../components/SettingsInfo';
 export default function SettingsPage() {
   return (
     <>
-      <h1>Settings</h1>
       <SettingsInfo />
       {/* <ReactSlider
         className="slider"

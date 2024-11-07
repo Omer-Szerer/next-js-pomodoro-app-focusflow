@@ -1,0 +1,65 @@
+.exercisesContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap; // Allows wrapping of items in smaller screens
+  gap: 20px; // Sets a consistent space between cards
+  padding: 20px; // Adds padding around the container
+  margin-top: 100px;
+  margin-left: 150px;
+}
+
+.exerciseCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  width: 100%; // Makes it responsive
+  max-width: 300px; // Sets a max width for larger screens
+  height: auto; // Allows card to adjust height based on content
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.startPauseButton {
+  width: 100px;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-transform: uppercase;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+}
+
+.exerciseName {
+  color: black;
+  margin-top: 10px; // Adds spacing between animation and text
+}
+
+// Media Queries
+@media (min-width: 768px) {
+  .exercisesContainer {
+    gap: 30px; // Increases gap for larger screens
+  }
+  .exerciseCard {
+    max-width: 350px; // Slightly larger on tablets and desktops
+  }
+}
+
+@media (min-width: 1024px) {
+  .exercisesContainer {
+    gap: 40px;
+  }
+  .exerciseCard {
+    max-width: 400px;
+  }
+}

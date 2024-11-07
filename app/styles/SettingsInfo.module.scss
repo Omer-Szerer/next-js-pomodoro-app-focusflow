@@ -1,15 +1,22 @@
-// Center the form and its content within the page
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 50vh;
 }
 
 .formContainer {
-  background-color: #f9f9f9;
-  padding: 20px;
-  border-radius: 8px;
-  // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  border-radius: 10px;
+  padding: 40px;
+  max-width: 500px;
+  height: 220px;
+  margin: 0 auto;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .tableContainer {

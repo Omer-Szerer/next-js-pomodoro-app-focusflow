@@ -1,14 +1,12 @@
 'use client';
 import React, { useCallback, useEffect, useState } from 'react';
+// import { getExercises } from '../database/fakeDB.js';
 import styles from '../styles/Timer.module.scss';
+import SelectedExerciseCard from './SelectedExerciseCard';
 
-const FOCUS_TIME = 25 * 60;
-const SHORT_BREAK = 5 * 60;
-const LONG_BREAK = 15 * 60;
-
-// const FOCUS_TIME = 2;
-// const SHORT_BREAK = 2;
-// const LONG_BREAK = 2;
+const FOCUS_TIME = 2;
+const SHORT_BREAK = 5;
+const LONG_BREAK = 2;
 
 const PomodoroTimer = () => {
   const [timeLeft, setTimeLeft] = useState(FOCUS_TIME);
@@ -16,9 +14,11 @@ const PomodoroTimer = () => {
   const [sessionType, setSessionType] = useState('Focus');
   const [sessionCount, setSessionCount] = useState(0);
   const [showBreakPrompt, setShowBreakPrompt] = useState(false);
+  const [breakChoice, setBreakChoice] = useState('');
 
   const switchToSession = (session) => {
     setIsRunning(false);
+    setBreakChoice(''); // Clear the old exercise when switching sessions
     if (session === 'Focus') {
       setSessionType('Focus');
       setTimeLeft(FOCUS_TIME);
@@ -32,6 +32,7 @@ const PomodoroTimer = () => {
   };
 
   const handleSessionSwitch = useCallback(() => {
+    setBreakChoice(''); // Clear the old exercise when switching sessions
     if (sessionType === 'Focus') {
       setSessionCount((prevCount) => prevCount + 1);
       if (sessionCount === 3) {
@@ -68,16 +69,17 @@ const PomodoroTimer = () => {
       timeLeft === SHORT_BREAK &&
       !isRunning
     ) {
-      setShowBreakPrompt(true);
+      setShowBreakPrompt(true); // Show break prompt when starting short break
+      setIsRunning(true); // Start the timer
     } else {
-      setIsRunning(!isRunning);
+      setIsRunning(!isRunning); // Toggle the timer state (start/pause)
     }
   };
 
   const handleBreakChoice = (choice) => {
     console.log(`Chosen break type: ${choice}`);
-    setShowBreakPrompt(false);
-    setIsRunning(true);
+    setBreakChoice(choice); // Set the selected break type
+    setShowBreakPrompt(false); // Hide the modal
   };
 
   const formatTime = (time) => {
@@ -88,13 +90,11 @@ const PomodoroTimer = () => {
       .padStart(2, '0')}`;
   };
 
-  // Calculate remaining rounds
   const remainingRounds = Math.max(0, 3 - sessionCount);
 
   return (
     <>
       {showBreakPrompt && <div className={styles.fullPageBlur} />}
-
       <div>
         <div className={styles.buttonGroup}>
           <button
@@ -125,7 +125,7 @@ const PomodoroTimer = () => {
           <button className={styles.startPauseButton} onClick={startStopTimer}>
             {isRunning ? 'Pause' : 'Start'}
           </button>
-          {/* Check if we are in Focus session and will transition to Long Break next */}
+
           {sessionType === 'Focus' && sessionCount === 3 ? (
             <p className={styles.motivationMessage}>
               Keep on! Long break is almost there!
@@ -135,26 +135,24 @@ const PomodoroTimer = () => {
               {remainingRounds} {remainingRounds === 1 ? 'round' : 'rounds'}{' '}
               left for the big break
             </p>
-          ) : null}{' '}
-          {/* Don't show anything during breaks */}
+          ) : null}
         </div>
       </div>
-
       {showBreakPrompt && (
         <div className={styles.modal}>
           <p>Choose a break type:</p>
           <div className={styles.modalButtonGroup}>
-            <button onClick={() => handleBreakChoice('Break 1')}>
-              Let’s get physical
+            <button onClick={() => handleBreakChoice('Physical')}>
+              Physical
             </button>
-            <button onClick={() => handleBreakChoice('Break 2')}>
-              Take a breather
+            <button onClick={() => handleBreakChoice('Breathing')}>
+              Breathing
             </button>
-            <button onClick={() => handleBreakChoice('Break 3')}>
-              Yoga time
+            <button onClick={() => handleBreakChoice('Stretch')}>
+              Stretch
             </button>
-            <button onClick={() => handleBreakChoice('Break 4')}>
-              Meditation time
+            <button onClick={() => handleBreakChoice('Meditation')}>
+              Meditation
             </button>
           </div>
           <button
@@ -168,6 +166,8 @@ const PomodoroTimer = () => {
           </button>
         </div>
       )}
+      {/* Render the ExerciseCard component with the breakChoice */}
+      {breakChoice && <SelectedExerciseCard breakType={breakChoice} />}
     </>
   );
 };

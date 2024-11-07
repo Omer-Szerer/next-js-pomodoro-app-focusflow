@@ -32,6 +32,7 @@ export default function LeftNavBar() {
         <Link href="/settings" className={styles.navLink}>
           Settings
         </Link>
+        <div className={styles.navModeSwitcher}>Light mode</div>
       </nav>
 
       {/* Right Sidebar Navigation for small screens */}
@@ -62,6 +63,7 @@ export default function LeftNavBar() {
         >
           Settings
         </Link>
+        <div className={styles.navModeSwitcher}>Light mode</div>
       </nav>
 
       {/* Overlay for mobile view when sidebar is open */}
