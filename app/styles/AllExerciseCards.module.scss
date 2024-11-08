@@ -33,6 +33,13 @@
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.05);
   border: 1px solid rgba(0, 0, 0, 0.1);
   position: relative;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease; /* Smooth transition on hover */
+
+  &:hover {
+    transform: scale(1.05); /* Slightly enlarge the container */
+  }
 
   // Media Queries
   @media (min-width: 768px) {
@@ -116,4 +123,16 @@
 .infoIconWrapper:hover .description {
   opacity: 1;
   visibility: visible;
+}
+
+.visualizationContainer {
+  display: flex;
+  padding: 10px;
+  // transition:
+  //   transform 0.3s ease,
+  //   box-shadow 0.3s ease; /* Smooth transition on hover */
+
+  // &:hover {
+  //   transform: scale(1.05); /* Slightly enlarge the container */
+  // }
 }

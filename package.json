@@ -17,6 +17,7 @@
     "react": "19.0.0-rc-5d19e1c8-20240923",
     "react-beautiful-dnd": "^13.1.1",
     "react-dom": "19.0.0-rc-5d19e1c8-20240923",
+    "react-player": "^2.16.0",
     "react-slider": "^2.0.6",
     "sass": "^1.80.5",
     "tailwind": "^4.0.0"

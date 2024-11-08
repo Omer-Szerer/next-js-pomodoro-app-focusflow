@@ -59,6 +59,20 @@ export const exercises = [
     description: 'dummy text',
     category: 'Breathing',
   },
+  {
+    id: 9,
+    name: 'Guided-Meditation',
+    visualization: 'https://www.youtube.com/watch?v=F7PxEy5IyV4',
+    description: 'A guided meditation exercise to help with relaxation.',
+    category: 'Meditation',
+  },
+  {
+    id: 10,
+    name: 'Abstract-Meditation',
+    visualization: 'public/animations/meditation/Abstract-Meditation.lottie',
+    description: 'A meditation exercise to help with relaxation.',
+    category: 'Meditation',
+  },
 ];
 
 export function getExercises() {
