@@ -3,12 +3,12 @@
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 20; /* Higher z-index to ensure visibility */
+  z-index: 20;
   background-color: #f8f9fa;
   padding: 10px 20px;
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Distribute items with space between */
+  justify-content: space-between;
   border-bottom: 1px solid #ddd;
 }
 
@@ -31,7 +31,7 @@
   font-size: 14px;
   transition: color 0.3s;
   text-transform: uppercase;
-  margin-right: 40px; /* Aligns it neatly on larger screens */
+  margin-right: 40px;
   &:hover {
     color: #007bff;
     border: 1px solid #007bff;
@@ -39,28 +39,28 @@
 }
 
 /* Small screen adjustments */
-@media (max-width: 768px) {
+@media (max-width: 878px) {
   .topBar {
     z-index: 1;
-    justify-content: center; /* Center align elements */
-    padding: 10px; /* Reduce padding */
+    justify-content: center;
+    padding: 10px;
     background-color: transparent;
     border-bottom: none;
   }
 
   .profileButton {
-    order: -1; /* Move button to the left */
-    margin-right: auto; /* Align button to the far left */
-    margin-left: 10px; /* Add slight padding on left */
+    order: -1;
+    margin-right: auto;
+    margin-left: 10px;
     font-size: 12px;
   }
 
   .logo {
     flex: none;
-    position: absolute; /* Absolute center logo */
+    position: absolute;
     left: 50%;
-    transform: translateX(-50%); /* Center horizontally */
-    text-align: center; /* Center-align logo text */
+    transform: translateX(-50%);
+    text-align: center;
     margin-left: 0;
   }
 }

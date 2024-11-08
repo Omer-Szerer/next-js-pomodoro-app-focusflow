@@ -1,0 +1,119 @@
+/* Container Styles */
+.exercisesContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+  margin-top: 100px;
+  margin-left: 150px;
+
+  // Media Queries
+  @media (max-width: 767px) {
+    margin-left: 0;
+  }
+
+  @media (min-width: 768px) {
+    gap: 30px;
+  }
+}
+
+/* Exercise Card */
+.exerciseCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  position: relative;
+
+  // Media Queries
+  @media (min-width: 768px) {
+    max-width: 350px;
+  }
+}
+
+/* Name Container */
+.nameContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.exerciseName {
+  margin: 0;
+}
+
+/* Info Icon */
+.infoIconWrapper {
+  position: relative;
+  display: inline-block;
+
+  .infoIcon {
+    font-size: 14px;
+    color: #007bff;
+    background-color: #e0f7ff;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #007bff;
+      color: white;
+    }
+  }
+}
+
+/* Description Tooltip */
+.description {
+  position: absolute;
+  top: 130%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  background-color: #333;
+  color: #fff;
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 14px;
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
+  z-index: 1;
+
+  // Arrow below the tooltip
+  &:after {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent transparent #333 transparent;
+  }
+}
+
+// Show description on hover
+.infoIconWrapper:hover .description {
+  opacity: 1;
+  visibility: visible;
+}

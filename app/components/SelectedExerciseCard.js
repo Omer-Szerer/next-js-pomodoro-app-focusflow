@@ -1,36 +1,59 @@
-'use client';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { exercises } from '../database/fakeDB';
-import styles from '../styles/ExerciseCard.module.scss';
+import styles from '../styles/SelectedExerciseCard.module.scss';
 import ExerciseTimer from './ExerciseTimer';
 
 export default function ExerciseCard({ breakType }) {
-  // If no breakType is provided, show all exercises
-  const filteredExercises = breakType
-    ? exercises.filter((exercise) => exercise.category === breakType)
-    : exercises; // Show all exercises if no breakType
+  const [randomExercise, setRandomExercise] = useState({
+    id: 'default',
+    name: "Enjoy your break, and don't forget to drink water!",
+    category: 'General',
+  });
+
+  useEffect(() => {
+    const filteredExercises = breakType
+      ? exercises.filter((exercise) => exercise.category === breakType)
+      : exercises;
+
+    if (filteredExercises.length > 0) {
+      const selectedExercise =
+        filteredExercises[Math.floor(Math.random() * filteredExercises.length)];
+      setRandomExercise(selectedExercise);
+    } else {
+      setRandomExercise({
+        id: 'default',
+        name: "Enjoy your break, and don't forget to drink water!",
+        category: 'General',
+      });
+    }
+  }, [breakType]);
 
   return (
-    <div className={styles.exercisesContainer}>
-      {filteredExercises.length > 0 ? (
-        filteredExercises.map((exercise) => (
-          <div key={`exercises-${exercise.id}`} className={styles.exerciseCard}>
-            <h3 className={styles.exerciseName}>
-              {exercise.name.replace(/(?<=[a-zA-Z])-|-(?=[a-zA-Z])/g, ' ')}
-            </h3>
+    <div>
+      <div
+        key={`exercise-${randomExercise.id}`}
+        className={styles.exerciseCard}
+      >
+        <h3 className={styles.exerciseName}>
+          {randomExercise.name.replace(/(?<=[a-zA-Z])-|-(?=[a-zA-Z])/g, ' ')}
+        </h3>
+        {randomExercise.id !== 'default' && (
+          <div className={styles.animationContainer}>
             <DotLottieReact
-              src={`/animations/${exercise.category}/${exercise.name}.lottie`}
+              src={`/animations/${randomExercise.category}/${randomExercise.name}.lottie`}
               loop
               autoplay
               width="150px"
             />
+          </div>
+        )}
+        {randomExercise.id !== 'default' && (
+          <div>
             <ExerciseTimer />
           </div>
-        ))
-      ) : (
-        <p>Enjoy your break and don't forget to drink water!</p>
-      )}
+        )}
+      </div>
     </div>
   );
 }

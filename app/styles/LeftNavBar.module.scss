@@ -107,11 +107,11 @@
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.4);
-  z-index: 5; // Should be below the sidebar but above other content
+  z-index: 5; // Below the sidebar but above other content
 }
 
 // Responsive styling
-@media (max-width: 768px) {
+@media (max-width: 878px) {
   .navContainer {
     display: none; // Hide the left sidebar on small screens
   }
@@ -126,7 +126,7 @@
 }
 
 // Ensure left sidebar is visible on larger screens
-@media (min-width: 769px) {
+@media (min-width: 878px) {
   .navContainer {
     display: flex; // Ensure sidebar is displayed on larger screens
   }

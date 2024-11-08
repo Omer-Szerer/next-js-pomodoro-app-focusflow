@@ -1,29 +1,4 @@
-.buttonGroup {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 100px;
-  margin-bottom: 20px; // Add spacing between the button group and timer container
-}
-
-.switcherButton {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 10px 20px;
-  font-family: 'Nunito Sans', sans-serif;
-  font-size: 28px;
-}
-
-.active {
-  font-weight: 900;
-  color: #007bff;
-}
-
-.inactive {
-  font-weight: 900;
-}
-
+/* Timer Container */
 .timerContainer {
   display: flex;
   flex-direction: column;
@@ -32,35 +7,91 @@
   border-radius: 10px;
   padding: 40px;
   max-width: 500px;
-  height: 220px;
+  height: 200px;
   margin: 0 auto;
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.05);
   border: 1px solid rgba(0, 0, 0, 0.1);
-}
 
-.timerDisplay {
-  font-size: 100px;
-  margin-bottom: 20px;
-  font-weight: 600;
-}
+  .timerDisplay {
+    font-size: 100px;
+    font-weight: 600;
+  }
 
-.startPauseButton {
-  width: 260px;
-  background-color: #007bff;
-  color: white;
-  font-size: 24px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  text-transform: uppercase;
+  .startPauseButton {
+    width: 260px;
+    background-color: #007bff;
+    color: white;
+    font-size: 24px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background-color 0.3s;
 
-  &:hover {
-    background-color: #0056b3;
+    &:hover {
+      background-color: #0056b3;
+    }
   }
 }
 
+/* Button Group */
+.buttonGroup {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 75px;
+  margin-bottom: 20px;
+
+  .switcherButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px 20px;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 28px;
+  }
+
+  .active {
+    font-weight: 900;
+    color: #007bff;
+  }
+
+  .inactive {
+    font-weight: 900;
+  }
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #f0f0f0;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  width: clamp(300px, 80%, 600px);
+  z-index: 2;
+
+  .modalButtonGroup {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin: 10px 0;
+    margin-bottom: 30px;
+
+    button {
+      flex: 1 1 45%; // Two buttons per row
+      padding: 10px;
+      font-size: 16px;
+    }
+  }
+}
+
+/* Full Page Blur */
 .fullPageBlur {
   position: fixed;
   top: 0;
@@ -72,34 +103,7 @@
   backdrop-filter: blur(1px);
 }
 
-.modal {
-  position: fixed;
-  top: 45%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #f0f0f0;
-  padding: 20px;
-  border-radius: 12px;
-  text-align: center;
-  width: clamp(300px, 80%, 600px); /* Responsive width with clamp */
-  z-index: 2;
-}
-
-.modalButtonGroup {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-  margin: 10px 0;
-  margin-bottom: 30px;
-}
-
-.modalButtonGroup button {
-  flex: 1 1 45%; /* Two buttons per row */
-  padding: 10px;
-  font-size: 16px;
-}
-
+/* Normal Break Text */
 .normalBreakText {
   position: absolute;
   bottom: 10px;
@@ -120,19 +124,7 @@
   }
 }
 
-.overlay {
-  position: relative;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
+/* Button Container */
 .buttonContainer {
   display: flex;
   flex-wrap: wrap;
@@ -140,7 +132,7 @@
   justify-content: center;
 
   button {
-    flex: 1 1 45%; /* Make two buttons per row */
+    flex: 1 1 45%; // Two buttons per row
     padding: 10px;
     font-size: 16px;
     border: none;
@@ -156,14 +148,8 @@
   }
 }
 
-.remainingRoundsText {
-  font-size: 16px;
-  text-align: center;
-  margin-top: 20px;
-  margin-bottom: 0;
-  color: #333;
-}
-
+/* Text Styles */
+.remainingRoundsText,
 .motivationMessage {
   font-size: 16px;
   text-align: center;
@@ -172,16 +158,33 @@
   color: #333;
 }
 
-.exerciseCard {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: white;
-  border-radius: 10px;
-  padding: 20px;
-  width: 100%; // Makes it responsive
-  max-width: 300px; // Sets a max width for larger screens
-  height: auto; // Allows card to adjust height based on content
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(0, 0, 0, 0.1);
+/* Responsive Media Queries */
+@media (max-width: 767px) {
+  .timerContainer {
+    padding: 20px;
+    max-width: 90%;
+    height: auto;
+
+    .timerDisplay {
+      font-size: 60px;
+    }
+
+    .startPauseButton {
+      width: 200px;
+      font-size: 20px;
+    }
+  }
+
+  .buttonGroup {
+    margin-top: 60px;
+  }
+
+  .normalBreakText {
+    font-size: 12px;
+  }
+
+  .modalButtonGroup button {
+    flex: 1 1 48%;
+    font-size: 14px;
+  }
 }

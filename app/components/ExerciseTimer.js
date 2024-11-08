@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import styles from '../styles/ExerciseCard.module.scss';
+import styles from '../styles/SelectedExerciseCard.module.scss';
 
 export default function ExerciseTimer() {
   const [timeLeft, setTimeLeft] = useState(120);

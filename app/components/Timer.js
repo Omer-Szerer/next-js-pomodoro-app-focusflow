@@ -4,9 +4,13 @@ import React, { useCallback, useEffect, useState } from 'react';
 import styles from '../styles/Timer.module.scss';
 import SelectedExerciseCard from './SelectedExerciseCard';
 
-const FOCUS_TIME = 2;
-const SHORT_BREAK = 5;
-const LONG_BREAK = 2;
+const FOCUS_TIME = 60 * 25;
+const SHORT_BREAK = 60 * 5;
+const LONG_BREAK = 60 * 20;
+
+// const FOCUS_TIME = 2;
+// const SHORT_BREAK = 5;
+// const LONG_BREAK = 2;
 
 const PomodoroTimer = () => {
   const [timeLeft, setTimeLeft] = useState(FOCUS_TIME);
@@ -69,10 +73,10 @@ const PomodoroTimer = () => {
       timeLeft === SHORT_BREAK &&
       !isRunning
     ) {
-      setShowBreakPrompt(true); // Show break prompt when starting short break
-      setIsRunning(true); // Start the timer
+      setShowBreakPrompt(true); // Show break prompt
+      // Do NOT start the timer here; wait for user's choice
     } else {
-      setIsRunning(!isRunning); // Toggle the timer state (start/pause)
+      setIsRunning(!isRunning); // Toggle the timer state (start/pause) for other sessions
     }
   };
 
@@ -80,6 +84,7 @@ const PomodoroTimer = () => {
     console.log(`Chosen break type: ${choice}`);
     setBreakChoice(choice); // Set the selected break type
     setShowBreakPrompt(false); // Hide the modal
+    setIsRunning(true); // Start the timer after the user selects a choice
   };
 
   const formatTime = (time) => {

@@ -5,7 +5,8 @@ export const exercises = [
     id: 1,
     name: 'Cobra-Pose',
     visualization: 'public/animations/stretch/Cobra-Stretch.lottie',
-    description: 'dummy text',
+    description:
+      'Cobra pose increases spine mobility, strengthens spinal support muscles, and can help relieve back pain.',
     category: 'Stretch',
   },
   {
