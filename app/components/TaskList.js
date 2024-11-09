@@ -3,7 +3,7 @@ import {
   faAngleDown,
   faAngleUp,
   faPlus,
-  faTrash,
+  faTrashCan,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
@@ -298,7 +298,10 @@ const TaskList = () => {
                   className={styles.deleteButton}
                   onClick={() => deleteTask(task.id)}
                 >
-                  <FontAwesomeIcon icon={faTrash} className={styles.iconSize} />
+                  <FontAwesomeIcon
+                    icon={faTrashCan}
+                    className={styles.iconSize}
+                  />
                 </button>
               </div>
             </div>

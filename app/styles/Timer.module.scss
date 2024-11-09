@@ -19,7 +19,7 @@
 
   .startPauseButton {
     width: 260px;
-    background-color: hsl(205, 79%, 50%);
+    background-color: hsl(263, 90%, 51%);
     color: white;
     font-size: 24px;
     padding: 10px 20px;
@@ -30,7 +30,23 @@
     transition: background-color 0.3s;
 
     &:hover {
-      background-color: hsl(205, 79%, 40%);
+      background-color: hsl(263, 90%, 61%);
+      border-color: hsl(263, 90%, 61%);
+    }
+  }
+  /* Running state */
+  .running {
+    background-color: hsl(263, 90%, 51%);
+    border: 2px solid hsl(263, 90%, 51%);
+  }
+
+  /* Paused state */
+  .paused {
+    background-color: white;
+    border: 2px solid hsl(263, 90%, 51%);
+    color: hsl(263, 90%, 51%); /* Optional: Change text color for contrast */
+    &:hover {
+      color: white;
     }
   }
 }
@@ -54,7 +70,7 @@
 
   .active {
     font-weight: 900;
-    color: hsl(205, 79%, 50%);
+    color: hsl(263, 90%, 51%);
   }
 
   .inactive {

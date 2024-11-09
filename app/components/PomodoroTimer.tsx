@@ -131,7 +131,13 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = () => {
 
         <div className={styles.timerContainer}>
           <div className={styles.timerDisplay}>{formatTime(timeLeft)}</div>
-          <button className={styles.startPauseButton} onClick={startStopTimer}>
+          {/* <button className={styles.startPauseButton} onClick={startStopTimer}>
+            {isRunning ? 'Pause' : 'Start'}
+          </button> */}
+          <button
+            className={`${styles.startPauseButton} ${isRunning ? styles.paused : styles.running}`}
+            onClick={startStopTimer}
+          >
             {isRunning ? 'Pause' : 'Start'}
           </button>
 
