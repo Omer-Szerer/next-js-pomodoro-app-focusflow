@@ -5,6 +5,13 @@ body {
   margin-left: 250px;
   // Media Queries
   @media (max-width: 767px) {
-    margin-left: 0;
+    margin-left: 10px;
   }
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border: 1px solid hsl(205, 79%, 50%); /* Change border to a custom color */
 }

@@ -1,4 +1,11 @@
 'use client';
+import {
+  faAngleDown,
+  faAngleUp,
+  faPlus,
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import styles from '../styles/TaskList.module.scss';
 
@@ -68,7 +75,10 @@ const TaskList = () => {
   };
 
   const addSubtask = (taskId) => {
-    if (newSubtaskValues[taskId]?.trim() === '') return;
+    // Trim whitespace and check if the subtask is not empty
+    const subtaskValue = newSubtaskValues[taskId]?.trim();
+    if (!subtaskValue) return; // Exit if the subtask is empty or only contains whitespace
+
     setTasks((prevTasks) =>
       prevTasks.map((task) =>
         task.id === taskId
@@ -78,7 +88,7 @@ const TaskList = () => {
                 ...task.subtasks,
                 {
                   id: Date.now().toString(),
-                  name: newSubtaskValues[taskId],
+                  name: subtaskValue,
                   completed: false,
                 },
               ],
@@ -220,10 +230,15 @@ const TaskList = () => {
         <input
           className={styles.input}
           value={newTaskName}
-          onChange={(e) => setNewTaskName(e.target.value)}
-          placeholder="Add a new task"
+          onChange={(e) => {
+            if (e.target.value.length <= 40) {
+              setNewTaskName(e.target.value);
+            }
+          }}
+          placeholder="Add new task"
         />
-        <button className={styles.addButton} onClick={addTask}>
+
+        <button className={styles.addTaskButton} onClick={addTask}>
           Add Task
         </button>
       </div>
@@ -243,7 +258,7 @@ const TaskList = () => {
                   value={editedTaskName}
                   onChange={(e) => setEditedTaskName(e.target.value)}
                   onBlur={() => saveTask(task.id)}
-                  onKeyPress={(e) => {
+                  onKeyDown={(e) => {
                     if (e.key === 'Enter') saveTask(task.id);
                   }}
                   className={styles.editInput}
@@ -264,26 +279,26 @@ const TaskList = () => {
                   onClick={() => moveTask(task.id, 'up')}
                   disabled={tasks.indexOf(task) === 0}
                 >
-                  ↑
+                  <FontAwesomeIcon icon={faAngleUp} />
                 </button>
                 <button
                   className={styles.moveButton}
                   onClick={() => moveTask(task.id, 'down')}
                   disabled={tasks.indexOf(task) === tasks.length - 1}
                 >
-                  ↓
+                  <FontAwesomeIcon icon={faAngleDown} />
                 </button>
                 <button
                   className={styles.addSubtaskButton}
                   onClick={() => toggleSubtaskInputVisibility(task.id)}
                 >
-                  +
+                  <FontAwesomeIcon icon={faPlus} className={styles.iconSize} />
                 </button>
                 <button
                   className={styles.deleteButton}
                   onClick={() => deleteTask(task.id)}
                 >
-                  x
+                  <FontAwesomeIcon icon={faTrash} className={styles.iconSize} />
                 </button>
               </div>
             </div>
@@ -291,17 +306,20 @@ const TaskList = () => {
             {showSubtaskInput[task.id] && (
               <div className={styles.subtaskContainer}>
                 <input
+                  placeholder="Add a new subtask"
                   className={styles.subtaskInput}
                   value={newSubtaskValues[task.id] || ''}
-                  onChange={(e) =>
-                    handleSubtaskInputChange(task.id, e.target.value)
-                  }
+                  onChange={(e) => {
+                    if (e.target.value.length <= 40) {
+                      handleSubtaskInputChange(task.id, e.target.value);
+                    }
+                  }}
                 />
                 <button
-                  className={styles.addSubtaskButton}
+                  className={styles.addSubtaskInputButton}
                   onClick={() => addSubtask(task.id)}
                 >
-                  Add
+                  Add Subtask
                 </button>
               </div>
             )}
@@ -351,20 +369,20 @@ const TaskList = () => {
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                       <button
                         onClick={() => moveSubtask(task.id, subtask.id, 'up')}
-                        className={styles.moveButton}
+                        className={styles.subtaskMoveButton}
                         disabled={task.subtasks.indexOf(subtask) === 0}
                       >
-                        ↑
+                        <FontAwesomeIcon icon={faAngleUp} />
                       </button>
                       <button
                         onClick={() => moveSubtask(task.id, subtask.id, 'down')}
-                        className={styles.moveButton}
+                        className={styles.subtaskMoveButton}
                         disabled={
                           task.subtasks.indexOf(subtask) ===
                           task.subtasks.length - 1
                         }
                       >
-                        ↓
+                        <FontAwesomeIcon icon={faAngleDown} />
                       </button>
                     </div>
                   </div>

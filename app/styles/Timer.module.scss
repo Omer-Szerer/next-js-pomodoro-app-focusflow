@@ -19,7 +19,7 @@
 
   .startPauseButton {
     width: 260px;
-    background-color: #007bff;
+    background-color: hsl(205, 79%, 50%);
     color: white;
     font-size: 24px;
     padding: 10px 20px;
@@ -30,7 +30,7 @@
     transition: background-color 0.3s;
 
     &:hover {
-      background-color: #0056b3;
+      background-color: hsl(205, 79%, 40%);
     }
   }
 }
@@ -54,7 +54,7 @@
 
   .active {
     font-weight: 900;
-    color: #007bff;
+    color: hsl(205, 79%, 50%);
   }
 
   .inactive {
@@ -65,7 +65,7 @@
 /* Modal */
 .modal {
   position: fixed;
-  top: 45%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background: #f0f0f0;
