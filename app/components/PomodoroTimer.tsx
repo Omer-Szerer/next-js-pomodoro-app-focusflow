@@ -1,6 +1,5 @@
 'use client';
 import React, { useCallback, useEffect, useState } from 'react';
-// import { getExercises } from '../database/fakeDB.js';
 import styles from '../styles/Timer.module.scss';
 import SelectedExerciseCard from './SelectedExerciseCard';
 
@@ -12,31 +11,37 @@ const LONG_BREAK = 60 * 20;
 // const SHORT_BREAK = 5;
 // const LONG_BREAK = 2;
 
-const PomodoroTimer = () => {
-  const [timeLeft, setTimeLeft] = useState(FOCUS_TIME);
-  const [isRunning, setIsRunning] = useState(false);
-  const [sessionType, setSessionType] = useState('Focus');
-  const [sessionCount, setSessionCount] = useState(0);
-  const [showBreakPrompt, setShowBreakPrompt] = useState(false);
-  const [breakChoice, setBreakChoice] = useState('');
+type SessionType = 'Focus' | 'Short Break' | 'Long Break';
 
-  const switchToSession = (session) => {
+interface PomodoroTimerProps extends Record<string, never> {}
+
+const PomodoroTimer: React.FC<PomodoroTimerProps> = () => {
+  const [timeLeft, setTimeLeft] = useState<number>(FOCUS_TIME);
+  const [isRunning, setIsRunning] = useState<boolean>(false);
+  const [sessionType, setSessionType] = useState<SessionType>('Focus');
+  const [sessionCount, setSessionCount] = useState<number>(0);
+  const [showBreakPrompt, setShowBreakPrompt] = useState<boolean>(false);
+  const [breakChoice, setBreakChoice] = useState<string>('');
+
+  const switchToSession = (session: 'Focus' | 'Short Break' | 'Long Break') => {
     setIsRunning(false);
     setBreakChoice(''); // Clear the old exercise when switching sessions
+
     if (session === 'Focus') {
       setSessionType('Focus');
       setTimeLeft(FOCUS_TIME);
     } else if (session === 'Short Break') {
       setSessionType('Short Break');
       setTimeLeft(SHORT_BREAK);
-    } else if (session === 'Long Break') {
+    } else {
+      // Default to 'Long Break' if neither 'Focus' nor 'Short Break'
       setSessionType('Long Break');
       setTimeLeft(LONG_BREAK);
     }
   };
 
   const handleSessionSwitch = useCallback(() => {
-    setBreakChoice(''); // Clear the old exercise when switching sessions
+    setBreakChoice('');
     if (sessionType === 'Focus') {
       setSessionCount((prevCount) => prevCount + 1);
       if (sessionCount === 3) {
@@ -55,7 +60,7 @@ const PomodoroTimer = () => {
   }, [sessionType, sessionCount]);
 
   useEffect(() => {
-    let timer;
+    let timer: ReturnType<typeof setInterval>;
     if (isRunning && timeLeft > 0) {
       timer = setInterval(() => {
         setTimeLeft((prevTime) => prevTime - 1);
@@ -73,21 +78,20 @@ const PomodoroTimer = () => {
       timeLeft === SHORT_BREAK &&
       !isRunning
     ) {
-      setShowBreakPrompt(true); // Show break prompt
-      // Do NOT start the timer here; wait for user's choice
+      setShowBreakPrompt(true);
     } else {
-      setIsRunning(!isRunning); // Toggle the timer state (start/pause) for other sessions
+      setIsRunning(!isRunning);
     }
   };
 
-  const handleBreakChoice = (choice) => {
+  const handleBreakChoice = (choice: string) => {
     console.log(`Chosen break type: ${choice}`);
-    setBreakChoice(choice); // Set the selected break type
-    setShowBreakPrompt(false); // Hide the modal
-    setIsRunning(true); // Start the timer after the user selects a choice
+    setBreakChoice(choice);
+    setShowBreakPrompt(false);
+    setIsRunning(true);
   };
 
-  const formatTime = (time) => {
+  const formatTime = (time: number) => {
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
     return `${minutes.toString().padStart(2, '0')}:${seconds
@@ -171,7 +175,6 @@ const PomodoroTimer = () => {
           </button>
         </div>
       )}
-      {/* Render the ExerciseCard component with the breakChoice */}
       {breakChoice && <SelectedExerciseCard breakType={breakChoice} />}
     </>
   );

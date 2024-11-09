@@ -13,7 +13,8 @@ export const exercises = [
     id: 2,
     name: 'Jumping-Jacks',
     visualization: 'public/animations/physical/Jumping-Jacks.lottie',
-    description: 'dummy text',
+    description:
+      'Jumping jacks improve aerobic capacity, decrease resting heart rate and blood pressure, decrease risk of cardiovascular disease, and improve metabolism.',
     category: 'Physical',
   },
   {
@@ -21,42 +22,48 @@ export const exercises = [
     name: '4-7-8-Breathing-Exercise',
     visualization:
       'public/animations/breathing/4-7-8-Breathing-Exercise.lottie',
-    description: 'dummy text',
+    description:
+      'The 4-7-8 breathing technique helps to decrease anxiety, sleep better, manage food cravings and control emotional responses like anger.',
     category: 'Breathing',
   },
   {
     id: 4,
     name: 'Downward-Dog-Stretch',
     visualization: 'public/animations/stretch/Downward-Dog-Stretch.lottie',
-    description: 'dummy text',
+    description:
+      'The Downward dog stretch helps strengthen the upper body, opens up the backs of the legs, elongates the spine, improve circulation, relieves tension and stress.',
     category: 'Stretch',
   },
   {
     id: 5,
     name: 'Bicycle-Crunches',
     visualization: 'public/animations/physical/Bicycle-Crunches.lottie',
-    description: 'dummy text',
+    description:
+      'Bicycle crunches improve stability, flexibility and coordination along with toning and strengthening your midsection.',
     category: 'Physical',
   },
   {
     id: 6,
     name: 'Standing-Side-Bends',
     visualization: 'public/animations/stretch/Standing-Side-Bends.lottie',
-    description: 'dummy text',
+    description:
+      'Side bends bring balance to your entire body. They lengthen the abdominal muscles, hips, and thigh muscles, while improving flexibility in the spine. ',
     category: 'Stretch',
   },
   {
     id: 7,
     name: 'Push-Ups',
     visualization: 'public/animations/physical/Push-Ups.lottie',
-    description: 'dummy text',
+    description:
+      'Push-ups offer many health benefits like building upper body strength, improving balance and posture, and protecting shoulders and lower back from injuries.',
     category: 'Physical',
   },
   {
     id: 8,
     name: 'Box-Breathing',
     visualization: 'public/animations/breathing/Box-Breathing.lottie',
-    description: 'dummy text',
+    description:
+      'Box breathing is a deep breathing technique that can help slow down your breathing, calming the nervous system, and decreasing stress in your body.',
     category: 'Breathing',
   },
   {

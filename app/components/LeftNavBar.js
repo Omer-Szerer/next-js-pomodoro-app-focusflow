@@ -1,10 +1,12 @@
 'use client';
+import { faGear, faSpa, faStopwatch } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import styles from '../styles/LeftNavBar.module.scss';
 
 export default function LeftNavBar() {
-  const [isOpen, setIsOpen] = useState(false); // State for right sidebar visibility
+  const [isOpen, setIsOpen] = useState(false);
 
   const toggleSidebar = () => {
     setIsOpen((prev) => !prev);
@@ -24,15 +26,23 @@ export default function LeftNavBar() {
       {/* Left Sidebar Navigation (Always visible on large screens) */}
       <nav className={styles.navContainer}>
         <Link href="/" className={styles.navLinkTimer}>
-          Timer
+          <FontAwesomeIcon icon={faStopwatch} className={styles.iconSize} />
+          <span>Timer</span>
         </Link>
         <Link href="/exercises" className={styles.navLink}>
-          Exercises
+          <FontAwesomeIcon icon={faSpa} className={styles.iconSize} />
+          <span>Exercises</span>
         </Link>
         <Link href="/settings" className={styles.navLink}>
-          Settings
+          <FontAwesomeIcon icon={faGear} className={styles.iconSize} />
+          <span>Settings</span>
         </Link>
-        <div className={styles.navModeSwitcher}>Light mode</div>
+
+        {/* LIGHT/DARK MODE SWITCHER TBD */}
+        {/* <div className={styles.navModeSwitcher}>
+          <FontAwesomeIcon icon={faSun} className={styles.iconSize} />
+          <span>Light mode</span>
+        </div> */}
       </nav>
 
       {/* Right Sidebar Navigation for small screens */}
@@ -47,23 +57,31 @@ export default function LeftNavBar() {
           ✖
         </button>
         <Link href="/" className={styles.navLink} onClick={toggleSidebar}>
-          Timer
+          <FontAwesomeIcon icon={faStopwatch} className={styles.iconSize} />
+          <span className={styles.navText}>Timer</span>
         </Link>
         <Link
           href="/exercises"
           className={styles.navLink}
           onClick={toggleSidebar}
         >
-          Exercises
+          <FontAwesomeIcon icon={faSpa} className={styles.iconSize} />
+          <span className={styles.navText}>Exercises</span>
         </Link>
         <Link
           href="/settings"
           className={styles.navLink}
           onClick={toggleSidebar}
         >
-          Settings
+          <FontAwesomeIcon icon={faGear} className={styles.iconSize} />
+          <span className={styles.navText}>Settings</span>
         </Link>
-        <div className={styles.navModeSwitcher}>Light mode</div>
+
+        {/* LIGHT/DARK MODE SWITCHER TBD */}
+        {/* <div className={styles.navModeSwitcher}>
+          <FontAwesomeIcon icon={faSun} className={styles.iconSize} />
+          <span className={styles.navText}>Light mode</span>
+        </div> */}
       </nav>
 
       {/* Overlay for mobile view when sidebar is open */}

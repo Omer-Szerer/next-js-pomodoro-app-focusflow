@@ -1,7 +1,7 @@
 import React from 'react';
-import Tasks from './components/TaskList';
 // import TaskListDnD from './components/TaskListDnD';
-import PomodoroTimer from './components/Timer';
+import PomodoroTimer from './components/PomodoroTimer';
+import Tasks from './components/TaskList';
 
 // import AnimationTest from './components/AnimationTest';
 // import PomoTimer from './components/PomoTimer';
