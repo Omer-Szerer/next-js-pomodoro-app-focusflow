@@ -60,8 +60,8 @@
 
   .infoIcon {
     font-size: 14px;
-    color: hsl(263, 90%, 61%);
-    background-color: #e0f7ff;
+    color: hsl(205, 79%, 50%);
+    background-color: hsl(205, 79%, 90%);
     border-radius: 50%;
     width: 20px;
     height: 20px;
@@ -73,7 +73,7 @@
     transition: background-color 0.3s ease;
 
     &:hover {
-      background-color: hsl(263, 90%, 61%);
+      background-color: hsl(205, 79%, 50%);
       color: white;
     }
   }
@@ -163,13 +163,13 @@
     appearance: none;
     width: 20px;
     height: 20px;
-    border: 2px solid hsl(263, 90%, 61%);
+    border: 2px solid hsl(205, 79%, 50%);
     border-radius: 4px;
     transition: background-color 0.3s ease;
 
     &:checked {
-      background-color: hsl(263, 90%, 61%);
-      border-color: hsl(263, 90%, 61%);
+      background-color: hsl(205, 79%, 50%);
+      border-color: hsl(205, 79%, 50%);
     }
 
     // Media Queries

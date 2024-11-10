@@ -16,39 +16,6 @@
     font-size: 100px;
     font-weight: 600;
   }
-
-  .startPauseButton {
-    width: 260px;
-    background-color: hsl(263, 90%, 51%);
-    color: white;
-    font-size: 24px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-transform: uppercase;
-    transition: background-color 0.3s;
-
-    &:hover {
-      background-color: hsl(263, 90%, 61%);
-      border-color: hsl(263, 90%, 61%);
-    }
-  }
-  /* Running state */
-  .running {
-    background-color: hsl(263, 90%, 51%);
-    border: 2px solid hsl(263, 90%, 51%);
-  }
-
-  /* Paused state */
-  .paused {
-    background-color: white;
-    border: 2px solid hsl(263, 90%, 51%);
-    color: hsl(263, 90%, 51%); /* Optional: Change text color for contrast */
-    &:hover {
-      color: white;
-    }
-  }
 }
 
 /* Button Group */
@@ -81,8 +48,10 @@
 /* Modal */
 .modal {
   position: fixed;
-  top: 50%;
-  left: 50%;
+  top: 35%;
+  left: calc(
+    50% + 75px
+  ); // Center the modal with respect to the remaining space
   transform: translate(-50%, -50%);
   background: #f0f0f0;
   padding: 20px;

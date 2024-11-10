@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import styles from '../styles/SelectedExerciseCard.module.scss';
+import StartPauseButton from './StartPauseButton';
 
 export default function ExerciseTimer() {
   const [timeLeft, setTimeLeft] = useState(120);
@@ -34,9 +34,11 @@ export default function ExerciseTimer() {
   return (
     <div style={{ textAlign: 'center', marginTop: '20px' }}>
       <h1>{formatTime(timeLeft)}</h1>
-      <button className={styles.startPauseButton} onClick={toggleTimer}>
-        {isActive ? 'Pause' : 'Start'}
-      </button>
+      <StartPauseButton
+        isRunning={isActive}
+        onClick={toggleTimer}
+        size="small"
+      />
     </div>
   );
 }

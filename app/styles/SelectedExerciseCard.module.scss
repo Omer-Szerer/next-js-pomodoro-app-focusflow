@@ -1,3 +1,17 @@
+/* Container Styles */
+.exercisesContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+  margin-top: 20px;
+  @media (min-width: 768px) {
+    gap: 30px;
+  }
+}
+
 .exerciseCard {
   display: flex;
   flex-direction: column;
@@ -12,58 +26,169 @@
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.05);
   border: 1px solid rgba(0, 0, 0, 0.1);
   text-align: center;
+}
 
-  .exerciseName {
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 0;
-    margin-top: 0;
-  }
+/* Name Container */
+.nameContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+}
 
-  .animationContainer {
-    display: flex;
-    justify-content: center;
-    width: 300px;
-    margin-bottom: 0;
-  }
+.exerciseName {
+  margin: 0;
+}
 
-  .startPauseButton {
-    width: 80px;
-    background-color: #007bff;
-    color: white;
+/* Info Icon */
+.infoIconWrapper {
+  position: relative;
+  display: inline-block;
+
+  .infoIcon {
     font-size: 14px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
+    color: hsl(205, 79%, 50%);
+    background-color: hsl(205, 79%, 90%);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
-    text-transform: uppercase;
-    transition: background-color 0.3s;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
 
     &:hover {
-      background-color: #0056b3;
+      background-color: hsl(205, 79%, 50%);
+      color: white;
     }
   }
 }
 
-/* Responsive adjustments */
-@media (max-width: 767px) {
-  .exerciseCard {
-    padding: 20px;
-    max-width: 90%;
-    height: auto;
+/* Description Tooltip */
+.description {
+  position: absolute;
+  top: 130%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  background-color: #333;
+  color: #fff;
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 14px;
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
+  z-index: 1;
 
-    .exerciseName {
-      font-size: 1rem;
+  // Arrow below the tooltip
+  &:after {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent transparent #333 transparent;
+  }
+}
+
+// Show description on hover
+.infoIconWrapper:hover .description {
+  opacity: 1;
+  visibility: visible;
+}
+
+.visualizationContainer {
+  display: flex;
+  padding: 10px;
+}
+
+/* Filter Container */
+.filterContainer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 100px;
+  padding: 10px;
+
+  // Media Queries
+  @media (max-width: 767px) {
+    flex-direction: column; /* Stack checkboxes on small screens */
+    align-items: start;
+    justify-self: center;
+    gap: 10px;
+  }
+
+  @media (min-width: 768px) {
+    flex-direction: row; /* Horizontal layout on larger screens */
+  }
+}
+
+/* Checkbox Label */
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  color: #333;
+
+  // Media Queries
+  @media (max-width: 767px) {
+    font-size: 14px; /* Smaller font for smaller screens */
+  }
+
+  input[type='checkbox'] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid hsl(205, 79%, 50%);
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+
+    &:checked {
+      background-color: hsl(205, 79%, 50%);
+      border-color: hsl(205, 79%, 50%);
     }
 
-    .animationContainer {
-      width: 170px;
-    }
-
-    .startPauseButton {
-      width: 80px;
-      font-size: 14px;
+    // Media Queries
+    @media (max-width: 767px) {
+      width: 18px;
+      height: 18px; /* Adjust size on smaller screens */
     }
   }
+}
+
+.startPauseButton {
+  width: 80px;
+  background-color: hsl(263, 90%, 51%);
+  color: white;
+  font-size: 14px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: hsl(263, 90%, 61%);
+    border-color: hsl(263, 90%, 61%);
+  }
+}
+
+.animationContainer {
+  display: flex;
+  justify-content: center;
+  width: 250px;
 }

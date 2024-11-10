@@ -1,4 +1,5 @@
 // WITHOUT REACT-PLAYER KEEP THIS VERSION JUST IN CASE!!
+
 // 'use client';
 // import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 // import React from 'react';

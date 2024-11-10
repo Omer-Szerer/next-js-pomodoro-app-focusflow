@@ -2,6 +2,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import styles from '../styles/Timer.module.scss';
 import SelectedExerciseCard from './SelectedExerciseCard';
+import StartPauseButton from './StartPauseButton';
 
 const FOCUS_TIME = 60 * 25;
 const SHORT_BREAK = 60 * 5;
@@ -131,15 +132,7 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = () => {
 
         <div className={styles.timerContainer}>
           <div className={styles.timerDisplay}>{formatTime(timeLeft)}</div>
-          {/* <button className={styles.startPauseButton} onClick={startStopTimer}>
-            {isRunning ? 'Pause' : 'Start'}
-          </button> */}
-          <button
-            className={`${styles.startPauseButton} ${isRunning ? styles.paused : styles.running}`}
-            onClick={startStopTimer}
-          >
-            {isRunning ? 'Pause' : 'Start'}
-          </button>
+          <StartPauseButton isRunning={isRunning} onClick={startStopTimer} />
 
           {sessionType === 'Focus' && sessionCount === 3 ? (
             <p className={styles.motivationMessage}>

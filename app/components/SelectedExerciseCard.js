@@ -9,6 +9,7 @@ export default function ExerciseCard({ breakType }) {
     id: 'default',
     name: "Enjoy your break, and don't forget to drink water!",
     category: 'General',
+    description: '', // Default description
   });
 
   useEffect(() => {
@@ -25,6 +26,7 @@ export default function ExerciseCard({ breakType }) {
         id: 'default',
         name: "Enjoy your break, and don't forget to drink water!",
         category: 'General',
+        description: '',
       });
     }
   }, [breakType]);
@@ -35,9 +37,17 @@ export default function ExerciseCard({ breakType }) {
         key={`exercise-${randomExercise.id}`}
         className={styles.exerciseCard}
       >
-        <h3 className={styles.exerciseName}>
-          {randomExercise.name.replace(/(?<=[a-zA-Z])-|-(?=[a-zA-Z])/g, ' ')}
-        </h3>
+        <div className={styles.nameContainer}>
+          <span className={styles.infoIconWrapper}>
+            <span className={styles.infoIcon}>i</span>
+            <span className={styles.description}>
+              {randomExercise.description || 'No description available'}
+            </span>
+          </span>
+          <h3 className={styles.exerciseName}>
+            {randomExercise.name.replace(/(?<=[a-zA-Z])-|-(?=[a-zA-Z])/g, ' ')}
+          </h3>
+        </div>
         {randomExercise.id !== 'default' && (
           <div className={styles.animationContainer}>
             <DotLottieReact

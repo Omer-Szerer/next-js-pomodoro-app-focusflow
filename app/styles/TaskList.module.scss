@@ -30,7 +30,7 @@
 .addTaskButton {
   padding: 8px 12px;
   cursor: pointer;
-  background-color: hsl(263, 90%, 51%);
+  background-color: hsl(205, 79%, 50%);
 
   color: white;
   border: none;
@@ -39,7 +39,7 @@
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: hsl(263, 90%, 61%);
+    background-color: hsl(205, 79%, 60%);
   }
 }
 
@@ -77,7 +77,7 @@
   padding-left: 5px;
 
   &:hover {
-    border: 1px solid hsl(263, 90%, 51%);
+    border: 1px solid hsl(205, 79%, 50%);
   }
 }
 
@@ -90,7 +90,7 @@
   transition: border-color 0.3s ease;
 
   &:focus {
-    border-color: hsl(263, 90%, 51%);
+    border-color: hsl(205, 79%, 50%);
     outline: none;
   }
 }
@@ -130,7 +130,7 @@
   padding-left: 5px;
 
   &:hover {
-    border: 1px solid hsl(263, 90%, 51%);
+    border: 1px solid hsl(205, 79%, 50%);
   }
 
   &.completed {
@@ -181,19 +181,19 @@
   background: none;
   border: none;
   border-radius: 2px;
-  color: hsl(263, 90%, 51%);
+  color: hsl(205, 79%, 50%);
   transition: color 0.3s;
   transition: background-color 0.3s;
 
   &:hover {
-    color: hsl(263, 90%, 61%);
+    color: hsl(205, 79%, 60%);
   }
 }
 
 .addSubtaskInputButton {
   padding: 8px 12px;
   cursor: pointer;
-  background-color: hsl(263, 90%, 51%);
+  background-color: hsl(205, 79%, 50%);
   color: white;
   border: none;
   border-radius: 4px;
@@ -201,7 +201,7 @@
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: hsl(263, 90%, 61%);
+    background-color: hsl(205, 79%, 60%);
   }
 }
 
@@ -213,7 +213,7 @@
   background-color: white;
 
   &:active {
-    color: hsl(263, 90%, 51%);
+    color: hsl(205, 79%, 50%);
   }
 }
 

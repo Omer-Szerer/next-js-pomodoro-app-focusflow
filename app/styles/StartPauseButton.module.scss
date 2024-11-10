@@ -1,0 +1,54 @@
+/* Default button style */
+.startPauseButton,
+.smallButton {
+  background-color: hsl(263, 90%, 51%);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background-color 0.3s;
+}
+
+/* Default size */
+.startPauseButton {
+  width: 260px;
+  font-size: 24px;
+  padding: 10px 20px;
+}
+
+/* Small size */
+.smallButton {
+  width: 120px;
+  font-size: 14px;
+  padding: 10px 20px;
+}
+
+/* Running state */
+.startPauseButton.running,
+.smallButton.running {
+  background-color: hsl(263, 90%, 51%);
+  border: 2px solid hsl(263, 90%, 51%);
+  /* Hover effect for both buttons */
+  &:hover {
+    background-color: hsl(263, 90%, 61%);
+    border-color: hsl(263, 90%, 61%);
+    color: white;
+  }
+}
+
+/* Paused state */
+.paused {
+  background-color: white;
+  border: 2px solid hsl(263, 90%, 51%);
+  color: hsl(263, 90%, 51%);
+  &:hover {
+    background-color: hsl(263, 90%, 51%);
+    border-color: hsl(263, 90%, 51%);
+    color: white;
+  }
+}
+
+.running {
+  background-color: white;
+}
