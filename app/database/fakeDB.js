@@ -74,10 +74,10 @@ export const exercises = [
   },
   {
     id: 8,
-    name: 'Box-Breathing',
-    visualization: 'public/animations/breathing/Box-Breathing.lottie',
+    name: '5-5-5-5 Box-Breathing',
+    visualization: 'public/animations/breathing/5-5-5-5 Box-Breathing.lottie',
     description:
-      'Box breathing is a deep breathing technique that can help slow down your breathing, calming the nervous system, and decreasing stress in your body.',
+      'Box breathing is a breathing technique that can relieve stress and reset the mind and body after a stressful situation. The technique works by slowing down the breath and distracting the mind by drawing the focus to a 5-5-5-5 pattern of inhale, hold, exhale, hold.',
     category: 'Breathing',
   },
   {
@@ -250,11 +250,19 @@ export const exercises = [
   },
   {
     id: 30,
-    name: 'Tiger-Bend-Push-Ups ',
-    visualization: 'public/animations/physical/Tiger-Bend-Push-Ups .lottie',
+    name: 'Tiger-Bend-Push-Ups',
+    visualization: 'public/animations/physical/Tiger-Bend-Push-Ups.lottie',
     description:
       'Tiger bend push ups help you work on your triceps, deltoids and trapezius. There seem to be different versions of this kind of push ups.',
     category: 'Physical',
+  },
+  {
+    id: 31,
+    name: '4-4-4-4 Box-Breathing',
+    visualization: 'public/animations/physical/4-4-4-4 Box-Breathing.lottie',
+    description:
+      'Box breathing is a breathing technique that can relieve stress and reset the mind and body after a stressful situation. The technique works by slowing down the breath and distracting the mind by drawing the focus to a 4-4-4-4 pattern of inhale, hold, exhale, hold.',
+    category: 'Breathing',
   },
 ];
 
