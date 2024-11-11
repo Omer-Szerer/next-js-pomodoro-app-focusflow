@@ -1,15 +1,17 @@
 'use client';
 import React, { useEffect, useState } from 'react';
+import styles from '../styles/ExerciseTimer.module.scss';
 import StartPauseButton from './StartPauseButton';
 
 export default function ExerciseTimer() {
-  const [timeLeft, setTimeLeft] = useState(120);
-  const [isActive, setIsActive] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(120); // 2 minutes default
+  const [isActive, setIsActive] = useState(false); // initially paused
 
   // Format time in MM:SS format
   const formatTime = (time) => {
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
+    // Display two digits
     return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   };
 
@@ -32,7 +34,7 @@ export default function ExerciseTimer() {
   }, [isActive, timeLeft]);
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '20px' }}>
+    <div className={styles.container}>
       <h1>{formatTime(timeLeft)}</h1>
       <StartPauseButton
         isRunning={isActive}

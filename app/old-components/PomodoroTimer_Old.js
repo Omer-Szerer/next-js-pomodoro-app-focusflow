@@ -11,7 +11,7 @@ const LONG_BREAK = 60 * 20;
 // const SHORT_BREAK = 5;
 // const LONG_BREAK = 2;
 
-const TimerOld = () => {
+const PomodoroTimerOld = () => {
   const [timeLeft, setTimeLeft] = useState(FOCUS_TIME);
   const [isRunning, setIsRunning] = useState(false);
   const [sessionType, setSessionType] = useState('Focus');
@@ -176,4 +176,4 @@ const TimerOld = () => {
   );
 };
 
-export default TimerOld;
+export default PomodoroTimerOld;
