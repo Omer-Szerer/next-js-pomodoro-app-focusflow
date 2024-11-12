@@ -1,6 +1,6 @@
 import React from 'react';
-import AllExerciseCards from '../components/AllExerciseCards';
+import ExerciseList from '../components/ExerciseList';
 
 export default function ExercisesPage() {
-  return <AllExerciseCards />;
+  return <ExerciseList />;
 }

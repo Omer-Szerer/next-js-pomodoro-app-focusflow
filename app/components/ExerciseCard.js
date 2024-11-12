@@ -2,36 +2,31 @@
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import React, { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player/youtube';
-import { exercises } from '../database/fakeDB';
 import styles from '../styles/AllExerciseCards.module.scss';
 
-export default function ExerciseCard() {
-  const [isClient, setIsClient] = useState(false); // Ensures the component only renders its dynamic content on the client side (in response to SSR hydration issues).
-  const [selectedCategories, setSelectedCategories] = useState(['All']); // Keeps track of the selected categories, All categories by default
+export default function ExerciseCard({ exercises }) {
+  console.log('Exercises in ExerciseCard:', exercises); // Inspect data here
+
+  const [isClient, setIsClient] = useState(false);
+  const [selectedCategories, setSelectedCategories] = useState(['All']);
 
   useEffect(() => {
-    // Runs once when the component mounts and sets isClient to true to avoid rendering client-specific content (like animations or videos)
-    // during server-side rendering (SSR), that can lead to hydration issues.
     setIsClient(true);
   }, []);
 
   const handleCategoryChange = (category) => {
-    // Handle changes in the filter categories
     setSelectedCategories((prevCategories) => {
       if (category === 'All') return ['All'];
 
-      // Toggle category selection
       const updatedCategories = prevCategories.includes(category)
         ? prevCategories.filter((cat) => cat !== category)
         : [...prevCategories.filter((cat) => cat !== 'All'), category];
 
-      // If no categories are selected, default to all categories
       return updatedCategories.length === 0 ? ['All'] : updatedCategories;
     });
   };
 
   const filteredExercises = exercises.filter(
-    // Filter the exercises array based on the selected categories
     (exercise) =>
       selectedCategories.includes('All') ||
       selectedCategories.includes(exercise.category),
@@ -44,7 +39,7 @@ export default function ExerciseCard() {
         {['All', 'Stretch', 'Physical', 'Breathing', 'Meditation'].map(
           (category) => (
             <label
-              key={`category-${category.id}`}
+              key={`category-${category}`}
               className={styles.checkboxLabel}
             >
               <input
