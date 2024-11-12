@@ -82,3 +82,54 @@ export default function ExerciseCard({ breakType }) {
     </div>
   );
 }
+
+// 'use client';
+// import { DotLottieReact } from '@lottiefiles/dotlottie-react';
+// import React, { useEffect, useState } from 'react';
+// import styles from '../styles/SelectedExerciseCard.module.scss';
+// import ExerciseTimer from './ExerciseTimer';
+
+// export default function SelectedExerciseCard({ exercises, breakType }) {
+//   const [randomExercise, setRandomExercise] = useState({
+//     id: 'default',
+//     name: "Enjoy your break, and don't forget to drink water!",
+//     category: 'General',
+//     description: '',
+//   });
+
+//   useEffect(() => {
+//     const filteredExercises = breakType
+//       ? exercises.filter((exercise) => exercise.category === breakType)
+//       : exercises;
+
+//     if (filteredExercises.length > 0) {
+//       const selectedExercise =
+//         filteredExercises[Math.floor(Math.random() * filteredExercises.length)];
+//       setRandomExercise(selectedExercise);
+//     }
+//   }, [exercises, breakType]);
+
+//   return (
+//     <div className={styles.exerciseCard}>
+//       <div className={styles.nameContainer}>
+//         <h3 className={styles.exerciseName}>
+//           {randomExercise.name.replace(/(?<=[a-zA-Z])-|-(?=[a-zA-Z])/g, ' ')}
+//         </h3>
+//         <span className={styles.description}>{randomExercise.description}</span>
+//       </div>
+
+//       {randomExercise.id !== 'default' && (
+//         <div className={styles.animationContainer}>
+//           <DotLottieReact
+//             src={`/animations/${randomExercise.category}/${randomExercise.name}.lottie`}
+//             loop
+//             autoplay
+//             width="150px"
+//           />
+//         </div>
+//       )}
+
+//       {randomExercise.id !== 'default' && <ExerciseTimer />}
+//     </div>
+//   );
+// }

@@ -5,8 +5,6 @@ import ReactPlayer from 'react-player/youtube';
 import styles from '../styles/AllExerciseCards.module.scss';
 
 export default function ExerciseCard({ exercises }) {
-  console.log('Exercises in ExerciseCard:', exercises); // Inspect data here
-
   const [isClient, setIsClient] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState(['All']);
 

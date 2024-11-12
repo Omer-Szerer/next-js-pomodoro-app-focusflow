@@ -1,12 +1,13 @@
 import React from 'react';
-import PomodoroTimer from './components/PomodoroTimer';
 import Tasks from './components/TaskList';
+// import PomodoroTimer from './components/PomodoroTimer';
+import PomoTimer from './components/Timers';
 
 export default function Home() {
   return (
     <main>
-      <PomodoroTimer />
-
+      {/* <PomodoroTimer /> */}
+      <PomoTimer />
       <Tasks />
     </main>
   );

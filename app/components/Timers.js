@@ -12,19 +12,15 @@ const LONG_BREAK = 60 * 20;
 // const SHORT_BREAK = 5;
 // const LONG_BREAK = 2;
 
-type SessionType = 'Focus' | 'Short Break' | 'Long Break';
+const PomoTimer = () => {
+  const [timeLeft, setTimeLeft] = useState(FOCUS_TIME);
+  const [isRunning, setIsRunning] = useState(false);
+  const [sessionType, setSessionType] = useState('Focus');
+  const [sessionCount, setSessionCount] = useState(0);
+  const [showBreakPrompt, setShowBreakPrompt] = useState(false);
+  const [breakChoice, setBreakChoice] = useState('');
 
-interface PomodoroTimerProps extends Record<string, never> {}
-
-const PomodoroTimer: React.FC<PomodoroTimerProps> = () => {
-  const [timeLeft, setTimeLeft] = useState<number>(FOCUS_TIME);
-  const [isRunning, setIsRunning] = useState<boolean>(false);
-  const [sessionType, setSessionType] = useState<SessionType>('Focus');
-  const [sessionCount, setSessionCount] = useState<number>(0);
-  const [showBreakPrompt, setShowBreakPrompt] = useState<boolean>(false);
-  const [breakChoice, setBreakChoice] = useState<string>('');
-
-  const switchToSession = (session: 'Focus' | 'Short Break' | 'Long Break') => {
+  const switchToSession = (session) => {
     setIsRunning(false);
     setBreakChoice(''); // Clear the old exercise when switching sessions
 
@@ -61,7 +57,7 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = () => {
   }, [sessionType, sessionCount]);
 
   useEffect(() => {
-    let timer: ReturnType<typeof setInterval>;
+    let timer;
     if (isRunning && timeLeft > 0) {
       timer = setInterval(() => {
         setTimeLeft((prevTime) => prevTime - 1);
@@ -85,14 +81,14 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = () => {
     }
   };
 
-  const handleBreakChoice = (choice: string) => {
+  const handleBreakChoice = (choice) => {
     console.log(`Chosen break type: ${choice}`);
     setBreakChoice(choice);
     setShowBreakPrompt(false);
     setIsRunning(true);
   };
 
-  const formatTime = (time: number) => {
+  const formatTime = (time) => {
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
     return `${minutes.toString().padStart(2, '0')}:${seconds
@@ -179,4 +175,4 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = () => {
   );
 };
 
-export default PomodoroTimer;
+export default PomoTimer;
