@@ -8,10 +8,6 @@ const FOCUS_TIME = 60 * 25;
 const SHORT_BREAK = 60 * 5;
 const LONG_BREAK = 60 * 20;
 
-// const FOCUS_TIME = 2;
-// const SHORT_BREAK = 5;
-// const LONG_BREAK = 2;
-
 const Timers = () => {
   const [timeLeft, setTimeLeft] = useState(FOCUS_TIME);
   const [isRunning, setIsRunning] = useState(false);
