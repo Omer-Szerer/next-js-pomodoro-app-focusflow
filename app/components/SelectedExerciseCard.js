@@ -1,3 +1,5 @@
+// ---V1--- //
+// 'use client';
 // import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 // import React, { useEffect, useState } from 'react';
 // import { exercises } from '../database/fakeDB';
@@ -83,13 +85,30 @@
 //   );
 // }
 
-// SelectedExerciseCard.js
+// ---V2--- //
+'use client';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import ReactPlayer from 'react-player/youtube';
 import styles from '../styles/SelectedExerciseCard.module.scss';
 import ExerciseTimer from './ExerciseTimer';
 
 export default function SelectedExerciseCard({ exercise }) {
+  const [isClient, setIsClient] = useState(false);
+
+  // Set the component to render only on the client side
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  // Check if the visualization is a YouTube link
+  const isYouTube =
+    exercise.visualization && exercise.visualization.includes('youtube.com');
+
+  if (!isClient) {
+    return null; // Prevent rendering client-only content during SSR
+  }
+
   return (
     <div>
       <div key={`exercise-${exercise.id}`} className={styles.exerciseCard}>
@@ -106,12 +125,22 @@ export default function SelectedExerciseCard({ exercise }) {
         </div>
         {exercise.id !== 'default' && (
           <div className={styles.animationContainer}>
-            <DotLottieReact
-              src={`/animations/${exercise.category}/${exercise.name}.lottie`}
-              loop
-              autoplay
-              width="150px"
-            />
+            {/* Conditional Rendering: YouTube or Lottie */}
+            {isYouTube ? (
+              <ReactPlayer
+                url={exercise.visualization}
+                width="100%"
+                height="100%"
+                controls={true}
+              />
+            ) : (
+              <DotLottieReact
+                src={`/animations/${exercise.category}/${exercise.name}.lottie`}
+                loop
+                autoplay
+                width="150px"
+              />
+            )}
           </div>
         )}
         {exercise.id !== 'default' && <ExerciseTimer />}

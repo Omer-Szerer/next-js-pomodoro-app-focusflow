@@ -1,4 +1,4 @@
-// (Server Component)
+'use server';
 import { getExercisesInsecure } from '../database/exercises';
 import ExerciseCard from './ExerciseCard';
 

@@ -1,8 +1,8 @@
+// ---V1--- //
 // 'use client';
 // import React, { useCallback, useEffect, useState } from 'react';
 // import styles from '../styles/Timer.module.scss';
-// // import SelectedExerciseCard from './SelectedExerciseCard';
-// import SelectedExerciseContainer from './SelectedExerciseContainer';
+// import SelectedExerciseCard from './SelectedExerciseCard';
 // import StartPauseButton from './StartPauseButton';
 
 // const FOCUS_TIME = 60 * 25;
@@ -167,20 +167,20 @@
 //           </button>
 //         </div>
 //       )}
-//       {breakChoice && <SelectedExerciseContainer breakType={breakChoice} />}
 
-//       {/* {breakChoice && <SelectedExerciseCard breakType={breakChoice} />} */}
+//       {breakChoice && <SelectedExerciseCard breakType={breakChoice} />}
 //     </>
 //   );
 // };
 
 // export default Timers;
 
+// ---V2--- //
 'use client';
 import { useCallback, useEffect, useState } from 'react';
 import styles from '../styles/Timer.module.scss';
-import SelectedExerciseContainer from './SelectedExerciseContainer';
-import StartPauseButton from './StartPauseButton'; // Import the StartPauseButton component
+// import SelectedExerciseContainer from './SelectedExerciseContainer';
+import StartPauseButton from './StartPauseButton';
 
 const FOCUS_TIME = 60 * 25;
 const SHORT_BREAK = 60 * 5;
@@ -339,7 +339,15 @@ export default function Timers() {
         </div>
       )}
 
-      {breakChoice && <SelectedExerciseContainer breakType={breakChoice} />}
+      {/* {breakChoice && <SelectedExerciseContainer breakType={breakChoice} />} */}
+      {breakChoice && (
+        <>
+          {console.log(
+            'Rendering SelectedExerciseContainer with breakType:',
+            breakChoice,
+          )}
+        </>
+      )}
     </>
   );
 }
