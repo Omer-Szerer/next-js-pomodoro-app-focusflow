@@ -1,13 +1,13 @@
 import React from 'react';
-import SelectedExerciseContainer from './components/SelectedExerciseContainer';
 import Tasks from './components/TaskList';
 import Timers from './components/Timers';
+import { getExercisesInsecure } from './database/exercises';
 
-export default function HomePage() {
+export default async function HomePage() {
+  const exercises = await getExercisesInsecure();
   return (
     <main>
-      <Timers />
-      <SelectedExerciseContainer />
+      <Timers exercises={exercises} />
       <Tasks />
     </main>
   );

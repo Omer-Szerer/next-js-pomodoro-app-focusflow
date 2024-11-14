@@ -80,7 +80,6 @@ const PomodoroTimerOld = () => {
   };
 
   const handleBreakChoice = (choice) => {
-    console.log(`Chosen break type: ${choice}`);
     setBreakChoice(choice); // Set the selected break type
     setShowBreakPrompt(false); // Hide the modal
     setIsRunning(true); // Start the timer after the user selects a choice

@@ -1,30 +1,32 @@
-// ---V1 (V2)--- //
-'use server';
-import { getExercisesInsecure } from '../database/exercises';
+import { useEffect, useState } from 'react';
 import SelectedExerciseCard from './SelectedExerciseCard';
 
-// import Timers from './Timers';
+export default function SelectedExerciseContainer({ exercises, breakType }) {
+  const [selectedExercise, setSelectedExercise] = useState(null);
 
-export default async function SelectedExerciseContainer({ breakType }) {
-  // Fetch all exercises from the database
-  const exercises = await getExercisesInsecure();
+  useEffect(() => {
+    // Ensure exercises is an array
+    const filteredExercises = Array.isArray(exercises)
+      ? breakType
+        ? exercises.filter((exercise) => exercise.category === breakType)
+        : exercises // If no breakType is provided, use all exercises
+      : [];
 
-  // Filter exercises based on the breakType, and select a random exercise from the filtered list
-  const filteredExercises = breakType
-    ? exercises.filter((exercise) => exercise.category === breakType)
-    : exercises; // If no breakType is provided, use all exercises
+    // Choose a random exercise when the breakType changes or when exercises are provided
+    if (filteredExercises.length > 0) {
+      const randomExercise =
+        filteredExercises[Math.floor(Math.random() * filteredExercises.length)];
+      setSelectedExercise(randomExercise);
+    } else {
+      // Fallback to default message if no exercises match
+      setSelectedExercise({
+        id: 'default',
+        name: "Enjoy your break, and don't forget to drink water!",
+        category: 'General',
+        description: '',
+      });
+    }
+  }, [breakType, exercises]); // Re-run when breakType or exercises change
 
-  // Choose a random exercise from the filtered exercises or set a default message if none are available
-  const selectedExercise =
-    filteredExercises.length > 0
-      ? filteredExercises[Math.floor(Math.random() * filteredExercises.length)]
-      : {
-          id: 'default',
-          name: "Enjoy your break, and don't forget to drink water!",
-          category: 'General',
-          description: '',
-        };
-
-  // Render the selected exercise in the SelectedExerciseCard component
   return <SelectedExerciseCard exercise={selectedExercise} />;
 }
