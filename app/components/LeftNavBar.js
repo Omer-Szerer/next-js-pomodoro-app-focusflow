@@ -29,11 +29,11 @@ export default function LeftNavBar() {
           <FontAwesomeIcon icon={faStopwatch} className={styles.iconSize} />
           <span>Timer</span>
         </Link>
-        <Link href="/02exercises" className={styles.navLink}>
+        <Link href="/exercises" className={styles.navLink}>
           <FontAwesomeIcon icon={faSpa} className={styles.iconSize} />
           <span>Exercises</span>
         </Link>
-        <Link href="/03settings" className={styles.navLink}>
+        <Link href="/settings" className={styles.navLink}>
           <FontAwesomeIcon icon={faGear} className={styles.iconSize} />
           <span>Settings</span>
         </Link>

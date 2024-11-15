@@ -1,4 +1,6 @@
+import Link from 'next/link';
 import React from 'react';
+import LogoutButton from '../(auth)/logout/LogoutButton';
 import styles from '../styles/TopBar.module.scss';
 
 export default function TopTab() {
@@ -7,7 +9,10 @@ export default function TopTab() {
       <div href="/" className={styles.logo}>
         FocusFlow
       </div>
-      <button className={styles.profileButton}>Sign in</button>
+      {/* <button className={styles.profileButton}>Sign in</button> */}
+      <Link href="/register">Register</Link>
+      <Link href="/login">Login</Link>
+      <LogoutButton />
     </nav>
   );
 }
