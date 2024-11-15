@@ -11,6 +11,7 @@ type Props = { returnTo?: string | string[] };
 
 export default function LoginForm(props: Props) {
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<{ message: string }[]>([]);
 
@@ -23,6 +24,7 @@ export default function LoginForm(props: Props) {
       method: 'POST',
       body: JSON.stringify({
         username,
+        email,
         password,
       }),
     });
@@ -57,6 +59,14 @@ export default function LoginForm(props: Props) {
           <input
             value={username}
             onChange={(event) => setUsername(event.currentTarget.value)}
+          />
+        </label>
+
+        <label>
+          Email
+          <input
+            value={email}
+            onChange={(event) => setEmail(event.currentTarget.value)}
           />
         </label>
 

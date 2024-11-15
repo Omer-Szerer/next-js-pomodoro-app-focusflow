@@ -4,13 +4,13 @@ import styles from '../styles/Timer.module.scss';
 import SelectedExerciseContainer from './SelectedExerciseContainer';
 import StartPauseButton from './StartPauseButton';
 
-const FOCUS_TIME = 2;
-const SHORT_BREAK = 5;
-const LONG_BREAK = 2;
+// const FOCUS_TIME = 2;
+// const SHORT_BREAK = 5;
+// const LONG_BREAK = 2;
 
-// const FOCUS_TIME = 60 * 25;
-// const SHORT_BREAK = 60 * 5;
-// const LONG_BREAK = 60 * 20;
+const FOCUS_TIME = 60 * 25;
+const SHORT_BREAK = 60 * 5;
+const LONG_BREAK = 60 * 20;
 
 export default function Timers({ exercises }) {
   const [timeLeft, setTimeLeft] = useState(FOCUS_TIME);
