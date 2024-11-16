@@ -1,49 +1,9 @@
-.topBar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 20;
-  background-color: #f8f9fa;
-  padding: 10px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid #ddd;
-  height: 35px;
-}
-
-.logo {
-  text-decoration: none;
-  // font-family: 'Nunito Sans', sans-serif;
-  // font-weight: 900;
-  font-family: 'Gugi', sans-serif;
-  font-weight: 900;
-  margin-left: 20px;
-}
-
-.profileButton {
-  border: 1px solid rgba(0, 0, 0, 0.416);
-  padding: 5px 15px;
-  border-radius: 4px;
-  text-decoration: none;
-  color: #333;
-  font-weight: 500;
-  font-size: 14px;
-  transition: color 0.3s;
-  text-transform: uppercase;
-  margin-right: 40px;
-  &:hover {
-    color: #007bff;
-    border: 1px solid #007bff;
-  }
-}
-
 /* Small screen adjustments */
 @media (max-width: 878px) {
   .topBar {
     z-index: 1;
     justify-content: center;
+    justify-content: space-between;
     padding: 10px;
     background-color: transparent;
     border-bottom: none;
@@ -64,4 +24,169 @@
     text-align: center;
     margin-left: 0;
   }
+}
+
+/* Full-page overlay when modal is active */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: white; /* Whiteout effect */
+  opacity: 1; /* Solid white background */
+  z-index: 999; /* Below the modal but above everything else */
+}
+
+.topBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 20;
+  background-color: #f8f9fa;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #ddd;
+  height: 35px;
+}
+
+.logo {
+  text-decoration: none;
+  font-family: 'Gugi', sans-serif;
+  font-weight: 900;
+  margin-left: 20px;
+}
+
+.profileButton {
+  border: 1px solid rgba(0, 0, 0, 0.416);
+  padding: 5px 15px;
+  border-radius: 4px;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  font-size: 14px;
+  transition: color 0.3s;
+  text-transform: uppercase;
+  margin-right: 40px;
+  background: white;
+  cursor: pointer;
+
+  &:hover {
+    color: #007bff;
+    border: 1px solid #007bff;
+  }
+}
+
+.profileMenu {
+  position: relative;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
+
+.dropdownItem {
+  padding: 10px 20px;
+  text-align: left;
+  border: none;
+  background: none;
+  cursor: pointer;
+  width: 100%;
+  text-transform: uppercase;
+
+  &:hover {
+    background-color: #f0f0f0;
+  }
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  width: 90%;
+  max-width: 400px;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  color: hsl(343, 85%, 44%);
+  font-size: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  transition: color 0.2s;
+
+  &:hover {
+    color: hsl(343, 85%, 34%);
+  }
+}
+
+.switchButton {
+  background: none;
+  border: none;
+  color: #0070f3;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.switchButton:hover {
+  color: #005bb5;
+}
+
+.modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Add spacing between each input */
+}
+
+.modal label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.modal input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 100%; /* Full width of the modal */
+  box-sizing: border-box; /* Ensures padding doesn't overflow */
+}
+
+.modal .switchButton {
+  color: hsl(205, 79%, 50%);
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.modal p {
+  text-align: center; /* Center-align the text */
+  font-size: 14px; /* Optional: adjust text size */
+}
+
+.modal h2 {
+  text-align: center; /* Center-align the heading text */
+  font-size: 34px; /* Optional: Adjust the font size */
 }

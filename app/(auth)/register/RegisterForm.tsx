@@ -7,7 +7,10 @@ import ErrorMessage from '../../ErrorMessage';
 import styles from '../../styles/RegisterForm.module.scss';
 import type { RegisterResponseBody } from '../api/register/route';
 
-type Props = { returnTo?: string | string[] };
+type Props = {
+  returnTo?: string | string[];
+  closeModal: () => void; // Add this prop to close the modal
+};
 
 export default function RegisterForm(props: Props) {
   const [username, setUsername] = useState('');
@@ -36,17 +39,9 @@ export default function RegisterForm(props: Props) {
       return;
     }
 
-    // router.push(`/profile/${data.user.username}`);
-
-    // This is not a secure returnTo
-    // if (props.returnTo) {
-    //   console.log('Checks Return to: ', props.returnTo);
-    //   router.push(props.returnTo || `/profile/${data.user.username}`);
-    // }
-
-    router.push(
-      getSafeReturnToPath(props.returnTo) || `/profile/${data.user.username}`,
-    );
+    // After successful registration, close the modal and redirect
+    props.closeModal(); // Close the modal
+    router.push(getSafeReturnToPath(props.returnTo) || '/');
 
     router.refresh();
   }
@@ -79,7 +74,7 @@ export default function RegisterForm(props: Props) {
           />
         </label>
 
-        <button>Register</button>
+        <button className={styles.submitButton}>Register</button>
 
         {errors.map((error) => (
           <div className="error" key={`error-${error.message}`}>
@@ -90,5 +85,3 @@ export default function RegisterForm(props: Props) {
     </div>
   );
 }
-
-// TestUser01

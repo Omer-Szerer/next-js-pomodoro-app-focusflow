@@ -7,9 +7,12 @@ import ErrorMessage from '../../ErrorMessage';
 import styles from '../../styles/RegisterForm.module.scss';
 import type { LoginResponseBody } from '../api/login/route';
 
-type Props = { returnTo?: string | string[] };
+type Props = {
+  returnTo?: string | string[];
+  closeModal?: () => void; // Make this prop optional
+};
 
-export default function LoginForm(props: Props) {
+export default function LoginForm({ returnTo, closeModal = () => {} }: Props) {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -36,17 +39,9 @@ export default function LoginForm(props: Props) {
       return;
     }
 
-    // router.push(`/profile/${data.user.username}`);
-
-    // This is not a secure returnTo
-    // if (props.returnTo) {
-    //   console.log('Checks Return to: ', props.returnTo);
-    //   router.push(props.returnTo || `/profile/${data.user.username}`);
-    // }
-
-    router.push(
-      getSafeReturnToPath(props.returnTo) || `/profile/${data.user.username}`,
-    );
+    // After successful login, close the modal and redirect
+    closeModal(); // Use the optional closeModal
+    router.push(getSafeReturnToPath(returnTo) || '/');
 
     router.refresh();
   }
@@ -79,7 +74,7 @@ export default function LoginForm(props: Props) {
           />
         </label>
 
-        <button>login</button>
+        <button className={styles.submitButton}>login</button>
 
         {errors.map((error) => (
           <div className="error" key={`error-${error.message}`}>

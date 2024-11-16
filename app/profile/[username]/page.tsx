@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { getUser } from '../../database/users';
+import styles from '../../styles/ProfilePage.module.scss';
 
 export default async function UserProfilePage() {
   // const { username } = await props.params;
@@ -23,8 +24,8 @@ export default async function UserProfilePage() {
   }
 
   return (
-    <div>
-      <h2>{user.username}'s Profile</h2>
+    <div className={styles.mainContainer}>
+      <h2 className={styles.userName}>{user.username}'s Profile</h2>
     </div>
   );
 }

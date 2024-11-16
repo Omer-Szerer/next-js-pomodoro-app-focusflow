@@ -4,3 +4,21 @@
   align-items: center;
   height: 50vh;
 }
+
+.submitButton {
+  width: 100%; /* Optional: Make the button full-width */
+  padding: 10px;
+  background-color: hsl(205, 79%, 50%); /* Blue background */
+  color: white;
+  border: none;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-top: 10px;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: hsl(205, 79%, 40%); /* Darker blue on hover */
+  }
+}
