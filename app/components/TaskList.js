@@ -9,6 +9,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import styles from '../styles/TaskList.module.scss';
 
+// import DownArrowIcon from './DownArrowIcon';
+
 const TaskList = () => {
   const [tasks, setTasks] = useState([]);
   const [newTaskName, setNewTaskName] = useState('');
@@ -286,6 +288,7 @@ const TaskList = () => {
                   onClick={() => moveTask(task.id, 'down')}
                   disabled={tasks.indexOf(task) === tasks.length - 1}
                 >
+                  {/* <DownArrowIcon /> */}
                   <FontAwesomeIcon icon={faAngleDown} />
                 </button>
                 <button

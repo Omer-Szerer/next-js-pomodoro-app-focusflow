@@ -1,9 +1,10 @@
 'use client';
-import { faGear, faSpa, faStopwatch } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import styles from '../styles/LeftNavBar.module.scss';
+import ExercisesIcon from './ExercisesIcon';
+import SettingsIcon from './SettingsIcon';
+import TimerIcon from './TimerIcon';
 
 export default function LeftNavBar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,15 +27,17 @@ export default function LeftNavBar() {
       {/* Left Sidebar Navigation (Always visible on large screens) */}
       <nav className={styles.navContainer}>
         <Link href="/" className={styles.navLinkTimer}>
-          <FontAwesomeIcon icon={faStopwatch} className={styles.iconSize} />
+          <TimerIcon />
+
           <span>Timer</span>
         </Link>
         <Link href="/exercises" className={styles.navLink}>
-          <FontAwesomeIcon icon={faSpa} className={styles.iconSize} />
+          <ExercisesIcon />
+
           <span>Exercises</span>
         </Link>
         <Link href="/settings" className={styles.navLink}>
-          <FontAwesomeIcon icon={faGear} className={styles.iconSize} />
+          <SettingsIcon />
           <span>Settings</span>
         </Link>
 
@@ -57,7 +60,7 @@ export default function LeftNavBar() {
           ✖
         </button>
         <Link href="/" className={styles.navLink} onClick={toggleSidebar}>
-          <FontAwesomeIcon icon={faStopwatch} className={styles.iconSize} />
+          <TimerIcon />
           <span className={styles.navText}>Timer</span>
         </Link>
         <Link
@@ -65,7 +68,7 @@ export default function LeftNavBar() {
           className={styles.navLink}
           onClick={toggleSidebar}
         >
-          <FontAwesomeIcon icon={faSpa} className={styles.iconSize} />
+          <ExercisesIcon />
           <span className={styles.navText}>Exercises</span>
         </Link>
         <Link
@@ -73,7 +76,7 @@ export default function LeftNavBar() {
           className={styles.navLink}
           onClick={toggleSidebar}
         >
-          <FontAwesomeIcon icon={faGear} className={styles.iconSize} />
+          <SettingsIcon />
           <span className={styles.navText}>Settings</span>
         </Link>
 
