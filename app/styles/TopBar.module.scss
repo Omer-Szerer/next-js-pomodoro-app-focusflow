@@ -26,18 +26,6 @@
   }
 }
 
-/* Full-page overlay when modal is active */
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: white; /* Whiteout effect */
-  opacity: 1; /* Solid white background */
-  z-index: 999; /* Below the modal but above everything else */
-}
-
 .topBar {
   position: fixed;
   top: 0;
@@ -189,4 +177,14 @@
 .modal h2 {
   text-align: center; /* Center-align the heading text */
   font-size: 34px; /* Optional: Adjust the font size */
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 1); /* Semi-transparent white */
+  z-index: 999; /* Below the modal but above everything else */
 }
