@@ -150,7 +150,7 @@ export default function Timers({ exercises }) {
           ) : sessionType === 'Focus' ? (
             <p className={styles.remainingRoundsText}>
               {remainingRounds} {remainingRounds === 1 ? 'round' : 'rounds'}{' '}
-              left for the big break
+              left for the long break
             </p>
           ) : null}
         </div>

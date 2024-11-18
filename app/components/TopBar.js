@@ -106,12 +106,13 @@
 
 'use client';
 
-import { useRouter } from 'next/navigation';
-import React, { useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
 import LoginForm from '../(auth)/login/LoginForm';
 import LogoutButton from '../(auth)/logout/LogoutButton';
 import RegisterForm from '../(auth)/register/RegisterForm';
 import styles from '../styles/TopBar.module.scss';
+import ProfileIcon from './ProfileIcon';
 
 export default function TopBar({ sessionToken, username }) {
   const [showModal, setShowModal] = useState(false);
@@ -119,16 +120,27 @@ export default function TopBar({ sessionToken, username }) {
   const [showDropdown, setShowDropdown] = useState(false);
 
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  // Detect `modal=login` in query params
+  useEffect(() => {
+    if (searchParams.get('modal') === 'login') {
+      setShowModal(true);
+      setIsRegister(true);
+    }
+  }, [searchParams]);
 
   // Open the modal when "Sign In" button is clicked
   const handleSignInClick = () => {
     setShowModal(true);
+    router.replace('?modal=login'); // Update URL without refreshing
   };
 
   // Close the modal and reset the form state
   const closeModal = () => {
     setShowModal(false);
     setIsRegister(true);
+    router.replace('/'); // Remove query param
   };
 
   // Toggle the profile dropdown menu
@@ -149,6 +161,7 @@ export default function TopBar({ sessionToken, username }) {
       {sessionToken ? (
         <div className={styles.profileMenu}>
           <button className={styles.profileButton} onClick={toggleDropdown}>
+            <ProfileIcon />
             Profile
           </button>
           {showDropdown && (
@@ -157,7 +170,7 @@ export default function TopBar({ sessionToken, username }) {
                 className={styles.dropdownItem}
                 onClick={handleProfileClick}
               >
-                Profile Page
+                My Profile
               </button>
               <LogoutButton className={styles.dropdownItem} />
             </div>

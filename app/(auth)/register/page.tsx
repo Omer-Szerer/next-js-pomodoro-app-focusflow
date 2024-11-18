@@ -32,7 +32,12 @@ export default async function RegisterPage(props: Props) {
 
   return (
     <div>
-      <RegisterForm returnTo={returnTo} />
+      <RegisterForm
+        returnTo={returnTo}
+        closeModal={function (): void {
+          throw new Error('Function not implemented.');
+        }}
+      />
     </div>
   );
 }

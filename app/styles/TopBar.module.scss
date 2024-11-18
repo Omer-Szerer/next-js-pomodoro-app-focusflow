@@ -48,23 +48,49 @@
   margin-left: 20px;
 }
 
+// .profileButton {
+//   border: 1px solid hsl(263, 90%, 51%);
+//   padding: 5px 15px;
+//   border-radius: 4px;
+//   text-decoration: none;
+//   color: hsl(263, 90%, 51%);
+//   font-weight: 500;
+//   font-size: 14px;
+//   transition: background-color 0.3s;
+//   text-transform: uppercase;
+//   margin-right: 40px;
+//   background: white;
+//   cursor: pointer;
+
+//   &:hover {
+//     color: white;
+//     border: 1px solid hsl(263, 90%, 51%);
+//     background-color: hsl(263, 90%, 51%);
+//   }
+// }
+
 .profileButton {
-  border: 1px solid rgba(0, 0, 0, 0.416);
+  display: flex; /* Enables flexbox */
+  align-items: center; /* Vertically centers content */
+  justify-content: center; /* Horizontally centers content */
+  gap: 8px; /* Adds space between the icon and text */
+  border: 1px solid hsl(263, 90%, 51%);
   padding: 5px 15px;
   border-radius: 4px;
   text-decoration: none;
-  color: #333;
+  color: hsl(263, 90%, 51%);
   font-weight: 500;
   font-size: 14px;
-  transition: color 0.3s;
-  text-transform: uppercase;
+  transition: background-color 0.3s;
+  // text-transform: uppercase;
   margin-right: 40px;
   background: white;
   cursor: pointer;
 
   &:hover {
-    color: #007bff;
-    border: 1px solid #007bff;
+    color: white;
+    border: 1px solid hsl(263, 90%, 51%);
+    background-color: hsl(263, 90%, 51%);
   }
 }
 
@@ -75,7 +101,7 @@
 .dropdownMenu {
   position: absolute;
   top: 100%;
-  right: 0;
+  right: 40px;
   background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -90,7 +116,7 @@
   background: none;
   cursor: pointer;
   width: 100%;
-  text-transform: uppercase;
+  // text-transform: uppercase;
 
   &:hover {
     background-color: #f0f0f0;
