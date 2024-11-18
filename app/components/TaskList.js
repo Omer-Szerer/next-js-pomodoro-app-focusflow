@@ -9,8 +9,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import styles from '../styles/TaskList.module.scss';
 
-// import DownArrowIcon from './DownArrowIcon';
-
 const TaskList = () => {
   const [tasks, setTasks] = useState([]);
   const [newTaskName, setNewTaskName] = useState('');
@@ -24,19 +22,53 @@ const TaskList = () => {
   const [editedSubtaskName, setEditedSubtaskName] = useState({});
   const [showSubtaskInput, setShowSubtaskInput] = useState({});
 
-  const addTask = () => {
+  // ---ADD TASKS TO DB--- //
+  const addTask = async () => {
     if (newTaskName.trim() === '') return;
-    setTasks((prevTasks) => [
-      ...prevTasks,
-      {
-        id: Date.now().toString(),
-        name: newTaskName,
-        completed: false,
-        subtasks: [],
-      },
-    ]);
-    setNewTaskName('');
+
+    try {
+      const response = await fetch('/api/tasks', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ text_content: newTaskName }), // Match the backend schema
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to create task');
+      }
+
+      const data = await response.json();
+      setTasks((prevTasks) => [
+        ...prevTasks,
+        {
+          id: Date.now().toString(),
+          name: data.task.textContent,
+          completed: false,
+          subtasks: [],
+        },
+      ]);
+      setNewTaskName('');
+    } catch (error) {
+      console.error(error.message);
+    }
   };
+
+  // ---ADD TASKS (NOT DB)--- //
+  // const addTask = () => {
+  //   if (newTaskName.trim() === '') return;
+  //   setTasks((prevTasks) => [
+  //     ...prevTasks,
+  //     {
+  //       id: Date.now().toString(),
+  //       name: newTaskName,
+  //       completed: false,
+  //       subtasks: [],
+  //     },
+  //   ]);
+  //   setNewTaskName('');
+  // };
 
   const deleteTask = (taskId) => {
     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
@@ -355,7 +387,7 @@ const TaskList = () => {
                           }))
                         }
                         onBlur={() => saveSubtask(task.id, subtask.id)}
-                        onKeyPress={(e) => {
+                        onKeyDown={(e) => {
                           if (e.key === 'Enter') {
                             saveSubtask(task.id, subtask.id);
                           }
