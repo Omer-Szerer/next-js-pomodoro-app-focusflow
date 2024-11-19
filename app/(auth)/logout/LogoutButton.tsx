@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-hot-toast';
 import { logout } from './actions';
 
 type LogoutButtonProps = {
@@ -16,6 +17,9 @@ export default function LogoutButton({ className }: LogoutButtonProps) {
         className={className}
         formAction={async () => {
           await logout();
+          toast.success('Goodbye!', {
+            icon: '👋🏼',
+          });
           router.refresh();
         }}
       >

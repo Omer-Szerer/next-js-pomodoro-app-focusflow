@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { getSafeReturnToPath } from '../../../util/validation';
 import ErrorMessage from '../../ErrorMessage';
 import styles from '../../styles/RegisterForm.module.scss';
@@ -38,6 +39,7 @@ export default function RegisterForm(props: Props) {
       setErrors(data.errors);
       return;
     }
+    toast.success(`Welcome to FocusFlow, ${username}!`);
 
     // After successful registration, close the modal and redirect
     props.closeModal(); // Close the modal

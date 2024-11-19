@@ -7,11 +7,14 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { useSession } from '../contexts/SessionContext';
 import styles from '../styles/TaskList.module.scss';
 
 const TaskList = ({ tasks: initialTasks }) => {
   // Use initialTasks from props to initialize state
   const [tasks, setTasks] = useState(initialTasks || []);
+  const sessionToken = useSession();
   const [newTaskName, setNewTaskName] = useState('');
   const [newSubtaskValues, setNewSubtaskValues] = useState({});
   const [editingTaskId, setEditingTaskId] = useState(null);
@@ -30,7 +33,15 @@ const TaskList = ({ tasks: initialTasks }) => {
 
   // ---ADD TASKS TO DB--- //
   const addTask = async () => {
-    if (newTaskName.trim() === '') return;
+    if (!sessionToken) {
+      toast.error('Please sign in to add tasks');
+      return;
+    }
+
+    if (newTaskName.trim() === '') {
+      toast.error('Task name cannot be empty');
+      return;
+    }
 
     try {
       const response = await fetch('/api/tasks', {
