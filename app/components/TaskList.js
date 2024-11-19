@@ -6,11 +6,12 @@ import {
   faTrashCan,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '../styles/TaskList.module.scss';
 
-const TaskList = () => {
-  const [tasks, setTasks] = useState([]);
+const TaskList = ({ tasks: initialTasks }) => {
+  // Use initialTasks from props to initialize state
+  const [tasks, setTasks] = useState(initialTasks || []);
   const [newTaskName, setNewTaskName] = useState('');
   const [newSubtaskValues, setNewSubtaskValues] = useState({});
   const [editingTaskId, setEditingTaskId] = useState(null);
@@ -22,6 +23,11 @@ const TaskList = () => {
   const [editedSubtaskName, setEditedSubtaskName] = useState({});
   const [showSubtaskInput, setShowSubtaskInput] = useState({});
 
+  // useEffect hook to log or confirm initialTasks on mount
+  useEffect(() => {
+    console.log('Initial tasks:', initialTasks);
+  }, [initialTasks]);
+
   // ---ADD TASKS TO DB--- //
   const addTask = async () => {
     if (newTaskName.trim() === '') return;
@@ -32,7 +38,7 @@ const TaskList = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ text_content: newTaskName }), // Match the backend schema
+        body: JSON.stringify({ text_content: newTaskName }),
       });
 
       if (!response.ok) {
@@ -43,8 +49,8 @@ const TaskList = () => {
       setTasks((prevTasks) => [
         ...prevTasks,
         {
-          id: Date.now().toString(),
-          name: data.task.textContent,
+          id: data.task.id, // Use the ID from the server response
+          textContent: data.task.textContent,
           completed: false,
           subtasks: [],
         },
@@ -55,24 +61,27 @@ const TaskList = () => {
     }
   };
 
-  // ---ADD TASKS (NOT DB)--- //
-  // const addTask = () => {
-  //   if (newTaskName.trim() === '') return;
-  //   setTasks((prevTasks) => [
-  //     ...prevTasks,
-  //     {
-  //       id: Date.now().toString(),
-  //       name: newTaskName,
-  //       completed: false,
-  //       subtasks: [],
-  //     },
-  //   ]);
-  //   setNewTaskName('');
-  // };
+  const deleteTask = async (taskId) => {
+    console.log('Deleting task with ID:', taskId); // Log task ID to ensure it's correct
+    try {
+      const response = await fetch(`/api/tasks`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ taskId }), // Sending taskId in the body
+      });
 
-  const deleteTask = (taskId) => {
-    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
-    setShowSubtaskInput((prev) => ({ ...prev, [taskId]: false }));
+      if (!response.ok) {
+        throw new Error('Failed to delete task from the database');
+      }
+
+      // If the request succeeds, remove the task from the UI
+      setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+      setShowSubtaskInput((prev) => ({ ...prev, [taskId]: false }));
+    } catch (error) {
+      console.error('Error deleting task:', error.message);
+    }
   };
 
   const toggleTaskCompletion = (taskId) => {
@@ -85,7 +94,7 @@ const TaskList = () => {
 
   const startEditing = (task) => {
     setEditingTaskId(task.id);
-    setEditedTaskName(task.name);
+    setEditedTaskName(task.textContent);
   };
 
   const saveTask = (taskId) => {
@@ -162,7 +171,10 @@ const TaskList = () => {
 
   const startEditingSubtask = (taskId, subtask) => {
     setEditingSubtaskId({ taskId, subtaskId: subtask.id });
-    setEditedSubtaskName((prev) => ({ ...prev, [subtask.id]: subtask.name }));
+    setEditedSubtaskName((prev) => ({
+      ...prev,
+      [subtask.id]: subtask.textContent,
+    }));
   };
 
   const saveSubtask = (taskId, subtaskId) => {
@@ -271,7 +283,6 @@ const TaskList = () => {
           }}
           placeholder="Add new task"
         />
-
         <button className={styles.addTaskButton} onClick={addTask}>
           Add Task
         </button>
@@ -281,6 +292,7 @@ const TaskList = () => {
         {tasks.map((task) => (
           <li key={`task-${task.id}`} className={styles.taskItem}>
             <div className={styles.taskRow}>
+              {/* Render task details */}
               <input
                 type="checkbox"
                 checked={task.completed}
@@ -304,7 +316,7 @@ const TaskList = () => {
                     task.completed ? styles.completed : ''
                   }`}
                 >
-                  {task.name}
+                  {task.textContent}
                 </button>
               )}
               <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -362,7 +374,7 @@ const TaskList = () => {
               </div>
             )}
             <ul className={styles.subtaskList}>
-              {task.subtasks.map((subtask) => (
+              {task.subtasks?.map((subtask) => (
                 <li
                   key={`subtask-${subtask.id}`}
                   className={styles.subtaskItem}
@@ -401,7 +413,7 @@ const TaskList = () => {
                           subtask.completed ? styles.completed : ''
                         }`}
                       >
-                        {subtask.name}
+                        {subtask.textContent}
                       </button>
                     )}
                     <div style={{ display: 'flex', alignItems: 'center' }}>

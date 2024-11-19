@@ -4,7 +4,7 @@ import {
   taskSchema,
 } from '../../../migrations/00004-createTableTasks';
 import { getCookie } from '../../../util/cookies';
-import { createTask } from '../../database/tasks';
+import { createTask, deleteTask } from '../../database/tasks';
 
 export type CreateTaskResponseBodyPost =
   | {
@@ -14,14 +14,21 @@ export type CreateTaskResponseBodyPost =
       error: string;
     };
 
+export type DeleteTaskResponseBodyDelete =
+  | {
+      success: boolean;
+    }
+  | {
+      error: string;
+    };
+
 export async function POST(
   request: Request,
 ): Promise<NextResponse<CreateTaskResponseBodyPost>> {
-  // Task: Create a task for the current logged in user
-  // 1. Get the task data from the request
+  // Task: Create a task for the current logged-in user
   const body = await request.json();
 
-  // 2. Validate tasks data with zod
+  // Validate tasks data with zod
   const result = taskSchema.safeParse(body);
 
   if (!result.success) {
@@ -33,15 +40,14 @@ export async function POST(
     );
   }
 
-  // 3. Get the token from the cookie
+  // Get the token from the cookie
   const sessionTokenCookie = await getCookie('sessionToken');
 
-  // 4. Create the task
+  // Create the task
   const newTask =
     sessionTokenCookie &&
     (await createTask(sessionTokenCookie, result.data.text_content));
 
-  // 5. If the task creation fails, return an error
   if (!newTask) {
     return NextResponse.json(
       { error: 'Task not created or access denied creating task' },
@@ -51,6 +57,64 @@ export async function POST(
     );
   }
 
-  // 6. Return the text content of the task
+  // Return the text content of the task
   return NextResponse.json({ task: { textContent: newTask.textContent } });
+}
+
+export async function DELETE(
+  request: Request,
+): Promise<NextResponse<DeleteTaskResponseBodyDelete>> {
+  try {
+    // Log the incoming request for debugging
+    console.log('DELETE request received:', request);
+
+    const body = await request.json();
+    const { taskId } = body;
+
+    if (!taskId) {
+      console.log('No taskId provided');
+      return NextResponse.json(
+        { error: 'Task ID is required for deletion' },
+        {
+          status: 400,
+        },
+      );
+    }
+
+    const sessionTokenCookie = await getCookie('sessionToken');
+
+    if (!sessionTokenCookie) {
+      console.log('User is not authenticated');
+      return NextResponse.json(
+        { error: 'User not authenticated' },
+        {
+          status: 401,
+        },
+      );
+    }
+
+    console.log('Attempting to delete task with ID:', taskId);
+    const deleteResult = await deleteTask(sessionTokenCookie, taskId);
+
+    if (deleteResult) {
+      console.log('Task successfully deleted:', taskId);
+      return NextResponse.json({ success: true });
+    }
+
+    console.log('Task not found or access denied');
+    return NextResponse.json(
+      { error: 'Task not found or access denied' },
+      {
+        status: 404,
+      },
+    );
+  } catch (error) {
+    console.error('Error in DELETE API route:', error);
+    return NextResponse.json(
+      { error: 'Internal Server Error' },
+      {
+        status: 500,
+      },
+    );
+  }
 }
