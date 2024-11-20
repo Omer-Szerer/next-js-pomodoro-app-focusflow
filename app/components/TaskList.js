@@ -318,13 +318,6 @@ const TaskList = ({ tasks: initialTasks }) => {
                   </span>
                 </label>
               </div>
-
-              {/* <input
-                type="checkbox"
-                checked={task.completed}
-                onChange={() => toggleTaskCompletion(task.id)}
-                className={styles.checkbox}
-              /> */}
               {editingTaskId === task.id ? (
                 <input
                   value={editedTaskName}

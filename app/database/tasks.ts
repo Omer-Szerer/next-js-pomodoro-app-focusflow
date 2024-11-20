@@ -3,8 +3,14 @@ import type { Session } from '../../migrations/00003-sessions';
 import type { Task } from '../../migrations/00004-createTableTasks';
 import { sql } from './connect';
 
+export type ExtendedTask = Task & {
+  checked: boolean;
+};
+
 export const getTasks = cache(async (sessionToken: string) => {
-  const tasks = await sql<Task[]>`
+  const tasks = await sql<
+    { id: number; userId: number; textContent: string; checked: boolean }[]
+  >`
     SELECT
       tasks.*
     FROM
@@ -19,7 +25,9 @@ export const getTasks = cache(async (sessionToken: string) => {
 });
 
 export const getTask = cache(async (sessionToken: string, taskId: number) => {
-  const [task] = await sql<Task[]>`
+  const [task] = await sql<
+    { id: number; userId: number; textContent: string; checked: boolean }[]
+  >`
     SELECT
       tasks.*
     FROM
@@ -36,13 +44,24 @@ export const getTask = cache(async (sessionToken: string, taskId: number) => {
 });
 
 export const createTask = cache(
-  async (sessionToken: Session['token'], textContent: string) => {
-    const [task] = await sql<Task[]>`
+  async (
+    sessionToken: Session['token'],
+    textContent: string,
+    checked = false, // Default value for new tasks
+  ) => {
+    const [task] = await sql<
+      { id: number; userId: number; textContent: string; checked: boolean }[]
+    >`
       INSERT INTO
-        tasks (user_id, text_content) (
+        tasks (
+          user_id,
+          text_content,
+          checked
+        ) (
           SELECT
             sessions.user_id,
-            ${textContent}
+            ${textContent},
+            ${checked}
           FROM
             sessions
           WHERE
@@ -57,6 +76,33 @@ export const createTask = cache(
   },
 );
 
+export const updateTaskCheckedStatus = cache(
+  async (sessionToken: Session['token'], taskId: number, checked: boolean) => {
+    const [updatedTask] = await sql<
+      { id: number; userId: number; textContent: string; checked: boolean }[]
+    >`
+      UPDATE tasks
+      SET
+        checked = ${checked}
+      WHERE
+        id = ${taskId}
+        AND user_id = (
+          SELECT
+            sessions.user_id
+          FROM
+            sessions
+          WHERE
+            sessions.token = ${sessionToken}
+            AND sessions.expiry_timestamp > now()
+        )
+      RETURNING
+        tasks.*
+    `;
+
+    return updatedTask;
+  },
+);
+
 export const deleteTask = async (
   sessionTokenCookie: string,
   taskId: number,
@@ -66,7 +112,7 @@ export const deleteTask = async (
 
     // Check if task exists for the current user
     const task = await sql<
-      { id: number; userId: number; textContent: string }[]
+      { id: number; userId: number; textContent: string; checked: boolean }[]
     >`
       SELECT
         tasks.*
@@ -90,11 +136,13 @@ export const deleteTask = async (
 
     // Attempt to delete the task
     const deleteResult = await sql<
-      { id: number; userId: number; textContent: string }[]
+      { id: number; userId: number; textContent: string; checked: boolean }[]
     >`
       DELETE FROM tasks
-      WHERE id = ${taskId}
-      RETURNING *
+      WHERE
+        id = ${taskId}
+      RETURNING
+        *
     `;
 
     console.log('Delete result:', deleteResult);
@@ -104,4 +152,30 @@ export const deleteTask = async (
     console.error('Error deleting task:', error);
     throw new Error('Failed to delete task');
   }
+};
+
+export const updateTaskChecked = async (
+  sessionToken: string,
+  taskId: number,
+  checked: boolean,
+) => {
+  const [task] = await sql<Task[]>`
+    UPDATE tasks
+    SET
+      checked = ${checked}
+    WHERE
+      id = ${taskId}
+      AND user_id = (
+        SELECT
+          user_id
+        FROM
+          sessions
+        WHERE
+          token = ${sessionToken}
+          AND expiry_timestamp > now()
+      )
+    RETURNING
+      *;
+  `;
+  return task;
 };

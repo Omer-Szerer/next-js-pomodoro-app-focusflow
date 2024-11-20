@@ -5,6 +5,7 @@ export type Task = {
   id: number;
   userId: number;
   textContent: string;
+  checked: boolean;
 };
 
 export const taskSchema = z.object({
@@ -16,7 +17,8 @@ export async function up(sql: Sql) {
     CREATE TABLE tasks (
       id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
       user_id integer NOT NULL REFERENCES users (id) ON DELETE cascade,
-      text_content varchar(40) NOT NULL
+      text_content varchar(40) NOT NULL,
+      checked boolean DEFAULT FALSE NOT NULL
     )
   `;
 }
