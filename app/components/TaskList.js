@@ -92,12 +92,45 @@ const TaskList = ({ tasks: initialTasks }) => {
     }
   };
 
-  const toggleTaskCompletion = (taskId) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task.id === taskId ? { ...task, completed: !task.completed } : task,
-      ),
-    );
+  // ---NOT FROM DB---//
+  // const toggleTaskCompletion = (taskId) => {
+  //   setTasks((prevTasks) =>
+  //     prevTasks.map((task) =>
+  //       task.id === taskId ? { ...task, completed: !task.completed } : task,
+  //     ),
+  //   );
+  // };
+
+  // ---FROM DB---//
+  const toggleTaskCompletion = async (taskId) => {
+    const task = tasks.find((t) => t.id === taskId);
+    if (!task) return;
+
+    const updatedCheckedStatus = !task.completed;
+
+    try {
+      const response = await fetch('/api/tasks', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ taskId, checked: updatedCheckedStatus }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update task completion status');
+      }
+
+      // Update the local state if the database update is successful
+      setTasks((prevTasks) =>
+        prevTasks.map((t) =>
+          t.id === taskId ? { ...t, completed: updatedCheckedStatus } : t,
+        ),
+      );
+    } catch (error) {
+      console.error('Error updating task:', error.message);
+      toast.error('Failed to update task status. Please try again.');
+    }
   };
 
   const startEditing = (task) => {

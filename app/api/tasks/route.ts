@@ -4,7 +4,11 @@ import {
   taskSchema,
 } from '../../../migrations/00004-createTableTasks';
 import { getCookie } from '../../../util/cookies';
-import { createTask, deleteTask } from '../../database/tasks';
+import {
+  createTask,
+  deleteTask,
+  updateTaskCheckedStatus,
+} from '../../database/tasks';
 
 export type CreateTaskResponseBodyPost =
   | {
@@ -115,6 +119,49 @@ export async function DELETE(
       {
         status: 500,
       },
+    );
+  }
+}
+
+export async function PATCH(request: Request): Promise<NextResponse> {
+  try {
+    const body = await request.json();
+    const { taskId, checked } = body;
+
+    if (typeof taskId !== 'number' || typeof checked !== 'boolean') {
+      return NextResponse.json(
+        { error: 'Invalid request body' },
+        { status: 400 },
+      );
+    }
+
+    const sessionToken = await getCookie('sessionToken');
+    if (!sessionToken) {
+      return NextResponse.json(
+        { error: 'User not authenticated' },
+        { status: 401 },
+      );
+    }
+
+    const updatedTask = await updateTaskCheckedStatus(
+      sessionToken,
+      taskId,
+      checked,
+    );
+
+    if (!updatedTask) {
+      return NextResponse.json(
+        { error: 'Task not found or access denied' },
+        { status: 404 },
+      );
+    }
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error('Error updating task status:', error);
+    return NextResponse.json(
+      { error: 'Internal Server Error' },
+      { status: 500 },
     );
   }
 }

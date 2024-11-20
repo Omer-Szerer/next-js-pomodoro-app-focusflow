@@ -153,29 +153,3 @@ export const deleteTask = async (
     throw new Error('Failed to delete task');
   }
 };
-
-export const updateTaskChecked = async (
-  sessionToken: string,
-  taskId: number,
-  checked: boolean,
-) => {
-  const [task] = await sql<Task[]>`
-    UPDATE tasks
-    SET
-      checked = ${checked}
-    WHERE
-      id = ${taskId}
-      AND user_id = (
-        SELECT
-          user_id
-        FROM
-          sessions
-        WHERE
-          token = ${sessionToken}
-          AND expiry_timestamp > now()
-      )
-    RETURNING
-      *;
-  `;
-  return task;
-};
