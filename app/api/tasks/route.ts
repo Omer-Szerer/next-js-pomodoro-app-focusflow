@@ -7,6 +7,7 @@ import { getCookie } from '../../../util/cookies';
 import {
   createTask,
   deleteTask,
+  getTasks,
   updateTaskCheckedStatus,
 } from '../../database/tasks';
 
@@ -26,10 +27,53 @@ export type DeleteTaskResponseBodyDelete =
       error: string;
     };
 
+// Define the response body type for the GET request
+type GetTasksResponseBody =
+  | {
+      tasks: {
+        id: number;
+        userId: number;
+        textContent: string;
+        checked: boolean;
+      }[];
+    }
+  | { error: string };
+
+export async function GET(): Promise<NextResponse<GetTasksResponseBody>> {
+  try {
+    // Get the session token from the cookie
+    const sessionTokenCookie = await getCookie('sessionToken');
+
+    if (!sessionTokenCookie) {
+      return NextResponse.json(
+        { error: 'User not authenticated' },
+        { status: 401 },
+      );
+    }
+
+    // Fetch tasks for the logged-in user
+    const tasks = await getTasks(sessionTokenCookie);
+
+    if (tasks.length === 0) {
+      return NextResponse.json(
+        { error: 'No tasks found or access denied' },
+        { status: 404 },
+      );
+    }
+
+    return NextResponse.json({ tasks });
+  } catch (error) {
+    console.error('Error fetching tasks:', error);
+    return NextResponse.json(
+      { error: 'Internal Server Error' },
+      { status: 500 },
+    );
+  }
+}
+
 export async function POST(
   request: Request,
 ): Promise<NextResponse<CreateTaskResponseBodyPost>> {
-  // Task: Create a task for the current logged-in user
   const body = await request.json();
 
   // Validate tasks data with zod
@@ -38,9 +82,7 @@ export async function POST(
   if (!result.success) {
     return NextResponse.json(
       { error: 'Request does not contain task object' },
-      {
-        status: 400,
-      },
+      { status: 400 },
     );
   }
 
@@ -55,13 +97,10 @@ export async function POST(
   if (!newTask) {
     return NextResponse.json(
       { error: 'Task not created or access denied creating task' },
-      {
-        status: 400,
-      },
+      { status: 400 },
     );
   }
 
-  // Return the text content of the task
   return NextResponse.json({ task: { textContent: newTask.textContent } });
 }
 
@@ -69,56 +108,40 @@ export async function DELETE(
   request: Request,
 ): Promise<NextResponse<DeleteTaskResponseBodyDelete>> {
   try {
-    // Log the incoming request for debugging
-    console.log('DELETE request received:', request);
-
     const body = await request.json();
     const { taskId } = body;
 
     if (!taskId) {
-      console.log('No taskId provided');
       return NextResponse.json(
         { error: 'Task ID is required for deletion' },
-        {
-          status: 400,
-        },
+        { status: 400 },
       );
     }
 
     const sessionTokenCookie = await getCookie('sessionToken');
 
     if (!sessionTokenCookie) {
-      console.log('User is not authenticated');
       return NextResponse.json(
         { error: 'User not authenticated' },
-        {
-          status: 401,
-        },
+        { status: 401 },
       );
     }
 
-    console.log('Attempting to delete task with ID:', taskId);
     const deleteResult = await deleteTask(sessionTokenCookie, taskId);
 
     if (deleteResult) {
-      console.log('Task successfully deleted:', taskId);
       return NextResponse.json({ success: true });
     }
 
-    console.log('Task not found or access denied');
     return NextResponse.json(
       { error: 'Task not found or access denied' },
-      {
-        status: 404,
-      },
+      { status: 404 },
     );
   } catch (error) {
     console.error('Error in DELETE API route:', error);
     return NextResponse.json(
       { error: 'Internal Server Error' },
-      {
-        status: 500,
-      },
+      { status: 500 },
     );
   }
 }
