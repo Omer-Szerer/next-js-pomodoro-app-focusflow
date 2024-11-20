@@ -1,15 +1,12 @@
 'use client';
-import {
-  faAngleDown,
-  faAngleUp,
-  faPlus,
-  faTrashCan,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useSession } from '../contexts/SessionContext';
 import styles from '../styles/TaskList.module.scss';
+import AddIcon from './AddIcon';
+import DeleteIcon from './DeleteIcon';
+import DownIcon from './DownIcon';
+import UpIcon from './UpIcon';
 
 const TaskList = ({ tasks: initialTasks }) => {
   // Use initialTasks from props to initialize state
@@ -336,30 +333,26 @@ const TaskList = ({ tasks: initialTasks }) => {
                   onClick={() => moveTask(task.id, 'up')}
                   disabled={tasks.indexOf(task) === 0}
                 >
-                  <FontAwesomeIcon icon={faAngleUp} />
+                  <UpIcon />
                 </button>
                 <button
                   className={styles.moveButton}
                   onClick={() => moveTask(task.id, 'down')}
                   disabled={tasks.indexOf(task) === tasks.length - 1}
                 >
-                  {/* <DownArrowIcon /> */}
-                  <FontAwesomeIcon icon={faAngleDown} />
+                  <DownIcon />
                 </button>
                 <button
                   className={styles.addSubtaskButton}
                   onClick={() => toggleSubtaskInputVisibility(task.id)}
                 >
-                  <FontAwesomeIcon icon={faPlus} className={styles.iconSize} />
+                  <AddIcon />
                 </button>
                 <button
                   className={styles.deleteButton}
                   onClick={() => deleteTask(task.id)}
                 >
-                  <FontAwesomeIcon
-                    icon={faTrashCan}
-                    className={styles.iconSize}
-                  />
+                  <DeleteIcon />
                 </button>
               </div>
             </div>
@@ -433,7 +426,7 @@ const TaskList = ({ tasks: initialTasks }) => {
                         className={styles.subtaskMoveButton}
                         disabled={task.subtasks.indexOf(subtask) === 0}
                       >
-                        <FontAwesomeIcon icon={faAngleUp} />
+                        <UpIcon />
                       </button>
                       <button
                         onClick={() => moveSubtask(task.id, subtask.id, 'down')}
@@ -443,7 +436,7 @@ const TaskList = ({ tasks: initialTasks }) => {
                           task.subtasks.length - 1
                         }
                       >
-                        <FontAwesomeIcon icon={faAngleDown} />
+                        <DownIcon />
                       </button>
                     </div>
                   </div>

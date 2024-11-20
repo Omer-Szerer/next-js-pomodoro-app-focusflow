@@ -31,7 +31,7 @@
 .addTaskButton {
   padding: 8px 12px;
   cursor: pointer;
-  background-color: hsl(205, 79%, 50%);
+  background-color: hsl(263, 90%, 51%);
 
   color: white;
   border: none;
@@ -40,7 +40,7 @@
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: hsl(205, 79%, 60%);
+    background-color: hsl(263, 90%, 51%);
   }
 }
 
@@ -164,7 +164,6 @@
 
 /* Buttons */
 .deleteButton {
-  margin-left: 8px;
   cursor: pointer;
   background: none;
   border: none;
