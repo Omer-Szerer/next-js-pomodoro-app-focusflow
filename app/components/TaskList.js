@@ -301,12 +301,30 @@ const TaskList = ({ tasks: initialTasks }) => {
           <li key={`task-${task.id}`} className={styles.taskItem}>
             <div className={styles.taskRow}>
               {/* Render task details */}
-              <input
+              <div className={styles.checkboxContainer}>
+                <input
+                  type="checkbox"
+                  id={`checkbox-${task.id}`}
+                  checked={task.completed}
+                  onChange={() => toggleTaskCompletion(task.id)}
+                  className={styles.checkbox}
+                />
+                <label
+                  htmlFor={`checkbox-${task.id}`}
+                  className={styles.checkboxLabel}
+                >
+                  <span className={styles.srOnly}>
+                    Mark task as {task.completed ? 'incomplete' : 'complete'}
+                  </span>
+                </label>
+              </div>
+
+              {/* <input
                 type="checkbox"
                 checked={task.completed}
                 onChange={() => toggleTaskCompletion(task.id)}
                 className={styles.checkbox}
-              />
+              /> */}
               {editingTaskId === task.id ? (
                 <input
                   value={editedTaskName}
