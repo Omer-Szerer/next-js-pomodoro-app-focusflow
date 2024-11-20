@@ -310,6 +310,12 @@ const TaskList = ({ tasks: initialTasks }) => {
     });
   };
 
+  useEffect(() => {
+    if (!sessionToken) {
+      setTasks([]); // Clear tasks on logout
+    }
+  }, [sessionToken]);
+
   return (
     <div className={styles.taskContainer}>
       <h2 className={styles.title}>Tasks</h2>
