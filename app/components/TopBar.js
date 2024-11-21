@@ -9,6 +9,7 @@ import styles from '../styles/TopBar.module.scss';
 import ProfileIcon from './ProfileIcon';
 
 export default function TopBar({ sessionToken, username }) {
+  console.log('Username:', username);
   const [showModal, setShowModal] = useState(false);
   const [isRegister, setIsRegister] = useState(true);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -56,7 +57,7 @@ export default function TopBar({ sessionToken, username }) {
         <div className={styles.profileMenu}>
           <button className={styles.profileButton} onClick={toggleDropdown}>
             <ProfileIcon />
-            Profile
+            {username || 'Profile'}
           </button>
           {showDropdown && (
             <div className={styles.dropdownMenu}>

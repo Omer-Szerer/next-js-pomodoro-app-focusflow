@@ -29,7 +29,8 @@
 .addTaskButton {
   padding: 8px 12px;
   cursor: pointer;
-  background-color: hsl(263, 90%, 51%);
+  // background-color: hsl(263, 90%, 51%);
+  background-color: #153c1a;
 
   color: white;
   border: none;
@@ -38,7 +39,7 @@
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: hsl(263, 90%, 51%);
+    background-color: rgb(104, 18, 243);
   }
 }
 
@@ -165,11 +166,12 @@
   cursor: pointer;
   background: none;
   border: none;
-  color: hsl(343, 85%, 44%);
+  // color: hsl(343, 85%, 44%);
+  color: #ff2a00;
   transition: color 0.3s;
 
   &:hover {
-    color: hsl(343, 85%, 34%);
+    color: #ff2a00c0;
   }
 }
 
@@ -254,8 +256,10 @@
 }
 
 .checkbox:checked + .checkboxLabel {
-  background-color: #007bff;
-  border-color: #007bff;
+  // background-color: hsl(115, 100%, 21%);
+  // border-color: hsl(115, 100%, 21%);
+  background-color: #aafcb4;
+  border-color: #aafcb4;
 }
 
 .checkbox:checked + .checkboxLabel::after {

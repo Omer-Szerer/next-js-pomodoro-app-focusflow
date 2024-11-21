@@ -6,6 +6,7 @@ import LeftNavBar from './components/LeftNavBar';
 import TopBar from './components/TopBar';
 import { SessionProvider } from './contexts/SessionContext';
 import { getValidSessionToken } from './database/sessions';
+import { getUser } from './database/users';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -30,12 +31,21 @@ export default async function RootLayout({ children }) {
     sessionTokenCookie &&
     (await getValidSessionToken(sessionTokenCookie.value));
 
+  // Fetch the user if a session exists
+  const user = sessionToken ? await getUser(sessionTokenCookie.value) : null;
+
+  // Truncate the username to 6 characters
+  const truncatedUsername = user?.username
+    ? user.username.slice(0, 6) // Limit to 6 characters
+    : '';
+
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <SessionProvider sessionToken={!!sessionToken}>
           {children}
-          <TopBar sessionToken={!!sessionToken} />
+          {/* Pass the truncated username */}
+          <TopBar sessionToken={!!sessionToken} username={truncatedUsername} />
           <LeftNavBar />
         </SessionProvider>
         <Toaster position="top-center" reverseOrder={false} />

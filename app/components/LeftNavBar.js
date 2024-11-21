@@ -1,5 +1,7 @@
 'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import React, { useState } from 'react';
 import styles from '../styles/LeftNavBar.module.scss';
 import ExercisesIcon from './ExercisesIcon';
@@ -8,14 +10,17 @@ import TimerIcon from './TimerIcon';
 
 export default function LeftNavBar() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
 
   const toggleSidebar = () => {
     setIsOpen((prev) => !prev);
   };
 
+  const getLinkClass = (href) =>
+    `${styles.navLink} ${pathname === href ? styles.activeLink : ''}`;
+
   return (
     <>
-      {/* Hamburger Icon for small screens */}
       <button
         className={styles.hamburgerIcon}
         onClick={toggleSidebar}
@@ -23,32 +28,23 @@ export default function LeftNavBar() {
       >
         ☰
       </button>
-
-      {/* Left Sidebar Navigation (Always visible on large screens) */}
       <nav className={styles.navContainer}>
-        <Link href="/" className={styles.navLinkTimer}>
-          <TimerIcon />
-
-          <span>Timer</span>
-        </Link>
-        <Link href="/exercises" className={styles.navLink}>
+        <div className={styles.navLinkTimer}>
+          <Link href="/" className={getLinkClass('/')}>
+            <TimerIcon />
+            <span>Timer</span>
+          </Link>
+        </div>
+        <Link href="/exercises" className={getLinkClass('/exercises')}>
           <ExercisesIcon />
-
           <span>Exercises</span>
         </Link>
-        <Link href="/settings" className={styles.navLink}>
+        <Link href="/settings" className={getLinkClass('/settings')}>
           <SettingsIcon />
           <span>Settings</span>
         </Link>
-
-        {/* LIGHT/DARK MODE SWITCHER TBD */}
-        {/* <div className={styles.navModeSwitcher}>
-          <FontAwesomeIcon icon={faSun} className={styles.iconSize} />
-          <span>Light mode</span>
-        </div> */}
       </nav>
 
-      {/* Right Sidebar Navigation for small screens */}
       <nav
         className={`${styles.rightNavContainer} ${isOpen ? styles.open : ''}`}
       >
@@ -59,13 +55,13 @@ export default function LeftNavBar() {
         >
           ✖
         </button>
-        <Link href="/" className={styles.navLink} onClick={toggleSidebar}>
+        <Link href="/" className={getLinkClass('/')} onClick={toggleSidebar}>
           <TimerIcon />
           <span className={styles.navText}>Timer</span>
         </Link>
         <Link
           href="/exercises"
-          className={styles.navLink}
+          className={getLinkClass('/exercises')}
           onClick={toggleSidebar}
         >
           <ExercisesIcon />
@@ -73,21 +69,14 @@ export default function LeftNavBar() {
         </Link>
         <Link
           href="/settings"
-          className={styles.navLink}
+          className={getLinkClass('/settings')}
           onClick={toggleSidebar}
         >
           <SettingsIcon />
           <span className={styles.navText}>Settings</span>
         </Link>
-
-        {/* LIGHT/DARK MODE SWITCHER TBD */}
-        {/* <div className={styles.navModeSwitcher}>
-          <FontAwesomeIcon icon={faSun} className={styles.iconSize} />
-          <span className={styles.navText}>Light mode</span>
-        </div> */}
       </nav>
 
-      {/* Overlay for mobile view when sidebar is open */}
       {isOpen && (
         <div
           className={styles.overlay}
