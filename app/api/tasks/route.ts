@@ -101,7 +101,7 @@ export async function POST(
     );
   }
 
-  return NextResponse.json({ task: { textContent: newTask.textContent } });
+  return NextResponse.json({ task: newTask });
 }
 
 export async function DELETE(
