@@ -29,8 +29,8 @@
 .addTaskButton {
   padding: 8px 12px;
   cursor: pointer;
-  // background-color: hsl(263, 90%, 51%);
-  background-color: #153c1a;
+  background-color: hsl(263, 90%, 51%);
+  // background-color: #153c1a;
 
   color: white;
   border: none;
@@ -256,10 +256,10 @@
 }
 
 .checkbox:checked + .checkboxLabel {
-  // background-color: hsl(115, 100%, 21%);
-  // border-color: hsl(115, 100%, 21%);
-  background-color: #aafcb4;
-  border-color: #aafcb4;
+  background-color: hsl(115, 100%, 21%);
+  border-color: hsl(115, 100%, 21%);
+  // background-color: #aafcb4;
+  // border-color: #aafcb4;
 }
 
 .checkbox:checked + .checkboxLabel::after {
