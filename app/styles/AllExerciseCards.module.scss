@@ -133,7 +133,7 @@
   padding: 10px;
 
   // Media Queries
-  @media (max-width: 767px) {
+  @media (max-width: 878px) {
     flex-direction: column; /* Stack checkboxes on small screens */
     align-items: start;
     justify-self: center;
@@ -155,7 +155,7 @@
   color: #333;
 
   // Media Queries
-  @media (max-width: 767px) {
+  @media (max-width: 878px) {
     font-size: 14px; /* Smaller font for smaller screens */
   }
 
@@ -173,7 +173,7 @@
     }
 
     // Media Queries
-    @media (max-width: 767px) {
+    @media (max-width: 878px) {
       width: 18px;
       height: 18px; /* Adjust size on smaller screens */
     }

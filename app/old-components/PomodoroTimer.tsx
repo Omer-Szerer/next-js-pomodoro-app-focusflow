@@ -82,7 +82,6 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = () => {
   };
 
   const handleBreakChoice = (choice: string) => {
-    console.log(`Chosen break type: ${choice}`);
     setBreakChoice(choice);
     setShowBreakPrompt(false);
     setIsRunning(true);

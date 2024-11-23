@@ -9,7 +9,6 @@ import styles from '../styles/TopBar.module.scss';
 import ProfileIcon from './ProfileIcon';
 
 export default function TopBar({ sessionToken, username }) {
-  console.log('Username:', username);
   const [showModal, setShowModal] = useState(false);
   const [isRegister, setIsRegister] = useState(true);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -76,6 +75,7 @@ export default function TopBar({ sessionToken, username }) {
         </div>
       ) : (
         <button className={styles.profileButton} onClick={handleSignInClick}>
+          <ProfileIcon />
           Sign In
         </button>
       )}
@@ -83,7 +83,7 @@ export default function TopBar({ sessionToken, username }) {
       {/* Overlay */}
       {showModal && (
         <div
-          className={styles.overlay}
+          className={styles.loginOverlay}
           onClick={closeModal}
           role="button"
           tabIndex="0"

@@ -9,7 +9,6 @@ import DownIcon from './DownIcon';
 import UpIcon from './UpIcon';
 
 const TaskList = ({ tasks: initialTasks }) => {
-  // Use initialTasks from props to initialize state
   const [tasks, setTasks] = useState(initialTasks || []);
   const sessionToken = useSession();
   const [newTaskName, setNewTaskName] = useState('');
@@ -45,10 +44,9 @@ const TaskList = ({ tasks: initialTasks }) => {
 
         const data = await response.json();
         setTasks(data.tasks);
-        console.log('data', data);
+        // console.log('data', data);
       } catch (error) {
         console.error('Error fetching tasks:', error.message);
-        // toast.error('Failed to fetch tasks. Please try again.');
       }
     };
 
@@ -86,7 +84,7 @@ const TaskList = ({ tasks: initialTasks }) => {
       }
 
       const data = await response.json();
-      console.log('data', data);
+      // console.log('data', data);
       setTasks((prevTasks) => [
         ...prevTasks,
         {
@@ -104,7 +102,6 @@ const TaskList = ({ tasks: initialTasks }) => {
   };
 
   const deleteTask = async (taskId) => {
-    console.log('Deleting task with ID:', taskId); // Log task ID to ensure it's correct
     try {
       const response = await fetch(`/api/tasks`, {
         method: 'DELETE',
@@ -125,15 +122,6 @@ const TaskList = ({ tasks: initialTasks }) => {
       console.error('Error deleting task:', error.message);
     }
   };
-
-  // ---NOT FROM DB---//
-  // const toggleTaskCompletion = (taskId) => {
-  //   setTasks((prevTasks) =>
-  //     prevTasks.map((task) =>
-  //       task.id === taskId ? { ...task, completed: !task.completed } : task,
-  //     ),
-  //   );
-  // };
 
   // ---FROM DB---//
   const toggleTaskCompletion = async (taskId) => {
@@ -192,30 +180,80 @@ const TaskList = ({ tasks: initialTasks }) => {
     setNewSubtaskValues({ ...newSubtaskValues, [taskId]: value });
   };
 
-  const addSubtask = (taskId) => {
-    // Trim whitespace and check if the subtask is not empty
-    const subtaskValue = newSubtaskValues[taskId]?.trim();
-    if (!subtaskValue) return; // Exit if the subtask is empty or only contains whitespace
+  // const addSubtask = (taskId) => {
+  //   // Trim whitespace and check if the subtask is not empty
+  //   const subtaskValue = newSubtaskValues[taskId]?.trim();
+  //   if (!subtaskValue) return; // Exit if the subtask is empty or only contains whitespace
 
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task.id === taskId
-          ? {
-              ...task,
-              subtasks: [
-                ...task.subtasks,
-                {
-                  id: Date.now().toString(),
-                  name: subtaskValue,
-                  completed: false,
-                },
-              ],
-            }
-          : task,
-      ),
-    );
-    setNewSubtaskValues((prev) => ({ ...prev, [taskId]: '' }));
-    setShowSubtaskInput((prev) => ({ ...prev, [taskId]: false }));
+  //   setTasks((prevTasks) =>
+  //     prevTasks.map((task) =>
+  //       task.id === taskId
+  //         ? {
+  //             ...task,
+  //             subtasks: [
+  //               ...task.subtasks,
+  //               {
+  //                 id: Date.now().toString(),
+  //                 name: subtaskValue,
+  //                 completed: false,
+  //               },
+  //             ],
+  //           }
+  //         : task,
+  //     ),
+  //   );
+  //   setNewSubtaskValues((prev) => ({ ...prev, [taskId]: '' }));
+  //   setShowSubtaskInput((prev) => ({ ...prev, [taskId]: false }));
+  // };
+
+  const addSubtask = async (taskId) => {
+    const subtaskValue = newSubtaskValues[taskId]?.trim();
+    if (!subtaskValue) return; // Exit if the subtask is empty
+
+    if (!sessionToken) {
+      toast.error('Please sign in to add subtasks');
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/subtasks', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${sessionToken}`,
+        },
+        body: JSON.stringify({
+          taskId,
+          text_content: subtaskValue,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to create subtask');
+      }
+
+      const data = await response.json();
+      console.log('data', data);
+
+      // Update the state with the new subtask
+      setTasks((prevTasks) =>
+        prevTasks.map((task) =>
+          task.id === taskId
+            ? {
+                ...task,
+                subtasks: [...task.subtasks, data.subtask],
+              }
+            : task,
+        ),
+      );
+
+      // Clear input and hide subtask input field
+      setNewSubtaskValues((prev) => ({ ...prev, [taskId]: '' }));
+      setShowSubtaskInput((prev) => ({ ...prev, [taskId]: false }));
+    } catch (error) {
+      console.error('Error adding subtask:', error.message);
+      toast.error('Error adding subtask. Please try again.');
+    }
   };
 
   const toggleSubtaskCompletion = (taskId, subtaskId) => {

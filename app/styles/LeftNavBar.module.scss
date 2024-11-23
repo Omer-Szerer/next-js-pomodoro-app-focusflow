@@ -5,15 +5,15 @@
   top: 0;
   left: 0;
   height: 100vh;
-  width: 150px;
-  background-color: #f8f9fa;
-  // background-color: #3d474d;
+  width: 145px;
+  background-color: #0f0a2e;
+  // background-color: #25143d;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 20px;
   z-index: 15;
-  border-right: 1px solid #ddd;
+  // border-right: 1px solid #ddd;
 }
 
 .rightNavContainer {
@@ -23,7 +23,8 @@
   right: 0;
   height: 100vh;
   width: 200px;
-  background-color: #f8f9fa;
+  // background-color: #25143d;
+  background-color: #0f0a2e;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -31,7 +32,7 @@
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
   transform: translateX(100%);
   transition: transform 0.3s ease-in-out;
-  z-index: 15;
+  z-index: 25;
 
   &.open {
     transform: translateX(0); /* Show sidebar when 'open' class is added */
@@ -40,13 +41,14 @@
   /* Position close button inside the sidebar */
   .closeIcon {
     position: absolute;
+    color: white;
     top: 10px; /* Adjusted top to ensure it's always visible */
     right: 15px;
     font-size: 24px;
     background: none;
     border: none;
     cursor: pointer;
-    z-index: 20; /* Ensure the close button stays on top */
+    z-index: 25; /* Ensure the close button stays on top */
   }
 }
 
@@ -57,16 +59,18 @@
   flex-direction: column;
   align-items: center;
   text-decoration: none;
-  color: #333;
+  // color: white;
   // color: #8a8c8e;
+  color: #a8a1b2;
   font-weight: 800;
-  font-size: 18px;
+  font-size: 16px;
   transition: color 0.3s;
   margin-top: 30px; /* Increased space between icons */
   padding: 10px;
 
   &:hover {
-    color: hsl(263, 90%, 61%);
+    // color: hsl(263, 90%, 61%);
+    color: white;
   }
 
   span {
@@ -94,30 +98,31 @@
 .hamburgerIcon {
   display: none;
   position: fixed;
-  top: 6px;
-  right: 15px;
+  top: 10px;
+  right: 8px;
   font-size: 24px;
   background: none;
   border: none;
   cursor: pointer;
-  z-index: 999;
+  z-index: 20;
+  color: white;
 }
 
-/* Overlay */
-.overlay {
+/* Mobile Overlay */
+.mobileOverlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.4);
-  z-index: 5;
+  z-index: 20;
 }
 
 /* Active Link Styling */
 .activeLink {
-  color: hsl(263, 90%, 51%);
-  // color: white;
+  // color: hsl(263, 90%, 51%);
+  color: white;
 }
 
 /* Icon Size */
@@ -126,7 +131,7 @@
 }
 
 /* Responsive Styling */
-@media (max-width: 878px) {
+@media (max-width: 879px) {
   .navContainer {
     display: none;
   }
@@ -135,7 +140,7 @@
     display: block;
   }
 
-  .overlay {
+  .mobileOverlay {
     display: block;
   }
 
@@ -144,7 +149,7 @@
   }
 }
 
-@media (min-width: 878px) {
+@media (min-width: 879px) {
   .navContainer {
     display: flex;
   }

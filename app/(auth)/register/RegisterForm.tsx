@@ -1,5 +1,6 @@
 'use client';
 
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -49,41 +50,50 @@ export default function RegisterForm(props: Props) {
   }
 
   return (
-    <div className={styles.inputFields}>
-      <form onSubmit={async (event) => await handleRegister(event)}>
-        <label>
-          Username
-          <input
-            value={username}
-            onChange={(event) => setUsername(event.currentTarget.value)}
-          />
-        </label>
+    <>
+      <div className={styles.inputFields}>
+        <form onSubmit={async (event) => await handleRegister(event)}>
+          <label>
+            Username
+            <input
+              value={username}
+              onChange={(event) => setUsername(event.currentTarget.value)}
+            />
+          </label>
 
-        <label>
-          Email
-          <input
-            value={email}
-            onChange={(event) => setEmail(event.currentTarget.value)}
-          />
-        </label>
+          <label>
+            Email
+            <input
+              value={email}
+              onChange={(event) => setEmail(event.currentTarget.value)}
+            />
+          </label>
 
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(event) => setPassword(event.currentTarget.value)}
-          />
-        </label>
+          <label>
+            Password
+            <input
+              type="password"
+              value={password}
+              onChange={(event) => setPassword(event.currentTarget.value)}
+            />
+          </label>
 
-        <button className={styles.submitButton}>Register</button>
+          <button className={styles.submitButton}>Register</button>
 
-        {errors.map((error) => (
-          <div className="error" key={`error-${error.message}`}>
-            <ErrorMessage>{error.message}</ErrorMessage>
-          </div>
-        ))}
-      </form>
-    </div>
+          {errors.map((error) => (
+            <div className="error" key={`error-${error.message}`}>
+              <ErrorMessage>{error.message}</ErrorMessage>
+            </div>
+          ))}
+        </form>
+      </div>
+      <div className={styles.animationContainer}>
+        <DotLottieReact
+          src="/animations/stretch/Cobra-Pose.lottie"
+          loop
+          autoplay
+        />
+      </div>
+    </>
   );
 }

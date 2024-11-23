@@ -95,50 +95,61 @@ export default function SelectedExerciseCard({ exercise }) {
 
   return (
     <div>
-      <div key={`exercise-${exercise.id}`} className={styles.exerciseCard}>
-        <div className={styles.nameContainer}>
-          <span className={styles.infoIconWrapper}>
-            <span className={styles.infoIcon}>i</span>
-            <span className={styles.description}>
-              {exercise.description || 'No description available'}
-            </span>
-          </span>
-          <h3 className={styles.exerciseName}>
-            {exercise.name.replace(/(?<=[a-zA-Z])-|-(?=[a-zA-Z])/g, ' ')}
-          </h3>
-          {/* Favorite Icon */}
-          <button
-            className={`${styles.favoriteButton} ${
-              isFavorite ? styles.favorite : ''
-            }`}
-            onClick={toggleFavorite}
-            aria-label={
-              isFavorite ? 'Remove from favorites' : 'Add to favorites'
-            }
-          >
-            {isFavorite ? '❤️' : '🤍'}
-          </button>
-        </div>
-        {exercise.id !== 'default' && (
-          <div className={styles.animationContainer}>
-            {isYouTube ? (
-              <ReactPlayer
-                url={exercise.visualization}
-                width="100%"
-                height="100%"
-                controls={true}
-              />
-            ) : (
-              <DotLottieReact
-                src={`/animations/${exercise.category}/${exercise.name}.lottie`}
-                loop
-                autoplay
-                width="150px"
-              />
-            )}
+      <div
+        key={`exercise-${exercise.id}`}
+        className={`${styles.exerciseCard} ${
+          exercise.id === 'default' ? styles.defaultExercise : ''
+        }`}
+      >
+        {exercise.id === 'default' ? (
+          <div className={styles.defaultMessage}>
+            <h3>{exercise.name}</h3>
           </div>
+        ) : (
+          <>
+            <div className={styles.nameContainer}>
+              {/* Info icon and favorite button */}
+              <span className={styles.infoIconWrapper}>
+                <span className={styles.infoIcon}>i</span>
+                <span className={styles.description}>
+                  {exercise.description || 'No description available'}
+                </span>
+              </span>
+              <h3 className={styles.exerciseName}>
+                {exercise.name.replace(/(?<=[a-zA-Z])-|-(?=[a-zA-Z])/g, ' ')}
+              </h3>
+              <button
+                className={`${styles.favoriteButton} ${
+                  isFavorite ? styles.favorite : ''
+                }`}
+                onClick={toggleFavorite}
+                aria-label={
+                  isFavorite ? 'Remove from favorites' : 'Add to favorites'
+                }
+              >
+                {isFavorite ? '❤️' : '🤍'}
+              </button>
+            </div>
+            <div className={styles.animationContainer}>
+              {isYouTube ? (
+                <ReactPlayer
+                  url={exercise.visualization}
+                  width="100%"
+                  height="100%"
+                  controls={true}
+                />
+              ) : (
+                <DotLottieReact
+                  src={`/animations/${exercise.category}/${exercise.name}.lottie`}
+                  loop
+                  autoplay
+                  width="150px"
+                />
+              )}
+            </div>
+            <ExerciseTimer />
+          </>
         )}
-        {exercise.id !== 'default' && <ExerciseTimer />}
       </div>
     </div>
   );

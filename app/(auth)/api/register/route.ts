@@ -28,7 +28,6 @@ export async function POST(
 
   // 2. Validate the user data with zod
   const result = userSchema.safeParse(requestBody);
-  console.log('result:', result);
 
   if (!result.success) {
     return NextResponse.json(
@@ -41,7 +40,7 @@ export async function POST(
 
   // 3. Check if user already exist in the database
   const user = await getUserInsecure(result.data.username);
-  console.log('User:', user);
+
   if (user) {
     return NextResponse.json(
       {
@@ -61,14 +60,14 @@ export async function POST(
 
   // 4. Hash the plain password from the user
   const passwordHash = await bcrypt.hash(result.data.password, 12);
-  console.log('PasswordHash', passwordHash);
+
   // 5. Save the user information with the hashed password in the database
   const newUser = await createUserInsecure(
     result.data.username,
     result.data.email,
     passwordHash,
   );
-  console.log('newUser', newUser);
+
   if (!newUser) {
     return NextResponse.json(
       {

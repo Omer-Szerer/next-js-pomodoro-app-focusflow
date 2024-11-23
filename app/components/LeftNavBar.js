@@ -79,7 +79,7 @@ export default function LeftNavBar() {
 
       {isOpen && (
         <div
-          className={styles.overlay}
+          className={styles.mobileOverlay}
           onClick={toggleSidebar}
           onKeyDown={(e) =>
             (e.key === 'Enter' || e.key === ' ') && toggleSidebar()

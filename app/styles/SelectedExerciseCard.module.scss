@@ -17,9 +17,9 @@
   flex-direction: column;
   align-items: center;
   background-color: white;
-  border-radius: 10px;
+  border-radius: 8px;
   padding: 40px;
-  max-width: 500px;
+  max-width: 600px;
   height: auto;
   margin: 0 auto;
   margin-top: 10px;
@@ -27,7 +27,11 @@
   border: 1px solid rgba(0, 0, 0, 0.1);
   text-align: center;
 }
-
+@media (max-width: 878px) {
+  .exerciseCard {
+    max-width: 78%;
+  }
+}
 /* Name Container */
 .nameContainer {
   display: flex;
@@ -122,7 +126,7 @@
   padding: 10px;
 
   // Media Queries
-  @media (max-width: 767px) {
+  @media (max-width: 878px) {
     flex-direction: column; /* Stack checkboxes on small screens */
     align-items: start;
     justify-self: center;
@@ -144,7 +148,7 @@
   color: #333;
 
   // Media Queries
-  @media (max-width: 767px) {
+  @media (max-width: 878px) {
     font-size: 14px; /* Smaller font for smaller screens */
   }
 
@@ -162,7 +166,7 @@
     }
 
     // Media Queries
-    @media (max-width: 767px) {
+    @media (max-width: 878px) {
       width: 18px;
       height: 18px; /* Adjust size on smaller screens */
     }
@@ -208,4 +212,24 @@
   &.favorite {
     color: red;
   }
+}
+
+// SelectedExerciseCard.module.scss
+
+.defaultExercise {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 50px; /* Adjust as needed for your layout */
+  border-radius: 8px;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.defaultMessage h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333; /* Adjust color as needed */
+  margin: 0;
 }

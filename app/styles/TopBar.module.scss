@@ -1,82 +1,61 @@
-/* Small screen adjustments */
-@media (max-width: 878px) {
-  .topBar {
-    z-index: 1;
-    justify-content: center;
-    justify-content: space-between;
-    padding: 10px;
-    background-color: transparent;
-    border-bottom: none;
-  }
-
-  .profileButton {
-    order: -1;
-    margin-right: auto;
-    margin-left: 10px;
-    font-size: 12px;
-  }
-
-  .logo {
-    flex: none;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    margin-left: 0;
-  }
-}
-
 .topBar {
   position: fixed;
-  top: 0;
+  top: 10px;
   left: 0;
   width: 100%;
   z-index: 20;
-  background-color: #f8f9fa;
-  // background-color: #3d474d;
+  // background-color: #0f0a2e;
+  // background-color: #25143d;
   padding: 10px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid #ddd;
-  height: 35px;
+  // border-bottom: 1px solid #ddd;
 }
 
 .logo {
   text-decoration: none;
   font-family: 'Gugi', sans-serif;
   font-weight: 900;
-  margin-left: 20px;
+  margin-left: 11px;
+  color: white;
 }
 
-// .profileButton {
-//   border: 1px solid hsl(263, 90%, 51%);
-//   padding: 5px 15px;
-//   border-radius: 4px;
-//   text-decoration: none;
-//   color: hsl(263, 90%, 51%);
-//   font-weight: 500;
-//   font-size: 14px;
-//   transition: background-color 0.3s;
-//   text-transform: uppercase;
-//   margin-right: 40px;
-//   background: white;
-//   cursor: pointer;
+/* Small screen adjustments */
+@media (max-width: 878px) {
+  .topBar {
+    top: 0;
+    z-index: 1;
+    justify-content: center;
+    justify-content: space-between;
+    padding: 10px;
+    // background-color: transparent;
+    background-color: #0f0a2e;
+    // background-color: #0f0a2e;
+    border-bottom: none;
+  }
 
-//   &:hover {
-//     color: white;
-//     border: 1px solid hsl(263, 90%, 51%);
-//     background-color: hsl(263, 90%, 51%);
-//   }
-// }
+  .profileButton {
+    order: -1;
+    margin-right: auto;
+    margin-left: 7px;
+    font-size: 12px;
+  }
+
+  .logo {
+    position: absolute;
+    left: 46%;
+    transform: translateX(-50%);
+  }
+}
 
 .profileButton {
-  display: flex; /* Enables flexbox */
+  display: flex;
   align-items: center; /* Vertically centers content */
   justify-content: center; /* Horizontally centers content */
-  gap: 8px; /* Adds space between the icon and text */
+  gap: 6px; /* Adds space between the icon and text */
   border: 1px solid hsl(263, 90%, 51%);
-  padding: 5px 15px;
+  padding: 4px 15px;
   border-radius: 4px;
   text-decoration: none;
   color: hsl(263, 90%, 51%);
@@ -141,7 +120,7 @@
 .closeButton {
   background: none;
   border: none;
-  color: hsl(343, 85%, 44%);
+  color: #ff2a00;
   font-size: 25px;
   font-weight: bold;
   cursor: pointer;
@@ -171,6 +150,7 @@
   display: flex;
   flex-direction: column;
   gap: 15px; /* Add spacing between each input */
+  margin-top: 250px;
 }
 
 .modal label {
@@ -198,20 +178,20 @@
 
 .modal p {
   text-align: center; /* Center-align the text */
-  font-size: 14px; /* Optional: adjust text size */
+  font-size: 14px;
 }
 
 .modal h2 {
   text-align: center; /* Center-align the heading text */
-  font-size: 34px; /* Optional: Adjust the font size */
+  font-size: 34px;
 }
 
-.overlay {
+.loginOverlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(255, 255, 255, 1); /* Semi-transparent white */
+  background-color: #f4f6f8;
   z-index: 999; /* Below the modal but above everything else */
 }

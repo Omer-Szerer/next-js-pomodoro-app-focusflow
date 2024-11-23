@@ -24,13 +24,17 @@
   border: 1px solid #ddd;
   border-radius: 4px;
   width: 200px;
+
+  &:focus {
+    border: 1px solid hsl(205, 79%, 40%);
+  }
 }
 
 .addTaskButton {
   padding: 8px 12px;
   cursor: pointer;
-  background-color: hsl(263, 90%, 51%);
-  // background-color: #153c1a;
+  background-color: hsl(205, 79%, 50%);
+  // background-color: hsl(161, 27%, 49%);
 
   color: white;
   border: none;
@@ -39,7 +43,8 @@
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: rgb(104, 18, 243);
+    // background-color: hsl(161, 27%, 39%);
+    background-color: hsl(205, 79%, 40%);
   }
 }
 
@@ -51,6 +56,12 @@
   padding: 0;
 }
 
+@media (max-width: 878px) {
+  .taskList {
+    width: 97%;
+  }
+}
+
 /* Task Item */
 .taskItem {
   display: flex;
@@ -58,7 +69,7 @@
   padding: 8px;
   box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.05);
   border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+  border-radius: 8px;
   background-color: #fff;
   margin-bottom: 8px;
 }
@@ -90,14 +101,14 @@
   transition: border-color 0.3s ease;
 
   &:focus {
-    border-color: hsl(205, 79%, 50%);
+    border-color: hsl(205, 79%, 40%);
     outline: none;
   }
 }
 
 .checked {
   text-decoration: line-through;
-  color: gray;
+  color: hsl(204, 14%, 58%);
 }
 
 /* Subtask List */
@@ -135,7 +146,7 @@
 
   &.completed {
     text-decoration: line-through;
-    color: gray;
+    color: hsl(204, 14%, 58%);
   }
 }
 
@@ -167,26 +178,26 @@
   background: none;
   border: none;
   // color: hsl(343, 85%, 44%);
-  color: #ff2a00;
+  color: hsl(10, 100%, 50%);
   transition: color 0.3s;
 
   &:hover {
-    color: #ff2a00c0;
+    color: hsl(10, 100%, 40%);
   }
 }
 
 .addSubtaskButton {
   cursor: pointer;
-  margin-left: 8px;
   background: none;
   border: none;
   border-radius: 2px;
   color: hsl(205, 79%, 50%);
+  // color: hsl(205, 79%, 50%);
   transition: color 0.3s;
   transition: background-color 0.3s;
 
   &:hover {
-    color: hsl(205, 79%, 60%);
+    color: hsl(205, 79%, 40%);
   }
 }
 
@@ -201,7 +212,7 @@
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: hsl(205, 79%, 60%);
+    background-color: hsl(205, 79%, 40%);
   }
 }
 
@@ -247,7 +258,7 @@
 .checkboxLabel {
   width: 20px;
   height: 20px;
-  border: 2px solid #007bff;
+  border: 2px solid hsl(205, 79%, 50%);
   border-radius: 4px;
   display: inline-block;
   cursor: pointer;
@@ -256,10 +267,10 @@
 }
 
 .checkbox:checked + .checkboxLabel {
-  background-color: hsl(115, 100%, 21%);
-  border-color: hsl(115, 100%, 21%);
-  // background-color: #aafcb4;
-  // border-color: #aafcb4;
+  // background-color: hsl(115, 100%, 21%);
+  // border-color: hsl(115, 100%, 21%);
+  background-color: hsl(205, 79%, 50%);
+  border-color: hsl(205, 79%, 50%);
 }
 
 .checkbox:checked + .checkboxLabel::after {

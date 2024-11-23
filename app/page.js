@@ -12,10 +12,9 @@ export default async function HomePage() {
   // Task: Restrict access to the notes page and only display notes belonging to the current logged in user
   // 1. Check if the sessionToken cookie exists
   const sessionTokenCookie = await getCookie('sessionToken');
-  console.log('sessionTokenCookie', sessionTokenCookie);
+
   // 2. Query user with the sessionToken
   const user = sessionTokenCookie && (await getUser(sessionTokenCookie));
-  console.log('user', user);
 
   // --- THIS CAUSES THE APP TO CRASH --- //
   // 3. If the user does not exist, redirect to the login with the returnTo query parameter
@@ -25,7 +24,7 @@ export default async function HomePage() {
 
   // 4. Display the tasks for the current logged in user
   const tasks = await getTasks(sessionTokenCookie);
-  console.log('tasks', tasks);
+
   return (
     <main>
       <Timers exercises={exercises} />
