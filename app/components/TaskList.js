@@ -275,6 +275,39 @@ const TaskList = ({ tasks: initialTasks, taskWithSubtask }) => {
     }
   };
 
+  // --- DELETE SUBTASK FROM DB --- //
+  const deleteSubtask = async (taskId, subtaskId) => {
+    try {
+      const response = await fetch('/api/subtasks', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ taskId, subtaskId }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete subtask from the database');
+      }
+
+      setTasks((prevTasks) =>
+        prevTasks.map((task) =>
+          task.id === taskId
+            ? {
+                ...task,
+                subtasks: task.subtasks.filter(
+                  (subtask) => subtask.id !== subtaskId,
+                ),
+              }
+            : task,
+        ),
+      );
+    } catch (error) {
+      console.error('Error deleting subtask:', error.message);
+      toast.error('Failed to delete subtask. Please try again.');
+    }
+  };
+
   const startEditingSubtask = (taskId, subtask) => {
     setEditingSubtaskId({ taskId, subtaskId: subtask.id });
     setEditedSubtaskName((prev) => ({
@@ -570,6 +603,12 @@ const TaskList = ({ tasks: initialTasks, taskWithSubtask }) => {
                         }
                       >
                         <DownIcon />
+                      </button>
+                      <button
+                        onClick={() => deleteSubtask(task.id, subtask.id)}
+                        className={`${styles.deleteButton} ${styles.deleteButtonSmall}`}
+                      >
+                        <DeleteIcon />
                       </button>
                     </div>
                   </div>
