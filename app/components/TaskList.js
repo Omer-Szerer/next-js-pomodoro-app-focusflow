@@ -8,8 +8,15 @@ import DeleteIcon from './DeleteIcon';
 import DownIcon from './DownIcon';
 import UpIcon from './UpIcon';
 
-const TaskList = ({ tasks: initialTasks }) => {
-  const [tasks, setTasks] = useState(initialTasks || []);
+const TaskList = ({ tasks: initialTasks, taskWithSubtask }) => {
+  console.log('initialTasks', initialTasks);
+
+  const [taskWithSubtasks, setTaskWithSubtasks] = useState(
+    taskWithSubtask || [],
+  );
+  console.log('setTaskWithSubtasks', setTaskWithSubtasks);
+
+  const [tasks, setTasks] = useState(taskWithSubtasks || []);
   const sessionToken = useSession();
   const [newTaskName, setNewTaskName] = useState('');
   const [newSubtaskValues, setNewSubtaskValues] = useState({});
@@ -173,33 +180,6 @@ const TaskList = ({ tasks: initialTasks }) => {
   const handleSubtaskInputChange = (taskId, value) => {
     setNewSubtaskValues({ ...newSubtaskValues, [taskId]: value });
   };
-
-  // --- NOT FROM DB --- //
-  // const addSubtask = (taskId) => {
-  //   // Trim whitespace and check if the subtask is not empty
-  //   const subtaskValue = newSubtaskValues[taskId]?.trim();
-  //   if (!subtaskValue) return; // Exit if the subtask is empty or only contains whitespace
-
-  //   setTasks((prevTasks) =>
-  //     prevTasks.map((task) =>
-  //       task.id === taskId
-  //         ? {
-  //             ...task,
-  //             subtasks: [
-  //               ...task.subtasks,
-  //               {
-  //                 id: Date.now().toString(),
-  //                 name: subtaskValue,
-  //                 completed: false,
-  //               },
-  //             ],
-  //           }
-  //         : task,
-  //     ),
-  //   );
-  //   setNewSubtaskValues((prev) => ({ ...prev, [taskId]: '' }));
-  //   setShowSubtaskInput((prev) => ({ ...prev, [taskId]: false }));
-  // };
 
   const addSubtask = async (taskId) => {
     const subtaskValue = newSubtaskValues[taskId]?.trim();
@@ -508,7 +488,7 @@ const TaskList = ({ tasks: initialTasks }) => {
                       onChange={() =>
                         toggleSubtaskCompletion(task.id, subtask.id)
                       }
-                      className={styles.checkbox}
+                      className={styles.checkboxContainer}
                     />
                     {editingSubtaskId.subtaskId === subtask.id &&
                     editingSubtaskId.taskId === task.id ? (

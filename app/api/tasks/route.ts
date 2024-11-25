@@ -7,7 +7,7 @@ import { getCookie } from '../../../util/cookies';
 import {
   createTask,
   deleteTask,
-  getTasks,
+  getTasksWithSubtasks,
   updateTaskCheckedStatus,
 } from '../../database/tasks';
 
@@ -52,7 +52,7 @@ export async function GET(): Promise<NextResponse<GetTasksResponseBody>> {
     }
 
     // Fetch tasks for the logged-in user
-    const tasks = await getTasks(sessionTokenCookie);
+    const tasks = await getTasksWithSubtasks(sessionTokenCookie);
 
     if (tasks.length === 0) {
       return NextResponse.json(

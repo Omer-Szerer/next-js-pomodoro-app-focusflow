@@ -3,8 +3,7 @@ import { getCookie } from '../util/cookies';
 import Tasks from './components/TaskList';
 import Timers from './components/Timers';
 import { getExercisesInsecure } from './database/exercises';
-import { getSubtasks } from './database/subtasks';
-import { getTasks } from './database/tasks';
+import { getTasksWithSubtasks } from './database/tasks';
 import { getUser } from './database/users';
 
 export const metadata = {
@@ -22,13 +21,13 @@ export default async function HomePage() {
   const user = sessionTokenCookie && (await getUser(sessionTokenCookie));
 
   // 3. Display the tasks for the current logged in user
-  const tasks = await getTasks(sessionTokenCookie);
-  const subTasks = await getSubtasks(sessionTokenCookie);
+  const taskWithSubtask = await getTasksWithSubtasks(sessionTokenCookie);
+  console.log('taskWithSubtask', taskWithSubtask);
 
   return (
     <main>
       <Timers exercises={exercises} />
-      <Tasks user={user} tasks={tasks} subtasks={subTasks} />
+      <Tasks user={user} taskWithSubtask={taskWithSubtask} />
     </main>
   );
 }

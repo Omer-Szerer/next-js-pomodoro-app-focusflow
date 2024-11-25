@@ -153,3 +153,58 @@ export const deleteTask = async (
     throw new Error('Failed to delete task');
   }
 };
+
+export const getTasksWithSubtasks = cache(async (sessionToken: string) => {
+  const tasks = await sql<
+    {
+      id: number;
+      userId: number;
+      textContent: string;
+      checked: boolean;
+      subtasks: {
+        id: number | null;
+        textContent: string | null;
+        checked: boolean | null;
+      }[];
+    }[]
+  >`
+    SELECT
+      tasks.id,
+      tasks.user_id,
+      tasks.text_content,
+      tasks.checked,
+      coalesce(
+        json_agg(
+          json_build_object(
+            'id',
+            subtasks.id,
+            'textContent',
+            subtasks.text_content,
+            'checked',
+            subtasks.checked
+          )
+        ) FILTER (
+          WHERE
+            subtasks.id IS NOT NULL
+        ),
+        '[]'
+      ) AS subtasks
+    FROM
+      tasks
+      INNER JOIN sessions ON (
+        sessions.token = ${sessionToken}
+        AND sessions.user_id = tasks.user_id
+        AND expiry_timestamp > now()
+      )
+      LEFT JOIN subtasks ON subtasks.task_id = tasks.id
+    GROUP BY
+      tasks.id
+  `;
+  return tasks.map((task) => ({
+    id: task.id,
+    userId: task.userId,
+    textContent: task.textContent,
+    checked: task.checked,
+    subtasks: task.subtasks,
+  }));
+});
