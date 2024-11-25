@@ -144,7 +144,7 @@
     border: 1px solid hsl(205, 79%, 50%);
   }
 
-  &.completed {
+  &.checked {
     text-decoration: line-through;
     color: hsl(204, 14%, 58%);
   }
@@ -192,7 +192,6 @@
   border: none;
   border-radius: 2px;
   color: hsl(205, 79%, 50%);
-  // color: hsl(205, 79%, 50%);
   transition: color 0.3s;
   transition: background-color 0.3s;
 
@@ -232,59 +231,6 @@
   font-size: 1.2rem;
 }
 
-.subtaskCheckbox {
-  margin-right: 8px;
-  flex-shrink: 0;
-}
-
-// .dragHandle {
-//   cursor: grab;
-//   padding: 0 8px;
-// }
-
-.checkboxContainer {
-  display: flex;
-  align-items: center;
-  margin: 0 8px; /* Spacing for the entire checkbox container */
-}
-
-.checkbox {
-  /* Hide the checkbox but ensure it's still interactive */
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.checkboxLabel {
-  width: 20px;
-  height: 20px;
-  border: 2px solid hsl(205, 79%, 50%);
-  border-radius: 4px;
-  display: inline-block;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  position: relative; /* Ensure pseudo-elements are positioned correctly */
-}
-
-.checkbox:checked + .checkboxLabel {
-  // background-color: hsl(115, 100%, 21%);
-  // border-color: hsl(115, 100%, 21%);
-  background-color: hsl(205, 79%, 50%);
-  border-color: hsl(205, 79%, 50%);
-}
-
-.checkbox:checked + .checkboxLabel::after {
-  content: '';
-  position: absolute;
-  top: 2px;
-  left: 6px;
-  width: 6px;
-  height: 10px;
-  border: solid white;
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
-}
-
 /* Screen reader only text */
 .srOnly {
   position: absolute;
@@ -295,4 +241,108 @@
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   border: 0;
+}
+
+.hiddenCheckbox {
+  display: none; /* Hide the actual checkbox */
+}
+
+.customCheckbox {
+  border: 2px solid hsl(205, 79%, 50%);
+  border-radius: 4px;
+  background-color: white;
+  display: inline-block;
+  margin-right: 8px;
+  transition:
+    background-color 0.3s,
+    border-color 0.3s;
+}
+
+.customCheckbox.checked {
+  background-color: hsl(205, 79%, 50%);
+  border-color: hsl(205, 79%, 50%);
+}
+
+/* Main Checkbox Styles */
+.checkboxContainer {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+}
+
+.checkbox {
+  /* Hide the checkbox but ensure it's still interactive */
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.checkboxLabel {
+  width: 20px; /* Main task checkbox size */
+  height: 20px;
+  border: 2px solid hsl(205, 79%, 50%);
+  border-radius: 4px;
+  display: inline-block;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative; /* Ensure pseudo-elements are positioned correctly */
+}
+
+.checkbox:checked + .checkboxLabel {
+  background-color: hsl(205, 79%, 50%);
+  border-color: hsl(205, 79%, 50%);
+}
+
+.checkbox:checked + .checkboxLabel::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 7px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* Subtask Checkbox Styles */
+.subtaskCheckboxContainer {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+}
+
+.subtaskCheckbox {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.subtaskCheckboxLabel {
+  width: 16px;
+  height: 16px;
+  border: 2px solid hsl(205, 79%, 50%);
+  border-radius: 4px;
+  display: inline-block;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  margin-left: 12px;
+}
+
+.subtaskCheckbox:checked + .subtaskCheckboxLabel {
+  background-color: hsl(205, 79%, 50%);
+  border-color: hsl(205, 79%, 50%);
+}
+
+.subtaskCheckbox:checked + .subtaskCheckboxLabel::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 5px;
+  width: 4px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
 }

@@ -232,30 +232,47 @@ const TaskList = ({ tasks: initialTasks, taskWithSubtask }) => {
     }
   };
 
-  const toggleSubtaskCompletion = (taskId, subtaskId) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) => {
-        if (task.id === taskId) {
-          const updatedSubtasks = task.subtasks.map((subtask) =>
-            subtask.id === subtaskId
-              ? { ...subtask, completed: !subtask.completed }
-              : subtask,
-          );
+  const toggleSubtaskCompletion = async (taskId, subtaskId) => {
+    const task = tasks.find((t) => t.id === taskId);
+    if (!task) return;
 
-          // Check if all subtasks are completed
-          const allSubtasksCompleted = updatedSubtasks.every(
-            (subtask) => subtask.completed,
-          );
+    const subtask = task.subtasks.find((s) => s.id === subtaskId);
+    if (!subtask) return;
 
-          return {
-            ...task,
-            subtasks: updatedSubtasks,
-            completed: allSubtasksCompleted, // Update the main task completion
-          };
-        }
-        return task;
-      }),
-    );
+    const updatedCompletedStatus = !subtask.checked;
+
+    try {
+      const response = await fetch('/api/subtasks', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${sessionToken}`,
+        },
+        body: JSON.stringify({ subtaskId, checked: updatedCompletedStatus }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update subtask completion status');
+      }
+
+      setTasks((prevTasks) =>
+        prevTasks.map((t) =>
+          t.id === taskId
+            ? {
+                ...t,
+                subtasks: t.subtasks.map((s) =>
+                  s.id === subtaskId
+                    ? { ...s, checked: updatedCompletedStatus }
+                    : s,
+                ),
+              }
+            : t,
+        ),
+      );
+    } catch (error) {
+      console.error('Error updating subtask:', error.message);
+      toast.error('Failed to update subtask status. Please try again.');
+    }
   };
 
   const startEditingSubtask = (taskId, subtask) => {
@@ -475,6 +492,7 @@ const TaskList = ({ tasks: initialTasks, taskWithSubtask }) => {
                 </button>
               </div>
             )}
+
             <ul className={styles.subtaskList}>
               {task.subtasks?.map((subtask) => (
                 <li
@@ -482,14 +500,29 @@ const TaskList = ({ tasks: initialTasks, taskWithSubtask }) => {
                   className={styles.subtaskItem}
                 >
                   <div className={styles.subtaskRow}>
-                    <input
-                      type="checkbox"
-                      checked={subtask.completed}
-                      onChange={() =>
-                        toggleSubtaskCompletion(task.id, subtask.id)
-                      }
-                      className={styles.checkboxContainer}
-                    />
+                    {/* Subtask Checkbox */}
+                    <div className={styles.subtaskCheckboxContainer}>
+                      <input
+                        type="checkbox"
+                        id={`subtask-checkbox-${subtask.id}`}
+                        checked={subtask.checked}
+                        onChange={() =>
+                          toggleSubtaskCompletion(task.id, subtask.id)
+                        }
+                        className={styles.subtaskCheckbox}
+                      />
+                      <label
+                        htmlFor={`subtask-checkbox-${subtask.id}`}
+                        className={styles.subtaskCheckboxLabel}
+                      >
+                        <span className={styles.srOnly}>
+                          Mark task as{' '}
+                          {subtask.checked ? 'incomplete' : 'complete'}
+                        </span>
+                      </label>
+                    </div>
+
+                    {/* Editable or Static Subtask Name */}
                     {editingSubtaskId.subtaskId === subtask.id &&
                     editingSubtaskId.taskId === task.id ? (
                       <input
@@ -512,12 +545,14 @@ const TaskList = ({ tasks: initialTasks, taskWithSubtask }) => {
                       <button
                         onClick={() => startEditingSubtask(task.id, subtask)}
                         className={`${styles.subtaskName} ${
-                          subtask.completed ? styles.checked : ''
+                          subtask.checked ? styles.checked : ''
                         }`}
                       >
                         {subtask.textContent}
                       </button>
                     )}
+
+                    {/* Move Buttons */}
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                       <button
                         onClick={() => moveSubtask(task.id, subtask.id, 'up')}

@@ -182,14 +182,14 @@ export async function DELETE(
   }
 }
 
-export async function PATCH(request: Request): Promise<NextResponse> {
+export async function PATCH(request: Request) {
   try {
     const body = await request.json();
     const { subtaskId, checked } = body;
 
     if (typeof subtaskId !== 'number' || typeof checked !== 'boolean') {
       return NextResponse.json(
-        { error: 'Invalid request body' },
+        { error: 'Invalid subtask data' },
         { status: 400 },
       );
     }
@@ -212,14 +212,14 @@ export async function PATCH(request: Request): Promise<NextResponse> {
 
     if (!updatedSubtask) {
       return NextResponse.json(
-        { error: 'Subtask not found or access denied' },
-        { status: 404 },
+        { error: 'Failed to update subtask or access denied' },
+        { status: 400 },
       );
     }
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Error updating subtask status:', error);
+    console.error('Error updating subtask:', error);
     return NextResponse.json(
       { error: 'Internal Server Error' },
       { status: 500 },
