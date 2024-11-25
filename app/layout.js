@@ -47,7 +47,13 @@ export default async function RootLayout({ children }) {
           <TopBar sessionToken={!!sessionToken} username={truncatedUsername} />
           <LeftNavBar />
         </SessionProvider>
-        <Toaster position="top-center" reverseOrder={false} />
+        <Toaster
+          position="top-center"
+          reverseOrder={false}
+          containerStyle={{
+            marginLeft: '145px',
+          }}
+        />
       </body>
     </html>
   );

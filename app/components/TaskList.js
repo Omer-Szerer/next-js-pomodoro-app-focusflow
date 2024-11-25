@@ -22,10 +22,9 @@ const TaskList = ({ tasks: initialTasks }) => {
   const [editedSubtaskName, setEditedSubtaskName] = useState({});
   const [showSubtaskInput, setShowSubtaskInput] = useState({});
 
-  // Fetch tasks dynamically when the component mounts or sessionToken changes
   useEffect(() => {
     if (!sessionToken) {
-      setTasks([]); // Clear tasks on logout
+      setTasks([]);
       return;
     }
 
@@ -44,13 +43,11 @@ const TaskList = ({ tasks: initialTasks }) => {
 
         const data = await response.json();
         setTasks(data.tasks);
-        // console.log('data', data);
       } catch (error) {
         console.error('Error fetching tasks:', error.message);
       }
     };
 
-    // Ensure fetchTasks catches any promise rejection
     fetchTasks().catch((error) => {
       console.error('Error in fetchTasks:', error.message);
       toast.error('Failed to load tasks.');
@@ -84,11 +81,11 @@ const TaskList = ({ tasks: initialTasks }) => {
       }
 
       const data = await response.json();
-      // console.log('data', data);
+
       setTasks((prevTasks) => [
         ...prevTasks,
         {
-          id: data.task.id, // Use the ID from the server response
+          id: data.task.id,
           textContent: data.task.textContent,
           checked: false,
           subtasks: [],
@@ -108,14 +105,13 @@ const TaskList = ({ tasks: initialTasks }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ taskId }), // Sending taskId in the body
+        body: JSON.stringify({ taskId }),
       });
 
       if (!response.ok) {
         throw new Error('Failed to delete task from the database');
       }
 
-      // If the request succeeds, remove the task from the UI
       setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
       setShowSubtaskInput((prev) => ({ ...prev, [taskId]: false }));
     } catch (error) {
@@ -123,7 +119,6 @@ const TaskList = ({ tasks: initialTasks }) => {
     }
   };
 
-  // ---FROM DB---//
   const toggleTaskCompletion = async (taskId) => {
     const task = tasks.find((t) => t.id === taskId);
     if (!task) return;
@@ -143,7 +138,6 @@ const TaskList = ({ tasks: initialTasks }) => {
         throw new Error('Failed to update task completion status');
       }
 
-      // Update the local state if the database update is successful
       setTasks((prevTasks) =>
         prevTasks.map((t) =>
           t.id === taskId ? { ...t, checked: updatedCheckedStatus } : t,
@@ -180,6 +174,7 @@ const TaskList = ({ tasks: initialTasks }) => {
     setNewSubtaskValues({ ...newSubtaskValues, [taskId]: value });
   };
 
+  // --- NOT FROM DB --- //
   // const addSubtask = (taskId) => {
   //   // Trim whitespace and check if the subtask is not empty
   //   const subtaskValue = newSubtaskValues[taskId]?.trim();
@@ -235,13 +230,14 @@ const TaskList = ({ tasks: initialTasks }) => {
       const data = await response.json();
       console.log('data', data);
 
-      // Update the state with the new subtask
       setTasks((prevTasks) =>
         prevTasks.map((task) =>
           task.id === taskId
             ? {
                 ...task,
-                subtasks: [...task.subtasks, data.subtask],
+                subtasks: Array.isArray(task.subtasks)
+                  ? [...task.subtasks, data.subtask]
+                  : [data.subtask],
               }
             : task,
         ),
@@ -384,7 +380,7 @@ const TaskList = ({ tasks: initialTasks }) => {
 
   useEffect(() => {
     if (!sessionToken) {
-      setTasks([]); // Clear tasks on logout
+      setTasks([]);
     }
   }, [sessionToken]);
 

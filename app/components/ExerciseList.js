@@ -3,7 +3,7 @@ import { getExercisesInsecure } from '../database/exercises';
 import ExerciseCard from './ExerciseCard';
 
 export default async function ExerciseList() {
-  const exercises = await getExercisesInsecure(); // Fetch all exercises from the database
+  const exercises = await getExercisesInsecure();
 
   return <ExerciseCard exercises={exercises} />;
 }

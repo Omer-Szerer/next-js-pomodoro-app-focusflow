@@ -357,7 +357,7 @@ export default function Timers({ exercises }) {
 
   useEffect(() => {
     if (isRunning) {
-      document.title = `${formatTime(timeLeft)} - ${sessionType}`;
+      document.title = `${sessionType} - ${formatTime(timeLeft)}`;
     } else {
       document.title = 'FocusFlow | For Body & Mind';
     }
