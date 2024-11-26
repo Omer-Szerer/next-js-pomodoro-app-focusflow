@@ -104,12 +104,18 @@ export default function ExerciseCard({ exercises }) {
                     controls={true}
                   />
                 ) : (
-                  <DotLottieReact
-                    src={`/animations/${exercise.category}/${exercise.name}.lottie`}
-                    loop
-                    playOnHover
-                    width="150px"
-                  />
+                  (() => {
+                    const lottieSrc = `/animations/${exercise.category.toLowerCase()}/${exercise.name}.lottie`;
+                    console.log('Lottie Source Path:', lottieSrc);
+                    return (
+                      <DotLottieReact
+                        src={lottieSrc}
+                        loop
+                        playOnHover
+                        width="150px"
+                      />
+                    );
+                  })()
                 )}
               </div>
             )}

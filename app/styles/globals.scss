@@ -9,13 +9,11 @@ body {
   @media (max-width: 878px) {
     margin-left: 10px;
   }
-
 }
-
 
 input:focus,
 textarea:focus,
 select:focus {
   outline: none;
-  border: 1px solid hsl(161, 27%, 49%);
+  border: 1px solid hsl(205, 79%, 40%);
 }
