@@ -106,7 +106,6 @@ export default function ExerciseCard({ exercises }) {
                 ) : (
                   (() => {
                     const lottieSrc = `/animations/${exercise.category.toLowerCase()}/${exercise.name}.lottie`;
-                    console.log('Lottie Source Path:', lottieSrc);
                     return (
                       <DotLottieReact
                         src={lottieSrc}
