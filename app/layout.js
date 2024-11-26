@@ -1,5 +1,5 @@
 import './styles/globals.scss';
-import localFont from 'next/font/local';
+import { Nunito } from 'next/font/google';
 import { cookies } from 'next/headers';
 import { Toaster } from 'react-hot-toast';
 import LeftNavBar from './components/LeftNavBar';
@@ -8,16 +8,7 @@ import { SessionProvider } from './contexts/SessionContext';
 import { getValidSessionToken } from './database/sessions';
 import { getUser } from './database/users';
 
-const geistSans = localFont({
-  src: './fonts/GeistVF.woff',
-  variable: '--font-geist-sans',
-  weight: '100 900',
-});
-const geistMono = localFont({
-  src: './fonts/GeistMonoVF.woff',
-  variable: '--font-geist-mono',
-  weight: '100 900',
-});
+const nunito = Nunito({ subsets: ['latin'] });
 
 export const metadata = {
   title: 'FocusFlow |',
@@ -41,7 +32,7 @@ export default async function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={nunito.className}>
         <SessionProvider sessionToken={!!sessionToken}>
           {children}
           <TopBar sessionToken={!!sessionToken} username={truncatedUsername} />

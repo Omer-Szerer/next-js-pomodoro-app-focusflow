@@ -1,5 +1,6 @@
 'use client';
 
+import { Gugi } from 'next/font/google';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import LoginForm from '../(auth)/login/LoginForm';
@@ -7,6 +8,8 @@ import LogoutButton from '../(auth)/logout/LogoutButton';
 import RegisterForm from '../(auth)/register/RegisterForm';
 import styles from '../styles/TopBar.module.scss';
 import ProfileIcon from './ProfileIcon';
+
+const gugi = Gugi({ weight: ['400'], subsets: ['latin'] });
 
 export default function TopBar({ sessionToken, username }) {
   const [showModal, setShowModal] = useState(false);
@@ -49,8 +52,9 @@ export default function TopBar({ sessionToken, username }) {
 
   return (
     <nav className={styles.topBar}>
-      <div className={styles.logo}>FocusFlow</div>
-
+      <div className={styles.logo}>
+        <div className={gugi.className}>FocusFlow</div>
+      </div>
       {/* Show profile menu if user is logged in */}
       {sessionToken ? (
         <div className={styles.profileMenu}>
