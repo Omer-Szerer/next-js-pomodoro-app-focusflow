@@ -74,7 +74,7 @@ export default function SelectedExerciseCard({ exercise }) {
                 />
               ) : (
                 <DotLottieReact
-                  src={`/animations/${exercise.category}/${exercise.name}.lottie`}
+                  src={`/animations/${exercise.category.toLowerCase()}/${exercise.name}.lottie`}
                   loop
                   autoplay
                   width="150px"
