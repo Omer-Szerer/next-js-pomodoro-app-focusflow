@@ -94,7 +94,6 @@ export default function ExerciseCard({ exercises }) {
                 {/* {favorites.has(exercise.id) ? '⭐️' : '☆'} */}
               </button>
             </div>
-
             {isClient && exercise.visualization && (
               <div className={styles.visualizationContainer}>
                 {exercise.visualization.includes('youtube.com') ? (
