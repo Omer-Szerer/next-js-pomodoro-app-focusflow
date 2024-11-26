@@ -1,18 +1,7 @@
-@font-face {
-  font-family: 'Gugi';
-  src:
-    url('/fonts/Gugi-Regular.woff2') format('woff2'),
-    url('/fonts/Gugi-Regular.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-}
-
 body {
   font-family: 'Nunito Sans', sans-serif;
   margin-left: 145px;
   background-color: #f4f6f8;
-  // background-color: white;
-  // Media Queries
   @media (max-width: 878px) {
     margin-left: 10px;
   }
