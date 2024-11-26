@@ -105,7 +105,7 @@ export default function ExerciseCard({ exercises }) {
                   />
                 ) : (
                   <DotLottieReact
-                    src={`/animations/${exercise.category}/${exercise.name}.lottie`}
+                    src={`${exercise.category}/${exercise.name}.lottie`}
                     loop
                     playOnHover
                     width="150px"
