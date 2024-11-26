@@ -100,7 +100,7 @@ export default function ExerciseCard({ exercises }) {
                   <ReactPlayer
                     url={exercise.visualization}
                     width="100%"
-                    height="305px"
+                    height="380px"
                     controls={true}
                   />
                 ) : (

@@ -4,13 +4,10 @@
   left: 0;
   width: 100%;
   z-index: 20;
-  // background-color: #0f0a2e;
-  // background-color: #25143d;
   padding: 10px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  // border-bottom: 1px solid #ddd;
 }
 
 .logo {
@@ -29,9 +26,7 @@
     justify-content: center;
     justify-content: space-between;
     padding: 10px;
-    // background-color: transparent;
     background-color: #0f0a2e;
-    // background-color: #0f0a2e;
     border-bottom: none;
   }
 
@@ -96,7 +91,6 @@
   background: none;
   cursor: pointer;
   width: 100%;
-  // text-transform: uppercase;
 
   &:hover {
     background-color: #f0f0f0;

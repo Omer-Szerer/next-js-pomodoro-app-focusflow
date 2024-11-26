@@ -7,13 +7,11 @@
   height: 100vh;
   width: 145px;
   background-color: #0f0a2e;
-  // background-color: #25143d;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 20px;
   z-index: 15;
-  // border-right: 1px solid #ddd;
 }
 
 .rightNavContainer {
@@ -23,7 +21,6 @@
   right: 0;
   height: 100vh;
   width: 200px;
-  // background-color: #25143d;
   background-color: #0f0a2e;
   display: flex;
   flex-direction: column;
@@ -59,8 +56,6 @@
   flex-direction: column;
   align-items: center;
   text-decoration: none;
-  // color: white;
-  // color: #8a8c8e;
   color: #a8a1b2;
   font-weight: 800;
   font-size: 16px;
@@ -69,7 +64,6 @@
   padding: 10px;
 
   &:hover {
-    // color: hsl(263, 90%, 61%);
     color: white;
   }
 
