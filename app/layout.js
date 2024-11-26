@@ -12,7 +12,8 @@ const nunito = Nunito({ subsets: ['latin'] });
 
 export const metadata = {
   title: 'FocusFlow |',
-  description: 'A Pomodoro App that keeps your body and mind active',
+  description:
+    'FocusFlow, a Pomodoro App that keeps your body and mind active!',
 };
 
 export default async function RootLayout({ children }) {
