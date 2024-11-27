@@ -112,6 +112,7 @@ export default function ExerciseCard({ exercises }) {
                         loop
                         playOnHover
                         width="150px"
+                        height="380px"
                       />
                     );
                   })()
