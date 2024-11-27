@@ -118,9 +118,18 @@
   visibility: visible;
 }
 
+// .visualizationContainer {
+//   display: flex;
+//   padding: 10px;
+// }
+
 .visualizationContainer {
   display: flex;
   padding: 10px;
+  height: 380px;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 
 /* Filter Container */
