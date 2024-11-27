@@ -46,7 +46,7 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  margin-top: 10px;
+  margin-top: 25px;
 }
 
 .exerciseName {
@@ -55,7 +55,9 @@
 
 /* Info Icon */
 .infoIconWrapper {
-  position: relative;
+  position: absolute;
+  top: 14px;
+  left: 15px;
   display: inline-block;
 
   .infoIcon {
@@ -191,6 +193,9 @@
 }
 
 .favoriteButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
   background: none;
   border: none;
   font-size: 20px;
