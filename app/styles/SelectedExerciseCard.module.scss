@@ -13,6 +13,7 @@
 }
 
 .exerciseCard {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -48,8 +49,10 @@
 
 /* Info Icon */
 .infoIconWrapper {
-  position: relative;
   display: inline-block;
+  position: absolute;
+  top: 14px;
+  left: 15px;
 
   .infoIcon {
     font-size: 14px;
@@ -76,8 +79,8 @@
 .description {
   position: absolute;
   top: 130%;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 80%;
+  transform: translateX(-15%) translateY(5%);
   width: 200px;
   background-color: #333;
   color: #fff;
@@ -198,6 +201,9 @@
 }
 
 .favoriteButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
   background: none;
   border: none;
   font-size: 20px;
