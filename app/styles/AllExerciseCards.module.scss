@@ -121,10 +121,16 @@
 .visualizationContainer {
   display: flex;
   padding: 10px;
-  height: auto;
+  height: 380px;
   justify-content: center;
   align-items: center;
   overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .visualizationContainer {
+    height: auto; /* Adjust for smaller screens */
+  }
 }
 
 /* Filter Container */
