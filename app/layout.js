@@ -40,7 +40,7 @@ export default async function RootLayout({ children }) {
           <LeftNavBar />
         </SessionProvider>
         <Toaster
-          position="top-center"
+          position="top-left"
           reverseOrder={false}
           containerStyle={{
             marginLeft: '145px',

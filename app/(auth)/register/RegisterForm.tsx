@@ -5,21 +5,18 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { getSafeReturnToPath } from '../../../util/validation';
-import ErrorMessage from '../../ErrorMessage';
 import styles from '../../styles/RegisterForm.module.scss';
 import type { RegisterResponseBody } from '../api/register/route';
 
 type Props = {
   returnTo?: string | string[];
-  closeModal: () => void; // Add this prop to close the modal
+  closeModal: () => void;
 };
 
 export default function RegisterForm(props: Props) {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState<{ message: string }[]>([]);
-
   const router = useRouter();
 
   async function handleRegister(event: React.FormEvent<HTMLFormElement>) {
@@ -37,9 +34,12 @@ export default function RegisterForm(props: Props) {
     const data: RegisterResponseBody = await response.json();
 
     if ('errors' in data) {
-      setErrors(data.errors);
+      data.errors.forEach((error) => {
+        toast.error(error.message);
+      });
       return;
     }
+
     toast.success(`Welcome to FocusFlow, ${username}!`);
 
     // After successful registration, close the modal and redirect
@@ -79,12 +79,6 @@ export default function RegisterForm(props: Props) {
           </label>
 
           <button className={styles.submitButton}>Register</button>
-
-          {errors.map((error) => (
-            <div className="error" key={`error-${error.message}`}>
-              <ErrorMessage>{error.message}</ErrorMessage>
-            </div>
-          ))}
         </form>
       </div>
       <div className={styles.animationContainer}>

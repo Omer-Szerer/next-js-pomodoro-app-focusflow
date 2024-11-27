@@ -5,21 +5,18 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { getSafeReturnToPath } from '../../../util/validation';
-import ErrorMessage from '../../ErrorMessage';
 import styles from '../../styles/RegisterForm.module.scss';
 import type { LoginResponseBody } from '../api/login/route';
 
 type Props = {
   returnTo?: string | string[];
-  closeModal?: () => void; // Make this prop optional
+  closeModal?: () => void;
 };
 
 export default function LoginForm({ returnTo, closeModal = () => {} }: Props) {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState<{ message: string }[]>([]);
-
   const router = useRouter();
 
   async function handleLogin(event: React.FormEvent<HTMLFormElement>) {
@@ -37,13 +34,16 @@ export default function LoginForm({ returnTo, closeModal = () => {} }: Props) {
     const data: LoginResponseBody = await response.json();
 
     if ('errors' in data) {
-      setErrors(data.errors);
+      data.errors.forEach((error) => {
+        toast.error(error.message); // Show errors as toast notifications
+      });
       return;
     }
+
     toast.success(`Welcome back, ${username}!`);
 
     // After successful login, close the modal and redirect
-    closeModal(); // Use the optional closeModal
+    closeModal();
     router.push(getSafeReturnToPath(returnTo) || '/');
 
     router.refresh();
@@ -78,13 +78,7 @@ export default function LoginForm({ returnTo, closeModal = () => {} }: Props) {
             />
           </label>
 
-          <button className={styles.submitButton}>login</button>
-
-          {errors.map((error) => (
-            <div className="error" key={`error-${error.message}`}>
-              <ErrorMessage>{error.message}</ErrorMessage>
-            </div>
-          ))}
+          <button className={styles.submitButton}>Login</button>
         </form>
       </div>
       <div className={styles.animationContainer}>
