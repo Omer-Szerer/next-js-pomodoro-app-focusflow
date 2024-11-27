@@ -30,13 +30,37 @@ export async function POST(
   const result = userSchema.safeParse(requestBody);
 
   if (!result.success) {
+    const formattedErrors = result.error.issues.map((issue) => {
+      if (issue.code === 'too_small') {
+        return {
+          message: `${issue.path[0]} is too short.
+          Minimum length is ${issue.minimum}.`,
+        };
+      }
+      if (issue.code === 'too_big') {
+        return {
+          message: `${issue.path[0]} is too long.
+          Maximum length is ${issue.maximum}.`,
+        };
+      }
+      return { message: issue.message }; // Default to Zod's message
+    });
+
     return NextResponse.json(
-      { errors: result.error.issues },
+      { errors: formattedErrors },
       {
         status: 400,
       },
     );
   }
+  // if (!result.success) {
+  //   return NextResponse.json(
+  //     { errors: result.error.issues },
+  //     {
+  //       status: 400,
+  //     },
+  //   );
+  // }
 
   // 3. Check if user already exist in the database
   const user = await getUserInsecure(result.data.username);
