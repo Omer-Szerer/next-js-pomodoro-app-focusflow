@@ -177,13 +177,21 @@
   cursor: pointer;
   background: none;
   border: none;
-  // color: hsl(343, 85%, 44%);
   color: hsl(10, 100%, 50%);
   transition: color 0.3s;
 
   &:hover {
     color: hsl(10, 100%, 40%);
   }
+}
+
+.deleteButtonSmall {
+  padding: 4px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .addSubtaskButton {
@@ -352,13 +360,4 @@
   border: none;
   color: #ff0000;
   cursor: pointer;
-}
-
-.deleteButtonSmall {
-  padding: 4px;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }

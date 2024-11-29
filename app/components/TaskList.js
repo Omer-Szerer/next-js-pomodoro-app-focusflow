@@ -422,7 +422,7 @@ const TaskList = ({ tasks: initialTasks, taskWithSubtask }) => {
           className={styles.input}
           value={newTaskName}
           onChange={(e) => {
-            if (e.target.value.length <= 40) {
+            if (e.target.value.length <= 25) {
               setNewTaskName(e.target.value);
             }
           }}
@@ -512,7 +512,7 @@ const TaskList = ({ tasks: initialTasks, taskWithSubtask }) => {
                   className={styles.subtaskInput}
                   value={newSubtaskValues[task.id] || ''}
                   onChange={(e) => {
-                    if (e.target.value.length <= 40) {
+                    if (e.target.value.length <= 25) {
                       handleSubtaskInputChange(task.id, e.target.value);
                     }
                   }}
