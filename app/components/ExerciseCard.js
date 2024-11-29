@@ -75,7 +75,10 @@ export default function ExerciseCard({ exercises }) {
                   {exercise.description}
                 </span>
               </span>
-              <h3 className={styles.exerciseName}>
+              <h3
+                className={styles.exerciseName}
+                data-test-id={`exercise-name-${exercise.name}`}
+              >
                 {exercise.name.replace(/(?<=[a-zA-Z])-|-(?=[a-zA-Z])/g, ' ')}
               </h3>
               {/* Favorite Icon */}

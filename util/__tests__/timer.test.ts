@@ -1,5 +1,5 @@
 import { expect, test } from '@jest/globals';
-import { formatTime } from '../time';
+import { formatTime } from '../timer';
 
 test('formats time to MM:SS format', () => {
   expect(formatTime(75)).toBe('01:15'); // 1 minute 15 seconds
