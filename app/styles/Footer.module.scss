@@ -8,6 +8,16 @@
     margin: 0 0 1rem 0;
     font-size: 1rem;
     color: #333;
+
+    .heart {
+      display: inline-block;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+
+      &.clicked {
+        transform: scale(1.5);
+      }
+    }
   }
 
   div {

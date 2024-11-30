@@ -1,12 +1,40 @@
-import React from 'react';
+'use client';
+import React, { useState } from 'react';
 import styles from '../styles/Footer.module.scss';
 import GitHubIcon from './GitHubIcon';
 import LinkedinIcon from './LinkedinIcon';
 
 const Footer: React.FC = () => {
+  const [isClicked, setIsClicked] = useState(false);
+
+  const handleHeartClick = () => {
+    setIsClicked(true);
+    setTimeout(() => setIsClicked(false), 300);
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLSpanElement>) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      handleHeartClick();
+    }
+  };
+
   return (
     <footer className={styles.footer}>
-      <p>Made with ❤️ by Omer Szerer</p>
+      <p>
+        Made with{' '}
+        <span
+          className={`${styles.heart} ${isClicked ? styles.clicked : ''}`}
+          onClick={handleHeartClick}
+          onKeyDown={handleKeyDown}
+          tabIndex={0} // Makes the element focusable
+          role="button" // Indicates interactivity
+          aria-label="Click to animate heart emoji"
+        >
+          ❤️
+        </span>{' '}
+        by Omer Szerer
+      </p>
       <div>
         <a
           className="github"
