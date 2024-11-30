@@ -2,6 +2,7 @@ import './styles/globals.scss';
 import { Nunito } from 'next/font/google';
 import { cookies } from 'next/headers';
 import { Toaster } from 'react-hot-toast';
+import Footer from './components/Footer';
 import LeftNavBar from './components/LeftNavBar';
 import TopBar from './components/TopBar';
 import { SessionProvider } from './contexts/SessionContext';
@@ -23,21 +24,16 @@ export default async function RootLayout({ children }) {
     sessionTokenCookie &&
     (await getValidSessionToken(sessionTokenCookie.value));
 
-  // Fetch the user if a session exists
   const user = sessionToken ? await getUser(sessionTokenCookie.value) : null;
-
-  // Truncate the username to 6 characters
-  const truncatedUsername = user?.username
-    ? user.username.slice(0, 6) // Limit to 6 characters
-    : '';
+  const truncatedUsername = user?.username ? user.username.slice(0, 6) : '';
 
   return (
     <html lang="en">
       <body className={nunito.className}>
         <SessionProvider sessionToken={!!sessionToken}>
-          {children}
           <TopBar sessionToken={!!sessionToken} username={truncatedUsername} />
           <LeftNavBar />
+          <main>{children}</main>
         </SessionProvider>
         <Toaster
           position="top-left"
@@ -46,6 +42,7 @@ export default async function RootLayout({ children }) {
             marginLeft: '145px',
           }}
         />
+        <Footer />
       </body>
     </html>
   );
