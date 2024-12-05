@@ -20,6 +20,7 @@
     "bcrypt": "^5.1.1",
     "dotenv-safe": "^9.1.0",
     "next": "15.0.0-canary.171",
+    "next-js-pomodoro-app": "link:",
     "postgres": "^3.4.5",
     "react": "19.0.0-rc-5d19e1c8-20240923",
     "react-beautiful-dnd": "^13.1.1",

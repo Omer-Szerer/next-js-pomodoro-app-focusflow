@@ -35,6 +35,9 @@ importers:
       next:
         specifier: 15.0.0-canary.171
         version: 15.0.0-canary.171(@babel/core@7.26.0)(@playwright/test@1.49.0)(react-dom@19.0.0-rc-5d19e1c8-20240923(react@19.0.0-rc-5d19e1c8-20240923))(react@19.0.0-rc-5d19e1c8-20240923)(sass@1.81.0)
+      next-js-pomodoro-app:
+        specifier: 'link:'
+        version: 'link:'
       postgres:
         specifier: ^3.4.5
         version: 3.4.5
