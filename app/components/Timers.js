@@ -9,7 +9,7 @@ const FOCUS_TIME = 60 * 25;
 const SHORT_BREAK = 60 * 5;
 const LONG_BREAK = 60 * 20;
 
-export default function TimersLocalStorage({ exercises }) {
+export default function Timers({ exercises }) {
   const [timeLeft, setTimeLeft] = useState(FOCUS_TIME);
   const [isRunning, setIsRunning] = useState(false);
   const [sessionType, setSessionType] = useState('Focus');

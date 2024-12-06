@@ -11,10 +11,16 @@ import ProfileIcon from './ProfileIcon';
 
 const gugi = Gugi({ weight: ['400'], subsets: ['latin'] });
 
-export default function TopBar({ sessionToken, username }) {
-  const [showModal, setShowModal] = useState(false);
-  const [isRegister, setIsRegister] = useState(true);
-  const [showDropdown, setShowDropdown] = useState(false);
+// Props type
+interface TopBarProps {
+  sessionToken: string | null; // Session token might be null if the user is not logged in
+  username: string | null; // Username might be null if the user is not logged in
+}
+
+export default function TopBar({ sessionToken, username }: TopBarProps) {
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [isRegister, setIsRegister] = useState<boolean>(true);
+  const [showDropdown, setShowDropdown] = useState<boolean>(false);
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -90,8 +96,8 @@ export default function TopBar({ sessionToken, username }) {
           className={styles.loginOverlay}
           onClick={closeModal}
           role="button"
-          tabIndex="0"
-          onKeyDown={(e) => {
+          tabIndex={0}
+          onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
             if (e.key === 'Enter' || e.key === ' ') {
               closeModal();
             }

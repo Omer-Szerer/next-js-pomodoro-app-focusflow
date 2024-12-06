@@ -6,9 +6,13 @@ import { logout } from './actions';
 
 type LogoutButtonProps = {
   className?: string;
+  username?: string | null;
 };
 
-export default function LogoutButton({ className }: LogoutButtonProps) {
+export default function LogoutButton({
+  className,
+  username,
+}: LogoutButtonProps) {
   const router = useRouter();
 
   return (
@@ -17,7 +21,7 @@ export default function LogoutButton({ className }: LogoutButtonProps) {
         className={className}
         formAction={async () => {
           await logout();
-          toast.success('Goodbye!', {
+          toast.success(`Goodbye, ${username || 'Guest'}!`, {
             icon: '👋🏼',
           });
           router.refresh();

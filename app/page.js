@@ -1,7 +1,7 @@
 import React from 'react';
 import { getCookie } from '../util/cookies';
 import Tasks from './components/TaskList';
-import TimersLocalStorage from './components/TimersLocalStorage';
+import Timers from './components/Timers';
 // import Timers from './components/Timers';
 import { getExercisesInsecure } from './database/exercises';
 import { getTasksWithSubtasks } from './database/tasks';
@@ -26,7 +26,7 @@ export default async function HomePage() {
 
   return (
     <main>
-      <TimersLocalStorage exercises={exercises} />
+      <Timers exercises={exercises} />
       {/* <Timers exercises={exercises} /> */}
       <Tasks user={user} taskWithSubtask={taskWithSubtask} />
     </main>
