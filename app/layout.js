@@ -36,7 +36,7 @@ export default async function RootLayout({ children }) {
           <main>{children}</main>
         </SessionProvider>
         <Toaster
-          position="top-left"
+          position="top-center"
           reverseOrder={false}
           containerStyle={{
             marginLeft: '145px',

@@ -1,16 +1,16 @@
 'use client';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useTimerSettings } from '../contexts/TimerSettingsContext';
 import styles from '../styles/Timer.module.scss';
 import SelectedExerciseContainer from './SelectedExerciseContainer';
 import StartPauseButton from './StartPauseButton';
 
-const FOCUS_TIME = 60 * 25;
-const SHORT_BREAK = 60 * 5;
-const LONG_BREAK = 60 * 20;
-
 export default function Timers({ exercises }) {
-  const [timeLeft, setTimeLeft] = useState(FOCUS_TIME);
+  const { focusTime, shortBreakTime, longBreakTime, rounds } =
+    useTimerSettings();
+
+  const [timeLeft, setTimeLeft] = useState(focusTime);
   const [isRunning, setIsRunning] = useState(false);
   const [sessionType, setSessionType] = useState('Focus');
   const [sessionCount, setSessionCount] = useState(0);
@@ -35,27 +35,22 @@ export default function Timers({ exercises }) {
   }, [breakChoice, exercises]);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const savedTime = localStorage.getItem('timeLeft');
-      const savedRunning = localStorage.getItem('isRunning');
-      const savedSession = localStorage.getItem('sessionType');
-      const savedCount = localStorage.getItem('sessionCount');
-
-      if (savedTime) setTimeLeft(JSON.parse(savedTime));
-      if (savedRunning) setIsRunning(JSON.parse(savedRunning));
-      if (savedSession) setSessionType(savedSession);
-      if (savedCount) setSessionCount(JSON.parse(savedCount));
+    if (!isRunning && sessionType === 'Focus') {
+      setTimeLeft(focusTime);
     }
-  }, []);
+  }, [focusTime, isRunning, sessionType]);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('timeLeft', JSON.stringify(timeLeft));
-      localStorage.setItem('isRunning', JSON.stringify(isRunning));
-      localStorage.setItem('sessionType', sessionType);
-      localStorage.setItem('sessionCount', JSON.stringify(sessionCount));
+    if (!isRunning && sessionType === 'Short Break') {
+      setTimeLeft(shortBreakTime);
     }
-  }, [timeLeft, isRunning, sessionType, sessionCount]);
+  }, [shortBreakTime, isRunning, sessionType]);
+
+  useEffect(() => {
+    if (!isRunning && sessionType === 'Long Break') {
+      setTimeLeft(longBreakTime);
+    }
+  }, [longBreakTime, isRunning, sessionType]);
 
   const switchToSession = (session) => {
     setIsRunning(false);
@@ -63,13 +58,13 @@ export default function Timers({ exercises }) {
     setHasChosenBreak(false);
     if (session === 'Focus') {
       setSessionType('Focus');
-      setTimeLeft(FOCUS_TIME);
+      setTimeLeft(focusTime);
     } else if (session === 'Short Break') {
       setSessionType('Short Break');
-      setTimeLeft(SHORT_BREAK);
+      setTimeLeft(shortBreakTime);
     } else {
       setSessionType('Long Break');
-      setTimeLeft(LONG_BREAK);
+      setTimeLeft(longBreakTime);
     }
   };
 
@@ -80,17 +75,31 @@ export default function Timers({ exercises }) {
       setSessionCount((prevCount) => (prevCount + 1) % 4);
       if (sessionCount === 3) {
         setSessionType('Long Break');
-        setTimeLeft(LONG_BREAK);
+        setTimeLeft(longBreakTime);
       } else {
         setSessionType('Short Break');
-        setTimeLeft(SHORT_BREAK);
+        setTimeLeft(shortBreakTime);
       }
     } else {
       setSessionType('Focus');
-      setTimeLeft(FOCUS_TIME);
+      setTimeLeft(focusTime);
     }
     setIsRunning(false);
-  }, [sessionType, sessionCount]);
+    if (sessionCount + 1 === rounds) {
+      setSessionType('Long Break');
+      setTimeLeft(longBreakTime);
+    } else {
+      setSessionType('Short Break');
+      setTimeLeft(shortBreakTime);
+    }
+  }, [
+    sessionType,
+    sessionCount,
+    longBreakTime,
+    shortBreakTime,
+    focusTime,
+    rounds,
+  ]);
 
   const playSound = async () => {
     try {
@@ -125,7 +134,7 @@ export default function Timers({ exercises }) {
   const startStopTimer = () => {
     if (
       sessionType === 'Short Break' &&
-      timeLeft === SHORT_BREAK &&
+      timeLeft === shortBreakTime &&
       !isRunning
     ) {
       setShowBreakPrompt(true);
@@ -147,7 +156,7 @@ export default function Timers({ exercises }) {
     return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   };
 
-  const remainingRounds = Math.max(0, 3 - sessionCount);
+  const remainingRounds = Math.max(0, rounds - sessionCount);
 
   useEffect(() => {
     if (isRunning) {

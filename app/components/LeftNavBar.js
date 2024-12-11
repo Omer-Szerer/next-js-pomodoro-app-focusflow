@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import React, { useState } from 'react';
 import styles from '../styles/LeftNavBar.module.scss';
 import ExercisesIcon from './ExercisesIcon';
-// import SettingsIcon from './SettingsIcon';
+import SettingsIcon from './SettingsIcon';
 import TimerIcon from './TimerIcon';
 
 export default function LeftNavBar() {
@@ -39,10 +39,10 @@ export default function LeftNavBar() {
           <ExercisesIcon />
           <span>Exercises</span>
         </Link>
-        {/* <Link href="/settings" className={getLinkClass('/settings')}>
+        <Link href="/settings" className={getLinkClass('/settings')}>
           <SettingsIcon />
           <span>Settings</span>
-        </Link> */}
+        </Link>
       </nav>
 
       <nav
@@ -67,14 +67,14 @@ export default function LeftNavBar() {
           <ExercisesIcon />
           <span className={styles.navText}>Exercises</span>
         </Link>
-        {/* <Link
+        <Link
           href="/settings"
           className={getLinkClass('/settings')}
           onClick={toggleSidebar}
         >
           <SettingsIcon />
           <span className={styles.navText}>Settings</span>
-        </Link> */}
+        </Link>
       </nav>
 
       {isOpen && (

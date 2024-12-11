@@ -2,15 +2,10 @@ import React from 'react';
 import { getCookie } from '../util/cookies';
 import Tasks from './components/TaskList';
 import Timers from './components/Timers';
-// import Timers from './components/Timers';
+import { TimerSettingsProvider } from './contexts/TimerSettingsContext';
 import { getExercisesInsecure } from './database/exercises';
 import { getTasksWithSubtasks } from './database/tasks';
 import { getUser } from './database/users';
-
-// export const metadata = {
-//   title: 'FocusFlow |',
-//   description: 'A Pomodoro App that keeps your body and mind active',
-// };
 
 export default async function HomePage() {
   const exercises = await getExercisesInsecure();
@@ -26,9 +21,10 @@ export default async function HomePage() {
 
   return (
     <main>
-      <Timers exercises={exercises} />
-      {/* <Timers exercises={exercises} /> */}
-      <Tasks user={user} taskWithSubtask={taskWithSubtask} />
+      <TimerSettingsProvider>
+        <Timers exercises={exercises} />
+        <Tasks user={user} taskWithSubtask={taskWithSubtask} />
+      </TimerSettingsProvider>
     </main>
   );
 }
