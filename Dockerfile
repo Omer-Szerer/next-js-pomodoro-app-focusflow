@@ -14,7 +14,9 @@ RUN pnpm build
 FROM node:lts-alpine AS runner
 ENV NODE_ENV production
 # Install necessary tools
-RUN apk add bash postgresql
+RUN apk add bash postgresql16
+# Add PostgreSQL 16 binaries to PATH
+ENV PATH="/usr/lib/postgresql16/bin:${PATH}"
 RUN corepack enable && corepack prepare pnpm@latest --activate
 WORKDIR /app
 
