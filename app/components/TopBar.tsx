@@ -74,7 +74,7 @@ export default function TopBar({ sessionToken, username }: TopBarProps) {
                 className={styles.dropdownItem}
                 onClick={handleProfileClick}
               >
-                My Profile
+                Profile
               </button>
               <LogoutButton
                 className={styles.dropdownItem}

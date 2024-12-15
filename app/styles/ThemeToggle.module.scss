@@ -14,6 +14,12 @@
   }
 }
 
+@media (max-width: 879px) {
+  .navModeSwitcher {
+    margin-bottom: 560px;
+  }
+}
+
 .navLink {
   display: flex;
   flex-direction: column;
