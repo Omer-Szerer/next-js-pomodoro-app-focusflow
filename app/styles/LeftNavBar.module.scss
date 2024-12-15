@@ -35,20 +35,19 @@
     background-color 0.3s ease;
 
   &.open {
-    transform: translateX(0); /* Show sidebar when 'open' class is added */
+    transform: translateX(0);
   }
 
-  /* Position close button inside the sidebar */
   .closeIcon {
     position: absolute;
     color: white;
-    top: 10px; /* Adjusted top to ensure it's always visible */
+    top: 10px;
     right: 15px;
     font-size: 24px;
     background: none;
     border: none;
     cursor: pointer;
-    z-index: 25; /* Ensure the close button stays on top */
+    z-index: 25;
   }
 }
 

@@ -14,12 +14,6 @@
   }
 }
 
-@media (max-width: 879px) {
-  .navModeSwitcher {
-    margin-bottom: 550px;
-  }
-}
-
 .navLink {
   display: flex;
   flex-direction: column;
@@ -34,4 +28,8 @@
 
 .iconSize {
   font-size: 1.5rem;
+}
+
+.iconSpacing {
+  margin-top: 30px;
 }

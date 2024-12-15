@@ -15,7 +15,7 @@ const ThemeToggle = () => {
 
   return (
     <div
-      className={styles.navModeSwitcher}
+      className={`${styles.navModeSwitcher} ${styles.iconSpacing}`}
       onClick={toggleTheme}
       onKeyDown={handleKeyDown}
       role="button"
