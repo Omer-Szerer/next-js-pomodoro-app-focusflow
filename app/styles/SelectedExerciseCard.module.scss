@@ -17,16 +17,20 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: white;
   border-radius: 8px;
   padding: 40px;
   max-width: 600px;
   height: auto;
   margin: 0 auto;
   margin-top: 10px;
+  background-color: var(--card-background-color);
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--card-border-color);
   text-align: center;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    background-color 0.3s ease;
 }
 @media (max-width: 878px) {
   .exerciseCard {
@@ -56,8 +60,8 @@
 
   .infoIcon {
     font-size: 14px;
-    color: hsl(205, 79%, 50%);
-    background-color: hsl(205, 79%, 90%);
+    color: var(--info-icon-color);
+    background-color: var(--info-icon-bg);
     border-radius: 50%;
     width: 20px;
     height: 20px;
@@ -220,8 +224,6 @@
   }
 }
 
-// SelectedExerciseCard.module.scss
-
 .defaultExercise {
   display: flex;
   justify-content: center;
@@ -236,6 +238,6 @@
 .defaultMessage h3 {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #333;
+  color: var(--text-color);
   margin: 0;
 }

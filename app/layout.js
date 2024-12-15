@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 import LeftNavBar from './components/LeftNavBar';
 import TopBar from './components/TopBar';
 import { SessionProvider } from './contexts/SessionContext';
+import { ThemeProvider } from './contexts/ThemeContext';
 import { getValidSessionToken } from './database/sessions';
 import { getUser } from './database/users';
 
@@ -32,8 +33,11 @@ export default async function RootLayout({ children }) {
       <body className={nunito.className}>
         <SessionProvider sessionToken={!!sessionToken}>
           <TopBar sessionToken={!!sessionToken} username={truncatedUsername} />
-          <LeftNavBar />
-          <main>{children}</main>
+          <ThemeProvider>
+            <LeftNavBar />
+
+            <main>{children}</main>
+          </ThemeProvider>
         </SessionProvider>
         <Toaster
           position="top-center"

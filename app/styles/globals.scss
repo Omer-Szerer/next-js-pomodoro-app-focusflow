@@ -1,22 +1,58 @@
+/* Theme Variables */
+:root {
+  --background-color: #f4f6f8;
+  --text-color: #000;
+  --card-background-color: white;
+  --card-border-color: rgba(0, 0, 0, 0.1);
+  --info-icon-bg: hsl(205, 79%, 90%);
+  --info-icon-color: hsl(205, 79%, 50%);
+  --description-bg: #333;
+  --description-text: #fff;
+  --nav-bar-background-color: #0f0a30;
+  --timer-switcher-color: #000000;
+}
+
+/* Dark Mode Variables */
+.dark {
+  --background-color: #141414;
+  --text-color: #f4f4f4;
+  --card-background-color: #2d2d2d;
+  --card-border-color: rgba(255, 255, 255, 0.1);
+  --info-icon-bg: hsl(205, 79%, 30%);
+  --info-icon-color: hsl(205, 79%, 70%);
+  --description-bg: #444;
+  --description-text: #eee;
+  --nav-bar-background-color: #07050f;
+  --timer-switcher-color: #d0d0d0;
+}
+
+/* Apply Theme Variables */
 body {
   font-family: 'Nunito Sans', sans-serif;
   margin-left: 145px;
-  background-color: #f4f6f8;
+  background-color: var(--background-color);
+  color: var(--text-color);
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+
   @media (max-width: 878px) {
     margin-left: 10px;
   }
 }
 
+/* Focus Styles */
 input:focus,
 textarea:focus,
 select:focus {
   outline: none;
-  border: 1px solid hsl(205, 79%, 40%);
+  border: 1px solid var(--info-icon-color);
 }
 
+/* Main Content */
 main {
-  flex: 1; /* Allow main content to grow and push footer to the bottom */
+  flex: 1;
 }

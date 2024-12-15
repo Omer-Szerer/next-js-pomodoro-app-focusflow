@@ -24,7 +24,8 @@
     justify-content: center;
     justify-content: space-between;
     padding: 10px;
-    background-color: #0f0a2e;
+    background-color: var(--nav-bar-background-color);
+    transition: background-color 0.3s ease;
     border-bottom: none;
   }
 
@@ -100,7 +101,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: white;
+  background-color: var(--card-background-color);
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -146,8 +147,9 @@
 .modal form {
   display: flex;
   flex-direction: column;
-  gap: 15px; /* Add spacing between each input */
+  gap: 15px;
   margin-top: 250px;
+  background-color: var(--card-background-color);
 }
 
 .modal label {
@@ -164,6 +166,8 @@
   font-size: 14px;
   width: 100%; /* Full width of the modal */
   box-sizing: border-box; /* Ensures padding doesn't overflow */
+  background-color: var(--card-background-color);
+  color: var(--text-color);
 }
 
 .modal .switchButton {
@@ -189,6 +193,6 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: #f4f6f8;
+  background-color: var(--background-color);
   z-index: 999; /* Below the modal but above everything else */
 }

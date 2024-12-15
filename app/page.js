@@ -2,6 +2,7 @@ import React from 'react';
 import { getCookie } from '../util/cookies';
 import Tasks from './components/TaskList';
 import Timers from './components/Timers';
+import { ThemeProvider } from './contexts/ThemeContext';
 import { TimerSettingsProvider } from './contexts/TimerSettingsContext';
 import { getExercisesInsecure } from './database/exercises';
 import { getTasksWithSubtasks } from './database/tasks';
@@ -21,10 +22,12 @@ export default async function HomePage() {
 
   return (
     <main>
-      <TimerSettingsProvider>
-        <Timers exercises={exercises} />
-        <Tasks user={user} taskWithSubtask={taskWithSubtask} />
-      </TimerSettingsProvider>
+      <ThemeProvider>
+        <TimerSettingsProvider>
+          <Timers exercises={exercises} />
+          <Tasks user={user} taskWithSubtask={taskWithSubtask} />
+        </TimerSettingsProvider>
+      </ThemeProvider>
     </main>
   );
 }

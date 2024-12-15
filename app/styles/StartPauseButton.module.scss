@@ -39,9 +39,10 @@
 
 /* Paused state */
 .paused {
-  background-color: white;
+  background-color: var(--card-background-color);
   border: 2px solid hsl(263, 90%, 51%);
   color: hsl(263, 90%, 51%);
+
   &:hover {
     background-color: hsl(263, 90%, 41%);
     border-color: hsl(263, 90%, 41%);

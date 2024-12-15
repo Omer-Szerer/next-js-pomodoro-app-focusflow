@@ -12,34 +12,6 @@
   }
 }
 
-/* Exercise Card */
-.exerciseCard {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: white;
-  border-radius: 10px;
-  padding: 20px;
-  width: 100%;
-  max-width: 300px;
-  height: auto;
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  position: relative;
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-
-  &:hover {
-    transform: scale(1.05);
-  }
-
-  // Media Queries
-  @media (min-width: 768px) {
-    max-width: 400px;
-  }
-}
-
 /* Name Container */
 .nameContainer {
   display: flex;
@@ -50,68 +22,9 @@
 }
 
 .exerciseName {
+  color: var(--text-color);
   margin: 0;
-}
-
-/* Info Icon */
-.infoIconWrapper {
-  position: absolute;
-  top: 14px;
-  left: 15px;
-  display: inline-block;
-
-  .infoIcon {
-    font-size: 14px;
-    color: hsl(205, 79%, 50%);
-    background-color: hsl(205, 79%, 90%);
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-
-    &:hover {
-      background-color: hsl(205, 79%, 50%);
-      color: white;
-    }
-  }
-}
-
-/* Description Tooltip */
-.description {
-  position: absolute;
-  top: 130%;
-  left: 80%;
-  transform: translateX(-30%) translateY(5%);
-  width: 200px;
-  background-color: #333;
-  color: #fff;
-  padding: 8px;
-  border-radius: 8px;
-  font-size: 14px;
-  text-align: center;
-  opacity: 0;
-  visibility: hidden;
-  transition:
-    opacity 0.3s ease,
-    visibility 0.3s ease;
-  z-index: 1;
-
-  // Arrow below the tooltip
-  &:after {
-    content: '';
-    position: absolute;
-    top: -6px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-width: 6px;
-    border-style: solid;
-    border-color: transparent transparent #333 transparent;
-  }
+  transition: color 0.3s ease;
 }
 
 // Show description on hover
@@ -164,7 +77,7 @@
   gap: 8px;
   font-size: 16px;
   cursor: pointer;
-  color: #333;
+  color: var(--text-color);
 
   // Media Queries
   @media (max-width: 878px) {
@@ -209,5 +122,95 @@
 
   &.favorite {
     color: red;
+  }
+}
+
+/* Exercise Card */
+.exerciseCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--card-background-color);
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--card-border-color);
+  border-radius: 10px;
+  padding: 20px;
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  position: relative;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    background-color 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  @media (min-width: 768px) {
+    max-width: 400px;
+  }
+}
+
+/* Info Icon */
+.infoIconWrapper {
+  position: absolute;
+  top: 14px;
+  left: 15px;
+  display: inline-block;
+
+  .infoIcon {
+    font-size: 14px;
+    color: var(--info-icon-color);
+    background-color: var(--info-icon-bg);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: var(--info-icon-color);
+      color: white;
+    }
+  }
+}
+
+/* Description Tooltip */
+.description {
+  position: absolute;
+  top: 130%;
+  left: 80%;
+  transform: translateX(-30%) translateY(5%);
+  width: 200px;
+  background-color: var(--description-bg);
+  color: var(--description-text);
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 14px;
+  text-align: center;
+  visibility: hidden;
+  opacity: 0;
+  z-index: 1;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease,
+    background-color 0.3s ease,
+    color 0.3s ease;
+
+  &:after {
+    border-color: transparent transparent var(--description-bg) transparent;
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
   }
 }

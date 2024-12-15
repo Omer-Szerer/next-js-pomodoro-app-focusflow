@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import styles from '../styles/LeftNavBar.module.scss';
 import ExercisesIcon from './ExercisesIcon';
 import SettingsIcon from './SettingsIcon';
+import ThemeToggle from './ThemeToggle';
 import TimerIcon from './TimerIcon';
 
 export default function LeftNavBar() {
@@ -43,6 +44,7 @@ export default function LeftNavBar() {
           <SettingsIcon />
           <span>Settings</span>
         </Link>
+        <ThemeToggle />
       </nav>
 
       <nav
@@ -75,6 +77,7 @@ export default function LeftNavBar() {
           <SettingsIcon />
           <span className={styles.navText}>Settings</span>
         </Link>
+        <ThemeToggle />
       </nav>
 
       {isOpen && (

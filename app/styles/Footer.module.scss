@@ -1,13 +1,16 @@
 .footer {
   text-align: center;
   padding: 1rem;
-  background-color: #f8f9fa;
-  border-top: 1px solid #dee2e6;
+  background-color: var(--background-color);
+  border-top: 1px solid var(--card-border-color);
+  transition:
+    background-color 0.3s,
+    color 0.3s;
 
   p {
     margin: 0 0 1rem 0;
     font-size: 1rem;
-    color: #333;
+    color: var(--text-color);
 
     .heart {
       display: inline-block;

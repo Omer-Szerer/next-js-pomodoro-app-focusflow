@@ -9,11 +9,8 @@ export const metadata = {
 
 export default function SettingsPage() {
   return (
-    <>
-      <TimerSettingsProvider>
-        <Settings />
-      </TimerSettingsProvider>
-      ;
-    </>
+    <TimerSettingsProvider>
+      <Settings />
+    </TimerSettingsProvider>
   );
 }
