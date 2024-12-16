@@ -24,15 +24,13 @@ Each time you choose either physical, meditiation, stretch, or breathing, you ge
 
 
 ### The app is responsive, fully keyboard accessible, and the colour-contrast is complaint with the latest Accessibility Guidelines
+<img src="https://github.com/user-attachments/assets/207a7595-a289-4d3e-a290-f3847424722d" width="400"/>
+<img src="https://github.com/user-attachments/assets/90064151-1ff0-42e4-b050-499276e9dc37" width="400"/>
 
-![responsive-2](https://github.com/user-attachments/assets/207a7595-a289-4d3e-a290-f3847424722d)
-![responsive-3](https://github.com/user-attachments/assets/30128dd5-0385-40e4-9082-c6ec7e094cf0)
-![dark-mobile-exercises](https://github.com/user-attachments/assets/450216d0-6dfa-4f0b-bd16-16bb0687c47c)
-![mobile-nav](https://github.com/user-attachments/assets/e2b85038-a51d-4941-848e-e99c0299dcab)
-![mobile-exercises](https://github.com/user-attachments/assets/10cf7ae9-dc5e-4886-9e2e-aaf27f29f865)
-![mobile-timer-dark](https://github.com/user-attachments/assets/994f4c87-8cf2-408c-8477-735dc5a616cb)
-![responsive-1](https://github.com/user-attachments/assets/138943f8-caeb-405b-a540-f4d2b472b5e8)
-
+<img src="https://github.com/user-attachments/assets/9719e16b-d0b1-48a7-bd84-78936ba8fc32" width="400"/>
+<img src="https://github.com/user-attachments/assets/2665ccee-66f7-456c-b572-8969dc2903bd" width="400"/>
+<img src="https://github.com/user-attachments/assets/925597b4-1237-4271-b904-1bc4e85e0104" width="400"/>
+<img src="https://github.com/user-attachments/assets/4f22741b-6285-41f1-b6ef-78ad5aa5d6b1" width="400"/>
 
 ## Technologies
 
