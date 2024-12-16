@@ -9,22 +9,30 @@ Instead of wasting time doomscrolling during the short breaks, FocusFlow helps y
 
 Each time you choose either physical, meditiation, stretch, or breathing, you get a random generated exercise with an animation that shows you what to do.
 
-<img width="1707" alt="3" src="https://github.com/user-attachments/assets/033f680a-6341-45b6-a1ea-d6939763dcd5">
+![1](https://github.com/user-attachments/assets/60bd99b4-7ed4-42bd-943b-31c74945b33c)
+
 
 ### Stay focused with Tasks and Subtasks!
 
-<img width="1723" alt="1" src="https://github.com/user-attachments/assets/6dacf62a-17b5-4e65-9f89-a07f2c80e63d">
+![2](https://github.com/user-attachments/assets/0baa6a5a-0843-442c-8f3a-702cbb6e1703)
+
+![timer](https://github.com/user-attachments/assets/d3716f27-adf2-47c9-b0fa-b5cc421e9e36)
 
 ### And keep track of your favourite exercises!
 
-<img width="1705" alt="5" src="https://github.com/user-attachments/assets/74bcd496-4335-4f10-b455-da3dcb67b6dd">
+![exercises](https://github.com/user-attachments/assets/7d549b6b-06d3-4b99-a727-9b453ceb33c9)
+
 
 ### The app is responsive, fully keyboard accessible, and the colour-contrast is complaint with the latest Accessibility Guidelines
 
-<img width="493" alt="7" src="https://github.com/user-attachments/assets/880ccdb5-5746-46a3-920d-ef660c58537b">
-<img width="480" alt="9" src="https://github.com/user-attachments/assets/74cd12c2-06d6-487b-81bf-70ef518044ea">
-<img width="494" alt="8" src="https://github.com/user-attachments/assets/b59e67f7-c024-4430-a205-4a8c8337794f">
-<img width="483" alt="6" src="https://github.com/user-attachments/assets/94d5ba73-91d7-47c1-bced-1489462bc70e">
+![responsive-2](https://github.com/user-attachments/assets/207a7595-a289-4d3e-a290-f3847424722d)
+![responsive-3](https://github.com/user-attachments/assets/30128dd5-0385-40e4-9082-c6ec7e094cf0)
+![dark-mobile-exercises](https://github.com/user-attachments/assets/450216d0-6dfa-4f0b-bd16-16bb0687c47c)
+![mobile-nav](https://github.com/user-attachments/assets/e2b85038-a51d-4941-848e-e99c0299dcab)
+![mobile-exercises](https://github.com/user-attachments/assets/10cf7ae9-dc5e-4886-9e2e-aaf27f29f865)
+![mobile-timer-dark](https://github.com/user-attachments/assets/994f4c87-8cf2-408c-8477-735dc5a616cb)
+![responsive-1](https://github.com/user-attachments/assets/138943f8-caeb-405b-a540-f4d2b472b5e8)
+
 
 ## Technologies
 
