@@ -7,7 +7,7 @@ https://focusflow-pomodoro.fly.dev/
 
 Instead of wasting time doomscrolling during the short breaks, FocusFlow helps you to keep your body fit and your mind sharp by giving you the option the choose between 4 different categories with over 35 exercises!
 
-Each time you choose either physical, meditiation, stretch, or breathing, you get a random generated exercise with an animation that shows you what to do.
+Each time you choose either physical, meditation, stretch, or breathing, you get a random generated exercise with an animation that shows you what to do.
 
 ![1](https://github.com/user-attachments/assets/60bd99b4-7ed4-42bd-943b-31c74945b33c)
 
