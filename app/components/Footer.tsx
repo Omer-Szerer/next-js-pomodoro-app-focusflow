@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import styles from '../styles/Footer.module.scss';
+import BehanceIcon from './BehanceIcon';
 import GitHubIcon from './GitHubIcon';
 import LinkedinIcon from './LinkedinIcon';
 
@@ -51,6 +52,14 @@ const Footer: React.FC = () => {
           rel="noopener noreferrer"
         >
           <LinkedinIcon />
+        </a>
+        <a
+          className="Behance"
+          href="https://www.behance.net/gallery/215267877/FocusFlow-Full-Stack-Pomodoro-App"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <BehanceIcon />
         </a>
       </div>
     </footer>
