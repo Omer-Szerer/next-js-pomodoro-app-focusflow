@@ -34,46 +34,45 @@ export default function Timers({ exercises }) {
         };
   }, [breakChoice, exercises]);
 
-  useEffect(() => {
-    if (!isRunning && sessionType === 'Focus') {
+  const updateTimeLeft = useCallback(() => {
+    if (sessionType === 'Focus') {
       setTimeLeft(focusTime);
-    }
-  }, [focusTime, isRunning, sessionType]);
-
-  useEffect(() => {
-    if (!isRunning && sessionType === 'Short Break') {
+    } else if (sessionType === 'Short Break') {
       setTimeLeft(shortBreakTime);
-    }
-  }, [shortBreakTime, isRunning, sessionType]);
-
-  useEffect(() => {
-    if (!isRunning && sessionType === 'Long Break') {
+    } else if (sessionType === 'Long Break') {
       setTimeLeft(longBreakTime);
     }
-  }, [longBreakTime, isRunning, sessionType]);
+  }, [focusTime, shortBreakTime, longBreakTime, sessionType]);
+
+  useEffect(() => {
+    updateTimeLeft();
+  }, [updateTimeLeft]);
 
   const switchToSession = (session) => {
     setIsRunning(false);
     setBreakChoice('');
     setHasChosenBreak(false);
+
     if (session === 'Focus') {
       setSessionType('Focus');
-      setTimeLeft(focusTime);
     } else if (session === 'Short Break') {
       setSessionType('Short Break');
-      setTimeLeft(shortBreakTime);
     } else {
       setSessionType('Long Break');
-      setTimeLeft(longBreakTime);
     }
+  };
+
+  const startStopTimer = () => {
+    setIsRunning((prev) => !prev);
   };
 
   const handleSessionSwitch = useCallback(() => {
     setBreakChoice('');
     setHasChosenBreak(false);
+
     if (sessionType === 'Focus') {
-      setSessionCount((prevCount) => (prevCount + 1) % 4);
-      if (sessionCount === 3) {
+      setSessionCount((prevCount) => prevCount + 1);
+      if (sessionCount === rounds - 1) {
         setSessionType('Long Break');
         setTimeLeft(longBreakTime);
       } else {
@@ -85,13 +84,6 @@ export default function Timers({ exercises }) {
       setTimeLeft(focusTime);
     }
     setIsRunning(false);
-    if (sessionCount + 1 === rounds) {
-      setSessionType('Long Break');
-      setTimeLeft(longBreakTime);
-    } else {
-      setSessionType('Short Break');
-      setTimeLeft(shortBreakTime);
-    }
   }, [
     sessionType,
     sessionCount,
@@ -130,18 +122,6 @@ export default function Timers({ exercises }) {
 
     return () => clearInterval(timer);
   }, [isRunning, timeLeft, handleSessionSwitch]);
-
-  const startStopTimer = () => {
-    if (
-      sessionType === 'Short Break' &&
-      timeLeft === shortBreakTime &&
-      !isRunning
-    ) {
-      setShowBreakPrompt(true);
-    } else {
-      setIsRunning((prev) => !prev);
-    }
-  };
 
   const handleBreakChoice = (choice) => {
     setBreakChoice(choice);
@@ -211,7 +191,7 @@ export default function Timers({ exercises }) {
         <div className={styles.timerContainer}>
           <div className={styles.timerDisplay}>{formatTime(timeLeft)}</div>
           <StartPauseButton isRunning={isRunning} onClick={startStopTimer} />
-          {sessionType === 'Focus' && sessionCount === 3 ? (
+          {sessionType === 'Focus' && sessionCount === rounds - 1 ? (
             <p className={styles.motivationMessage}>
               Keep on! Long break is almost there!
             </p>
