@@ -53,6 +53,8 @@ export default function Timers({ exercises }) {
     setBreakChoice('');
     setHasChosenBreak(false);
 
+    console.log(`Switching to session: ${session}`);
+
     if (session === 'Focus') {
       setSessionType('Focus');
     } else if (session === 'Short Break') {
@@ -63,8 +65,15 @@ export default function Timers({ exercises }) {
   };
 
   const startStopTimer = () => {
+    if (sessionType === 'Short Break' && !isRunning) {
+      setShowBreakPrompt(true);
+      console.log('Break modal should now be visible'); // Debugging
+    }
     setIsRunning((prev) => !prev);
   };
+  // const startStopTimer = () => {
+  //   setIsRunning((prev) => !prev);
+  // };
 
   const handleSessionSwitch = useCallback(() => {
     setBreakChoice('');
@@ -174,7 +183,10 @@ export default function Timers({ exercises }) {
           </button>
           <button
             className={`${styles.switcherButton} ${sessionType === 'Short Break' ? styles.active : styles.inactive}`}
-            onClick={() => switchToSession('Short Break')}
+            onClick={() => {
+              console.log('Short Break button clicked'); // Debugging
+              switchToSession('Short Break');
+            }}
             disabled={isRunning && timeLeft > 0}
           >
             Short Break
