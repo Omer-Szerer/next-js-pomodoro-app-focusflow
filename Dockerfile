@@ -2,7 +2,7 @@ FROM node:lts-alpine AS builder
 # Install necessary tools
 RUN apk add --no-cache libc6-compat yq --repository=https://dl-cdn.alpinelinux.org/alpine/edge/community
 # Install pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN corepack enable && corepack prepare pnpm@9.15.2 --activate
 WORKDIR /app
 # Copy the content of the project to the machine
 COPY . .
@@ -17,7 +17,7 @@ ENV NODE_ENV production
 RUN apk add bash postgresql16
 # Add PostgreSQL 16 binaries to PATH
 ENV PATH="/usr/lib/postgresql16/bin:${PATH}"
-RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN corepack enable && corepack prepare pnpm@9.15.2 --activate
 WORKDIR /app
 
 # Copy built app
